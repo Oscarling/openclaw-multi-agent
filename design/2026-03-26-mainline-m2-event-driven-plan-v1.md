@@ -23,6 +23,9 @@
 ### M2-E2：自动化发布链路范围冻结（Gate-4 预评审）
 
 - 触发事件：M2-E1 完成后，主线进入“能力扩展”分支
+- 当前进展：
+  - 预评审输入包已落地：`design/2026-03-26-gate4-automation-scope-prep-v1.md`
+  - 待触发动作：用户确认后发起 `gstack office-hours`
 - 执行动作：
   - 先走 `gstack office-hours`
   - 再走 `gstack plan-eng-review`

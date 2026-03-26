@@ -457,3 +457,8 @@
 - [x] 梳理下一里程碑 M2 的事件触发执行计划
   当前状态：M2 计划文档已落地（不按时间、按事件触发）
   计划文档：`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`
+
+- [x] 启动 Gate-4 自动化范围冻结预评审准备包
+  当前状态：预评审输入包已落地，等待用户触发 `gstack office-hours`
+  输入文档：`design/2026-03-26-gate4-automation-scope-prep-v1.md`
+  使用口径：先冻结自动化边界，再进入多账号登录/自动发布实现
