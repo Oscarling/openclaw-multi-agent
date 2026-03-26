@@ -475,3 +475,8 @@
   当前状态：结论 `Conditional-Go`，允许进入阶段 A（多账号登录）受控实现准备
   评审纪要：`design/2026-03-26-gate-4-automation-plan-eng-review-minutes-v1.md`
   放行边界：不跳阶段、不放行无回执动作、不放行无人工闸门高危操作
+
+- [x] 启动 M2-E3 多账号登录实现准备包
+  当前状态：准备文档已落地，进入阶段 A 执行前置准备
+  准备文档：`design/2026-03-26-m2-e3-login-implementation-prep-v1.md`
+  使用口径：先完成受控账号登录 DoD，再进入 M2-E4
