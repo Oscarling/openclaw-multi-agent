@@ -1232,3 +1232,73 @@
 - 结果：
   - Day8 关键样例稳定通过，未触发回滚阈值
   - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：执行 Gate-3 事件复检 R15（day9_observation_logged）
+
+- 触发事件：
+  - `day9_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day9_observation_logged" GATE3_RECHECK_ID="R15" bash ./deploy/gate3_event_recheck.sh`
+  - 建立跟踪 Issue：`#33` `Gate-3 v2｜Day9-Day10批处理（R15+R16）`
+- 结果：
+  - R15 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R15 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r15.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r15-20260326-143648/`
+
+### 2026-03-26：执行 Gate-3 事件复检 R16（day10_observation_logged）
+
+- 触发事件：
+  - `day10_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day10_observation_logged" GATE3_RECHECK_ID="R16" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R16 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R16 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r16.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r16-20260326-143825/`
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day9 观察记录
+
+- 决策：
+  - Day9 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day9 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day9 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day9.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day9 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day10 观察记录
+
+- 决策：
+  - Day10 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day10 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day10 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day10.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day10 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：Argus 升级议题暂缓（待用户触发）
+
+- 决策：
+  - 当前优先级回到 Gate-3 主线，不在本轮执行 `agent_argus` 版本切换
+- 当前记录：
+  - 升级目标：`v2026.3.24`
+  - 现网版本：`v2026.3.12`
+  - 已完成目标镜像可用性与只读兼容预检（未触发现网切换）
+- 触发条件：
+  - 用户明确发出“执行升级”指令后再启动升级与回滚门禁流程

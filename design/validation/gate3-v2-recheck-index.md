@@ -20,3 +20,5 @@
 | 2026-03-26 14:18:38 +0800 | R12 | `day6_observation_logged` | 通过 | `design/validation/2026-03-26-gate3-v2-recheck-r12.md` | `design/validation/artifacts/gate3-v2-recheck-r12-20260326-141838` |
 | 2026-03-26 14:24:30 +0800 | R13 | `day7_observation_logged` | 通过 | `design/validation/2026-03-26-gate3-v2-recheck-r13.md` | `design/validation/artifacts/gate3-v2-recheck-r13-20260326-142430` |
 | 2026-03-26 14:24:31 +0800 | R14 | `day8_observation_logged` | 通过 | `design/validation/2026-03-26-gate3-v2-recheck-r14.md` | `design/validation/artifacts/gate3-v2-recheck-r14-20260326-142431` |
+| 2026-03-26 14:36:48 +0800 | R15 | `day9_observation_logged` | 通过 | `design/validation/2026-03-26-gate3-v2-recheck-r15.md` | `design/validation/artifacts/gate3-v2-recheck-r15-20260326-143648` |
+| 2026-03-26 14:38:25 +0800 | R16 | `day10_observation_logged` | 通过 | `design/validation/2026-03-26-gate3-v2-recheck-r16.md` | `design/validation/artifacts/gate3-v2-recheck-r16-20260326-143825` |
