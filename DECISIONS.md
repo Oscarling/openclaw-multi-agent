@@ -759,3 +759,21 @@
 - 证据：
   - `design/validation/2026-03-26-gate3-v2-scaleup-day0.md`
   - `design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
+
+### 2026-03-26：GitHub 仓库已上线并启用可用协作门禁
+
+- 执行动作：
+  - 创建私有仓库并推送 `main`：`Oscarling/openclaw-multi-agent`
+  - 启用仓库级合并策略：仅 `squash merge`，关闭 `merge/rebase`，合并后自动删分支
+  - 补齐 PR 模板与 README“新机器恢复 5 步”
+- 结果：
+  - 代码与文档可从 GitHub 快速恢复
+  - 运行态 secrets 继续保持“本地注入、不入库”边界
+- 限制与结论：
+  - `main` 分支保护（强制 review）在当前私有仓库套餐下 API 返回 `403`
+  - 现阶段采用“仓库级合并策略 + PR 模板”作为替代门禁
+  - 后续触发条件：升级 GitHub Pro 或改公开仓库后再开启分支保护
+- 证据：
+  - `https://github.com/Oscarling/openclaw-multi-agent`
+  - `README.md`
+  - `.github/PULL_REQUEST_TEMPLATE.md`

@@ -120,6 +120,24 @@
   演练证据：`design/validation/2026-03-25-recovery-drill-validation.md`
   验收标准：明确哪些内容可以进 GitHub，哪些必须走加密备份，恢复顺序如何执行
 
+- [x] 完成项目上 GitHub（私有仓库）
+  当前状态：已完成 `init -> commit -> create repo -> push`，默认分支 `main`
+  仓库：`https://github.com/Oscarling/openclaw-multi-agent`
+  验收标准：远端仓库可访问、`origin/main` 已建立、工作区干净
+
+- [x] 启用 GitHub 可用协作门禁（当前套餐可执行）
+  当前状态：已启用 `squash-only`、关闭 `merge/rebase`、合并后自动删分支，并补齐 PR 模板
+  配置：
+  - 合并策略：仅 `squash merge`
+  - 自动清理：`delete_branch_on_merge=true`
+  - PR 模板：`.github/PULL_REQUEST_TEMPLATE.md`
+  验收标准：仓库级合并策略生效，PR 走模板化检查
+
+- [ ] 启用 `main` 分支保护（强制 PR review 等）
+  当前状态：受当前私有仓库套餐限制，GitHub API 返回 `403`
+  触发条件：升级 GitHub Pro 或改为公开仓库（二选一）
+  验收标准：`branches/main/protection` 可读且规则生效
+
 - [x] 为 `agent_argus` 设计状态备份方案
   当前状态：目录范围、频率与恢复顺序已定稿；脚本 v0 已落地并通过 stage/异常场景验证；明文残留已清理
   范围：`~/.openclaw/state/argus`、`~/.openclaw/workspaces/argus` 及后续新增持久化目录
