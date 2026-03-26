@@ -794,3 +794,13 @@
   - `https://github.com/Oscarling/openclaw-multi-agent`
   - `README.md`
   - `BACKLOG.md`
+
+### 2026-03-26：收紧分支保护为“管理员也必须走 PR”
+
+- 执行动作：
+  - 将 `main` 分支保护中的 `enforce_admins` 设置为 `true`
+- 结果：
+  - 仓库管理员不再可绕过“必须 PR review/会话收敛/线性历史”等规则直接推送 `main`
+  - `main` 进入统一门禁模式（含管理员）
+- 证据：
+  - `branches/main/protection/enforce_admins -> enabled=true`
