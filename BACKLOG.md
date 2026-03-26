@@ -487,3 +487,9 @@
   预检记录：`design/validation/2026-03-26-gate4-stagea-preflight-validation.md`
   复跑记录：`design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md`
   下一动作：按 DoD 模板启动阶段 A 验证留痕
+
+- [x] 新增 Stage-A 执行脚本与手工回执模板并完成等待态验证
+  当前状态：`deploy/gate4_stage_a_execute.sh` 与回执模板已落地；无回执时结果为 `waiting_manual_login`
+  回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-a-execution-prep-validation.md`
+  下一动作：提供手工登录回执后复跑，目标 `stage_a_passed`

@@ -65,6 +65,11 @@
 
 当前进展：`design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md` 已达到 `ready_for_stage_a_execution`。
 
-2. 事件：阶段 A DoD 通过  
+2. 事件：阶段 A 预检就绪（已满足）  
+动作：执行 Stage-A 脚本并等待手工回执  
+命令：`GATE4_ACCOUNT_ID='<id>' GATE4_OPERATOR='<op>' GATE4_TICKET_ID='<ticket>' bash ./deploy/gate4_stage_a_execute.sh`  
+回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
+
+3. 事件：阶段 A DoD 通过  
 动作：进入 M2-E4 准备态（自动发布链路）  
 产物：M2-E4 准备文档（待创建）

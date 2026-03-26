@@ -1537,3 +1537,26 @@
   - `design/validation/artifacts/openclaw-gate4-stagea-preflight-20260326-170538/`
 - 决策：
   - 阶段 A 前置阻断关闭，进入 DoD 验证执行阶段
+
+### 2026-03-26：完成 Stage-A 执行脚本等待态验证（waiting_manual_login）
+
+- 背景：
+  - Stage-A 预检已达到 `ready_for_stage_a_execution`
+  - 需要将“手工登录回执”作为强制闸门写入执行链路，避免无证据放行
+- 决策：
+  - 新增执行脚本：`deploy/gate4_stage_a_execute.sh`
+  - 新增手工回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
+  - 放行规则：仅当预检通过、账号在白名单、必要工单齐备、且 `manual receipt login_ok=true` 时，才允许 `stage_a_passed`
+- 首轮结果：
+  - `preflight_result=ready_for_stage_a_execution`
+  - `account_found=yes`
+  - `manual_receipt_present=no`
+  - `stage_a_result=waiting_manual_login`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-a-execution-prep-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagea-exec-20260326-172905/`
+  - `design/validation/2026-03-26-gate4-stage-a-dod-validation.md`
+- 下一步：
+  - 提供手工登录回执文件后复跑：
+    - `GATE4_ACCOUNT_ID='<id>' GATE4_OPERATOR='<op>' GATE4_TICKET_ID='<ticket>' GATE4_MANUAL_RECEIPT_FILE='<receipt.json>' bash ./deploy/gate4_stage_a_execute.sh`
+  - 目标结果：`stage_a_passed`
