@@ -28,3 +28,15 @@
   - G4-T1/G4-T6 完成，G4-T2/G4-T3/G4-T4 至少完成 2 项
 - `Not ready`：
   - G4-T1 或 G4-T6 未完成
+
+## 4) 执行进展（滚动）
+
+- [x] G4-T1 已完成（2026-03-26）
+  - `design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
+- [ ] G4-T2 待完成
+- [ ] G4-T3 待完成
+- [ ] G4-T4 待完成
+- [x] G4-T5 已完成（2026-03-26）
+  - `design/validation/gate4-dod-checklist-template-v1.md`
+- [x] G4-T6 已完成（2026-03-26）
+  - `design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
