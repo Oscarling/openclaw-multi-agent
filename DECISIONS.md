@@ -1302,3 +1302,73 @@
   - 已完成目标镜像可用性与只读兼容预检（未触发现网切换）
 - 触发条件：
   - 用户明确发出“执行升级”指令后再启动升级与回滚门禁流程
+
+### 2026-03-26：执行 Gate-3 事件复检 R17（day11_observation_logged）
+
+- 触发事件：
+  - `day11_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day11_observation_logged" GATE3_RECHECK_ID="R17" bash ./deploy/gate3_event_recheck.sh`
+  - 建立跟踪 Issue：`#35` `Gate-3 v2｜Day11-Day12批处理（R17+R18）`
+- 结果：
+  - R17 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R17 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r17.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r17-20260326-150530/`
+
+### 2026-03-26：执行 Gate-3 事件复检 R18（day12_observation_logged）
+
+- 触发事件：
+  - `day12_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day12_observation_logged" GATE3_RECHECK_ID="R18" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R18 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R18 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r18.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r18-20260326-150720/`
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day11 观察记录
+
+- 决策：
+  - Day11 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day11 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day11 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day11.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day11 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day12 观察记录
+
+- 决策：
+  - Day12 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day12 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day12 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day12.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day12 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：完成“再测两 Day 后收口”判定
+
+- 触发前提：
+  - 用户确认“再测两 day 后收口”
+  - `R17/R18` 与 `Day11/Day12` 回填均完成
+- 判定结果：
+  - 本轮收口条件满足（关键样例全通过、默认入口稳定、Telegram 探活正常、无回滚触发）
+  - 结论：本轮按“维持受控观察”收口，不改默认入口
+- 后续口径：
+  - 继续保持事件触发推进，后续是否进入下一轮由主线事件触发
