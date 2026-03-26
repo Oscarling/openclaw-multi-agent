@@ -16,6 +16,7 @@ OPERATOR="${GATE4_OPERATOR:-unknown_operator}"
 TICKET_ID="${GATE4_TICKET_ID:-}"
 STAGE_C_RECEIPT_FILE="${GATE4_STAGE_C_RECEIPT_FILE:-}"
 STRICT_MODE="${GATE4_STAGE_C_STRICT:-no}"
+REQUIRE_REAL_EVIDENCE="${GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE:-no}"
 
 log() {
   printf '[gate4-stagec-exec] %s\n' "$*"
@@ -159,6 +160,7 @@ RECEIPT_SUCCESS_RATE=""
 RECEIPT_FAILURE_COUNT=""
 RECEIPT_BATCH_SIZE=""
 RECEIPT_EVIDENCE_REF=""
+RECEIPT_EVIDENCE_REF_PLACEHOLDER=""
 RECEIPT_BATCH_ID=""
 RECEIPT_RELEASE_ID=""
 
@@ -216,6 +218,24 @@ if not isinstance(obj["publish_ok"], bool):
 if not isinstance(obj["halt_triggered"], bool):
     raise SystemExit("halt_triggered must be bool")
 
+evidence_ref = str(obj.get("evidence_ref", "")).strip()
+if not evidence_ref:
+    raise SystemExit("evidence_ref must be non-empty")
+
+placeholder_markers = (
+    "请改成你的真实证据引用",
+    "真实消息链接或证据id",
+    "真实消息链接或证据ID",
+    "占位",
+    "placeholder",
+    "your-evidence",
+    "your evidence",
+    "todo",
+    "tbd",
+)
+lower_ref = evidence_ref.lower()
+is_placeholder = any(marker.lower() in lower_ref for marker in placeholder_markers)
+
 print("receipt_valid=yes")
 print(f"receipt_publish_ok={'yes' if obj['publish_ok'] else 'no'}")
 print(f"receipt_halt_triggered={'yes' if obj['halt_triggered'] else 'no'}")
@@ -223,6 +243,7 @@ print(f"receipt_success_rate={obj.get('success_rate', '')}")
 print(f"receipt_failure_count={obj.get('failure_count', '')}")
 print(f"receipt_batch_size={obj.get('batch_size', '')}")
 print(f"receipt_evidence_ref={obj.get('evidence_ref', '')}")
+print(f"receipt_evidence_ref_placeholder={'yes' if is_placeholder else 'no'}")
 print(f"receipt_batch_id={obj.get('batch_id', '')}")
 print(f"receipt_release_id={obj.get('release_id', '')}")
 PY
@@ -236,6 +257,7 @@ PY
     RECEIPT_FAILURE_COUNT="${receipt_failure_count:-}"
     RECEIPT_BATCH_SIZE="${receipt_batch_size:-}"
     RECEIPT_EVIDENCE_REF="${receipt_evidence_ref:-}"
+    RECEIPT_EVIDENCE_REF_PLACEHOLDER="${receipt_evidence_ref_placeholder:-}"
     RECEIPT_BATCH_ID="${receipt_batch_id:-}"
     RECEIPT_RELEASE_ID="${receipt_release_id:-}"
   fi
@@ -260,6 +282,8 @@ elif [[ -n "$PHASE_HALT_FAILURE_COUNT" && -n "$RECEIPT_FAILURE_COUNT" && "$RECEI
   STAGE_C_RESULT="stage_c_halted"
 elif [[ "$RECEIPT_HALT_TRIGGERED" == "yes" ]]; then
   STAGE_C_RESULT="stage_c_halted"
+elif [[ "$REQUIRE_REAL_EVIDENCE" == "yes" && "$RECEIPT_EVIDENCE_REF_PLACEHOLDER" == "yes" ]]; then
+  STAGE_C_RESULT="waiting_stage_c_receipt_fix"
 elif [[ -n "$PHASE_SUCCESS_THRESHOLD" && -n "$RECEIPT_SUCCESS_RATE" ]] && ! python3 - "$RECEIPT_SUCCESS_RATE" "$PHASE_SUCCESS_THRESHOLD" <<'PY'
 import sys
 actual = float(sys.argv[1])
@@ -309,6 +333,8 @@ stagec_receipt_batch_size=$RECEIPT_BATCH_SIZE
 stagec_receipt_batch_id=$RECEIPT_BATCH_ID
 stagec_receipt_release_id=$RECEIPT_RELEASE_ID
 stagec_receipt_evidence_ref=$RECEIPT_EVIDENCE_REF
+stagec_receipt_evidence_ref_placeholder=$RECEIPT_EVIDENCE_REF_PLACEHOLDER
+stagec_require_real_evidence=$REQUIRE_REAL_EVIDENCE
 stage_c_result=$STAGE_C_RESULT
 note=stage_c_passed requires preflight ready, allowlisted account, valid phase policy, required ticket (if any), and receipt metrics within thresholds.
 EOF

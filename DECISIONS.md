@@ -1823,3 +1823,21 @@
 - 下一步（事件触发）：
   - 先关闭阻断项 A/B（第二批真实 C1 成功 + 审计收口）
   - 阻断项关闭后再触发 C2 复评，不跨级执行
+
+### 2026-03-26：为 Stage-C 增加真实证据引用硬门禁（防占位值误通过）
+
+- 背景：
+  - C1/C2 评审均确认 `evidence_ref` 占位值是当前核心审计阻断项
+  - 原脚本可在占位值存在时仍给出 `stage_c_passed`，存在流程风险
+- 决策：
+  - 在 `deploy/gate4_stage_c_execute.sh` 增加 `evidence_ref` 占位检测
+  - 新增执行开关：`GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes`
+  - 当开关开启且检测到占位值时，结果强制为 `waiting_stage_c_receipt_fix`
+- 验证结果：
+  - 以当前真实 C1 回执复跑，结果为 `stage_c_result=waiting_stage_c_receipt_fix`
+  - 汇总字段包含 `stagec_receipt_evidence_ref_placeholder=yes`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-evidence-gate-validation.md`
+- 下一步：
+  - 将 `stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用并复跑
+  - 关闭 C2 阻断项 B 后继续推进第二批真实 C1 与 C2 复评

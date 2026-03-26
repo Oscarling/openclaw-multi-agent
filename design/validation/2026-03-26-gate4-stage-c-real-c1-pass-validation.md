@@ -14,6 +14,7 @@ GATE4_RELEASE_ID='XHS-REAL-C1-REL-001' \
 GATE4_OPERATOR='lingguozhong' \
 GATE4_TICKET_ID='GATE4-C-REAL-001' \
 GATE4_STAGE_C_RECEIPT_FILE='runtime/argus/config/gate4/stage_c_real_c1_receipt.json' \
+GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE='yes' \
 bash ./deploy/gate4_stage_c_execute.sh
 ```
 
@@ -33,5 +34,5 @@ bash ./deploy/gate4_stage_c_execute.sh
 
 ## 4) 备注与后续
 
-- 当前回执中的 `stagec_receipt_evidence_ref` 仍是占位值“请改成你的真实证据引用”。
-- 在进入 C2 放量评审前，需替换为真实证据引用并留痕复核。
+- 当前若 `stagec_receipt_evidence_ref` 是占位值，开启 `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes` 时会返回 `waiting_stage_c_receipt_fix`。
+- 在进入 C2 放量评审前，必须替换为真实证据引用并留痕复核。

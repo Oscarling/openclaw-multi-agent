@@ -587,6 +587,11 @@
   完成标准：`stage_c_real_c1_receipt.json` 中 `evidence_ref` 非占位值，并完成复核留痕
   产物：审计收口记录（待创建）
 
+- [x] 增加 Stage-C 真实审计证据硬门禁（防占位值误通过）
+  当前状态：`deploy/gate4_stage_c_execute.sh` 已支持 `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes`；占位 `evidence_ref` 会返回 `waiting_stage_c_receipt_fix`
+  验证记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-evidence-gate-validation.md`
+  下一动作：替换真实 `evidence_ref` 后复跑，关闭 C2 阻断项 B
+
 - [ ] 触发 C2 复评并决定是否放行 C2 单批次
   触发条件：阻断项 A/B 均已关闭
   完成标准：形成 C2 复评结论（`No-Go/Conditional-Go/Go`）并回填三本账

@@ -19,7 +19,7 @@
 - 阶段：`C1`
 - 批次：`XHS-REAL-C1-BATCH-001`
 - 发布 ID：`XHS-REAL-C1-REL-001`
-- 执行命令：`EXEC_ROOT="design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-190935" GATE4_ACCOUNT_ID='xhs_demo_001' GATE4_PHASE_ID='C1' GATE4_BATCH_ID='XHS-REAL-C1-BATCH-001' GATE4_RELEASE_ID='XHS-REAL-C1-REL-001' GATE4_OPERATOR='lingguozhong' GATE4_TICKET_ID='GATE4-C-REAL-001' GATE4_STAGE_C_RECEIPT_FILE='runtime/argus/config/gate4/stage_c_real_c1_receipt.json' bash ./deploy/gate4_stage_c_execute.sh`
+- 执行命令：`EXEC_ROOT="design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-190935" GATE4_ACCOUNT_ID='xhs_demo_001' GATE4_PHASE_ID='C1' GATE4_BATCH_ID='XHS-REAL-C1-BATCH-001' GATE4_RELEASE_ID='XHS-REAL-C1-REL-001' GATE4_OPERATOR='lingguozhong' GATE4_TICKET_ID='GATE4-C-REAL-001' GATE4_STAGE_C_RECEIPT_FILE='runtime/argus/config/gate4/stage_c_real_c1_receipt.json' GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE='yes' bash ./deploy/gate4_stage_c_execute.sh`
 - 证据目录：`design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-190935/`
 - 执行结果：`stage_c_passed`
 
