@@ -80,6 +80,12 @@
   验证证据：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
   风险处置：作为 R-03（CLI/UI 口径差异）的缓解措施，降低联调误判风险
 
+- [x] 增加 CLI 路由口径探针并完成首轮基线留痕
+  当前状态：`deploy/cli_route_parity_probe.sh` 已落地并完成首轮执行
+  首轮结果：`default_route_agent=main`、`explicit_route_agent=steward`，`probe_result=route_mismatch_detected`
+  验证证据：`design/validation/2026-03-26-cli-route-parity-probe-validation.md`
+  使用口径：升级/恢复/路由相关变更后复跑探针，再判定是否可关闭已知限制
+
 - [x] 跑一轮四角色端到端演练（steward -> hunter -> editor -> publisher）
   当前状态：同一业务 brief 已完成四阶段链路验证，均未越权
   验收证据：`design/validation/2026-03-25-fullchain-validation.md`

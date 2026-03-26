@@ -12,6 +12,10 @@
 ### M2-E1：CLI 默认路由差异收敛（R-03 根因层）
 
 - 触发事件：确认上游/镜像具备可验证的默认路由收敛能力，或本项目形成可替代修复方案
+- 当前进展：
+  - 已落地探针：`deploy/cli_route_parity_probe.sh`
+  - 首轮基线：`probe_result=route_mismatch_detected`（默认路径仍落 `main`）
+  - 记录：`design/validation/2026-03-26-cli-route-parity-probe-validation.md`
 - 完成标准：
   - `openclaw agent --to ...` 与 UI 默认入口口径一致
   - 验收证据回填 `验收清单.md` 与 `DECISIONS.md`

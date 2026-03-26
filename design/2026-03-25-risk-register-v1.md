@@ -39,7 +39,10 @@
   - 已在 README/验收口径中明确：CLI 联调必须显式 `--agent`
   - 已新增工具层护栏：`scripts/openclaw_agent_safe.sh`（无 `--agent` 阻断）
   - 已完成验证记录：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
-- 下一动作：跟踪上游 CLI 默认路由能力；待底层行为收敛后再将风险状态改为 `Closed`
+  - 已新增路由口径探针：`deploy/cli_route_parity_probe.sh`
+  - 首轮探针结果：`default_route_agent=main`、`explicit_route_agent=steward`（仍不一致）
+  - 探针记录：`design/validation/2026-03-26-cli-route-parity-probe-validation.md`
+- 下一动作：升级/恢复/路由相关变更后复跑探针；待 `probe_result=route_parity_ok` 稳定后再评估 `Closed`
 
 ## R-04：角色变更流程执行一致性风险
 

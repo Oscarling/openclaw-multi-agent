@@ -1422,3 +1422,25 @@
   - 回填：`README.md`、`BACKLOG.md`、`验收清单.md`
 - 下一步：
   - 按 M2 事件触发计划推进（`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`）
+
+### 2026-03-26：新增 CLI 路由口径探针并完成首轮基线
+
+- 背景：
+  - 已有 `openclaw_agent_safe` 护栏，但仍需一个可重复执行的“根因层观察工具”
+  - M2-E1 需要可量化判断“默认 `--to` 是否仍误落 `main`”
+- 决策：
+  - 新增探针脚本：`deploy/cli_route_parity_probe.sh`
+  - 用同一输入分别执行：
+    - 默认路径（仅 `--to`）
+    - 显式路径（`--agent steward --to`）
+  - 通过 `sessionKey` 提取命中 agent，形成可比较结论
+- 首轮结果：
+  - `default_route_session_key=agent:main:main`
+  - `explicit_route_session_key=agent:steward:main`
+  - 结论：`probe_result=route_mismatch_detected`
+- 证据：
+  - `design/validation/2026-03-26-cli-route-parity-probe-validation.md`
+  - `design/validation/artifacts/openclaw-cli-route-probe-20260326-155605/`
+- 后续口径：
+  - 已知限制继续保留，不误判为已修复
+  - 升级/恢复/路由变更后复跑探针，再决定是否可关闭限制项

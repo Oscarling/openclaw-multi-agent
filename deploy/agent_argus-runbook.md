@@ -109,6 +109,7 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
 
 - 文件：`scripts/openclaw_agent_safe.sh`
 - 行为：未显式 `--agent` 时阻断（退出码 `2`），显式 `--agent` 时透传到 `docker exec agent_argus openclaw agent`
+- 路由探针：`bash ./deploy/cli_route_parity_probe.sh`（用于验证默认 `--to` 与显式 `--agent` 是否一致）
 
 ## 创建前两个 Agent
 

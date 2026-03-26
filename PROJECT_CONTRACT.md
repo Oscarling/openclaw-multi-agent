@@ -42,10 +42,12 @@
    - candidate：待评估 `provider/model/profile`
 3. 两组都跑同一套回归样例（禁止换样）：
    - `GATE3_TRIGGER_EVENT="<event>" GATE3_RECHECK_ID="<id>" bash ./deploy/gate3_event_recheck.sh`
-4. 结论标准：
+4. 路由口径复检（防默认入口漂移）：
+   - `bash ./deploy/cli_route_parity_probe.sh`
+5. 结论标准：
    - 关键样例全通过
    - 默认入口和通道探活不漂移
    - 无新增越权/不确定性表达退化
-5. 证据留痕：
+6. 证据留痕：
    - 记录到 `design/validation/` 新增对比报告
    - 回填三本账后再进入下一步变更或回滚决策
