@@ -784,7 +784,7 @@
   - 用户明确选择“不升级付费，先公开仓库”
 - 执行动作：
   - 仓库可见性从 `private` 调整为 `public`
-  - 对 `main` 启用分支保护：`1 review + 会话收敛 + 线性历史 + 禁 force-push/删除`
+  - 对 `main` 启用分支保护：`会话收敛 + 线性历史 + 禁 force-push/删除`
 - 结果：
   - 之前私有仓库下的 `403` 限制已解除
   - 当前协作门禁形成“仓库级合并策略 + 分支保护”双层约束
@@ -794,3 +794,28 @@
   - `https://github.com/Oscarling/openclaw-multi-agent`
   - `README.md`
   - `BACKLOG.md`
+
+### 2026-03-26：收紧分支保护为“管理员也必须走 PR”
+
+- 执行动作：
+  - 将 `main` 分支保护中的 `enforce_admins` 设置为 `true`
+- 结果：
+  - 仓库管理员不再可绕过“PR 流程/会话收敛/线性历史”等规则直接推送 `main`
+  - `main` 进入统一门禁模式（含管理员）
+- 证据：
+  - `branches/main/protection/enforce_admins -> enabled=true`
+
+### 2026-03-26：为单人维护模式下调审批数为 `0`
+
+- 背景：
+  - 当前仓库主要由单人维护，`required_approving_review_count=1` 会导致无法自助合并
+- 执行动作：
+  - 将 `required_approving_review_count` 从 `1` 下调至 `0`
+  - 保留 `enforce_admins=true`、会话收敛、线性历史、禁 force-push/删除
+- 结果：
+  - 保持“必须走 PR 流程”前提下，单人维护可持续推进
+  - 关键保护边界仍在，不回退到无保护状态
+- 后续策略：
+  - 一旦增加第二位协作者，将审批数调回 `1`
+- 证据：
+  - `branches/main/protection/required_pull_request_reviews -> required_approving_review_count=0`

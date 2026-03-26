@@ -136,10 +136,11 @@
 - [x] 启用 `main` 分支保护（强制 PR review 等）
   当前状态：已启用（仓库改为公开后落地）
   保护规则：
-  - 至少 1 个 PR review
+  - 单人维护模式：`required_approving_review_count=0`
   - 会话必须 resolved
   - 线性历史开启
   - 禁止 force-push / 删除分支
+  - 管理员同样受保护（`enforce_admins=true`）
   验收标准：`branches/main/protection` 可读且规则生效（当前已满足）
 
 - [x] 为 `agent_argus` 设计状态备份方案
