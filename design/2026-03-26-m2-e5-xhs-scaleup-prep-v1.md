@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E5（阶段 C 准备）  
-状态：首轮受控验证已完成（`stage_c_passed`）
+状态：专项评审准备已就绪（待执行 gstack 评审）
 
 ## 1) 目标
 
@@ -53,4 +53,6 @@
 
 3. 事件：阶段 C DoD 形成（已满足）  
 动作：发起“真实小流量 C1 运行”专项评审准备（gstack）  
-产物：专项评审议程与执行卡（待创建）
+产物：`design/2026-03-26-gate4-stage-c-real-c1-review-prep-v1.md`、`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`、`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
+
+当前进展：专项评审准备包已落地，待执行 gstack `office-hours` + `plan-eng-review` 并形成放行结论。

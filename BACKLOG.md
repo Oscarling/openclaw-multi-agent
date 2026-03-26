@@ -535,3 +535,10 @@
   dry-run 记录：`design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`
   DoD 记录：`design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
   下一动作：发起“真实小流量 C1 运行”专项评审准备
+
+- [x] 完成“真实小流量 C1 运行”专项评审准备包
+  当前状态：专项评审输入包、执行卡与议程均已落地，待执行 gstack 专项评审
+  输入包：`design/2026-03-26-gate4-stage-c-real-c1-review-prep-v1.md`
+  执行卡：`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
+  下一动作：执行 gstack `office-hours` + `plan-eng-review` 并形成放行结论

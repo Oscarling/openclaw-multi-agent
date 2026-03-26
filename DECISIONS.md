@@ -1687,3 +1687,19 @@
 - 决策：
   - 阶段 C DoD 结论为 `Conditional-Go`
   - 允许进入“真实小流量 C1 运行”专项评审准备，不直接全量放量
+
+### 2026-03-26：完成“真实小流量 C1 运行”专项评审准备包
+
+- 背景：
+  - 阶段 C DoD 已形成，结论为 `Conditional-Go`
+  - 进入真实小流量前需要先统一评审口径，避免未经评审直接放量
+- 决策：
+  - 新增专项评审输入包：`design/2026-03-26-gate4-stage-c-real-c1-review-prep-v1.md`
+  - 新增专项事件执行卡：`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`
+  - 新增专项评审议程：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
+- 约束：
+  - 评审前不进入真实流量执行
+  - 继续保持白名单、ticket、人工闸门、回执追溯四项约束
+- 下一步：
+  - 执行 gstack `office-hours` + `plan-eng-review`
+  - 按评审结论决定是否进入真实 C1 单批次运行

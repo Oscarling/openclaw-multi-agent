@@ -70,7 +70,10 @@
   - 阶段 C 预检：`design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`
   - 阶段 C dry-run：`design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`
   - 阶段 C DoD：`design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
-  - 当前状态：首轮受控验证通过，结论 `Conditional-Go`
+  - 专项评审输入包：`design/2026-03-26-gate4-stage-c-real-c1-review-prep-v1.md`
+  - 专项执行卡：`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`
+  - 专项议程：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
+  - 当前状态：专项评审准备已就绪，待执行 gstack 评审
 - 完成标准：
   - 先小流量受控运行，再按事件放量
   - 成功/失败回执可追溯，留痕完整
