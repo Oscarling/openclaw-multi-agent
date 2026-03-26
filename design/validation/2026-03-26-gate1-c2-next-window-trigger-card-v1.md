@@ -52,3 +52,8 @@ OPENCLAW_BACKUP_PASSPHRASE_FILE="$HOME/.openclaw/secrets/backup_passphrase.txt" 
 
 - 若窗口内执行失败：同窗口内优先补跑 1 次，并记录失败分类
 - 若窗口错过：在 `DECISIONS.md` 明确延期原因和新的绝对日期窗口，不允许口头顺延
+
+## 7) GitHub 跟踪项
+
+- C2 窗口执行：`https://github.com/Oscarling/openclaw-multi-agent/issues/4`
+- C2 关闭复核触发：`https://github.com/Oscarling/openclaw-multi-agent/issues/3`
