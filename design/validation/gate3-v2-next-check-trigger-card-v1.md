@@ -33,6 +33,7 @@ GATE3_TRIGGER_EVENT="role_boundary_changed" GATE3_RECHECK_ID="R4" bash ./deploy/
 ## 4) 复检产物路径
 
 - 复检记录：`design/validation/` 下按日期新增 `gate3-v2-recheck-r*.md`
-- runId 索引：`design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
+- 复检索引：`design/validation/gate3-v2-recheck-index.md`
+- runId 索引（历史沿用）：`design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
 - 总回归记录：`design/validation/2026-03-26-gate3-regression-run-record.md`
 - 一键脚本证据目录：`design/validation/artifacts/gate3-v2-recheck-<r#>-<timestamp>/`

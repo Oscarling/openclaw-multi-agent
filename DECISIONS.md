@@ -931,3 +931,30 @@
   - 后续沿用脚本化事件复检链路（R5+）
 - 证据：
   - `design/validation/2026-03-26-gate3-v2-recheck-r4.md`
+
+### 2026-03-26：为 Gate-3 复检增加“自动索引登记”
+
+- 决策：
+  - `gate3_event_recheck.sh` 在生成复检记录后，自动写入 `gate3-v2-recheck-index.md`
+- 目的：
+  - 保持“每轮复检都有可见索引”，降低后续检索与漏记风险
+- 产物：
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `deploy/gate3_event_recheck.sh`（索引自动追加）
+
+### 2026-03-26：执行 Gate-3 事件复检 R5（脚本增强后）
+
+- 触发事件：
+  - `post_script_hardening`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="post_script_hardening" GATE3_RECHECK_ID="R5" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R5 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R5 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+  - 后续沿用“事件触发 + 脚本执行 + 自动索引”链路
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r5.md`
+  - `design/validation/gate3-v2-recheck-index.md`

@@ -13,11 +13,13 @@ CONTAINER_NAME="${OPENCLAW_AGENT_CONTAINER:-agent_argus}"
 TS="$(date +%Y%m%d-%H%M%S)"
 DATE_STR="$(date +%Y-%m-%d)"
 RECHECK_SLUG="$(printf '%s' "$RECHECK_ID" | tr '[:upper:]' '[:lower:]')"
+RUN_AT="$(date '+%Y-%m-%d %H:%M:%S %z')"
 
 VALIDATION_DIR="$PROJECT_ROOT/design/validation"
 ARTIFACTS_BASE="$VALIDATION_DIR/artifacts"
 ARTIFACT_DIR="$ARTIFACTS_BASE/gate3-v2-recheck-${RECHECK_SLUG}-${TS}"
 REPORT_PATH="${REPORT_PATH:-$VALIDATION_DIR/$DATE_STR-gate3-v2-recheck-${RECHECK_SLUG}.md}"
+INDEX_PATH="$VALIDATION_DIR/gate3-v2-recheck-index.md"
 
 if [[ -f "$REPORT_PATH" ]]; then
   REPORT_PATH="$VALIDATION_DIR/$DATE_STR-gate3-v2-recheck-${RECHECK_SLUG}-${TS}.md"
@@ -32,6 +34,20 @@ need_cmd() {
   if ! command -v "$cmd" >/dev/null 2>&1; then
     echo "missing command: $cmd" >&2
     exit 1
+  fi
+}
+
+ensure_index_file() {
+  if [[ ! -f "$INDEX_PATH" ]]; then
+    cat >"$INDEX_PATH" <<'EOF'
+# Gate-3 v2 复检索引
+
+更新时间：2026-03-26  
+说明：按事件触发记录每轮复检结果，避免依赖固定时间节点。
+
+| 时间（Asia/Shanghai） | 轮次 | 触发事件 | 结果 | 复检记录 | 证据目录 |
+|---|---|---|---|---|---|
+EOF
   fi
 }
 
@@ -166,6 +182,16 @@ fi
     printf -- '- 结论：本轮不通过（请查看证据目录中的 JSON 与日志）。\n'
   fi
 } >"$REPORT_PATH"
+
+ensure_index_file
+REPORT_REL="${REPORT_PATH#$PROJECT_ROOT/}"
+ARTIFACT_REL="${ARTIFACT_DIR#$PROJECT_ROOT/}"
+RESULT_LABEL="通过"
+if [[ "$ALL_PASS" != "yes" ]]; then
+  RESULT_LABEL="不通过"
+fi
+printf '| %s | %s | `%s` | %s | `%s` | `%s` |\n' \
+  "$RUN_AT" "$RECHECK_ID" "$GATE3_TRIGGER_EVENT" "$RESULT_LABEL" "$REPORT_REL" "$ARTIFACT_REL" >>"$INDEX_PATH"
 
 log "done"
 log "report: $REPORT_PATH"
