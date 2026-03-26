@@ -133,10 +133,14 @@
   - PR 模板：`.github/PULL_REQUEST_TEMPLATE.md`
   验收标准：仓库级合并策略生效，PR 走模板化检查
 
-- [ ] 启用 `main` 分支保护（强制 PR review 等）
-  当前状态：受当前私有仓库套餐限制，GitHub API 返回 `403`
-  触发条件：升级 GitHub Pro 或改为公开仓库（二选一）
-  验收标准：`branches/main/protection` 可读且规则生效
+- [x] 启用 `main` 分支保护（强制 PR review 等）
+  当前状态：已启用（仓库改为公开后落地）
+  保护规则：
+  - 至少 1 个 PR review
+  - 会话必须 resolved
+  - 线性历史开启
+  - 禁止 force-push / 删除分支
+  验收标准：`branches/main/protection` 可读且规则生效（当前已满足）
 
 - [x] 为 `agent_argus` 设计状态备份方案
   当前状态：目录范围、频率与恢复顺序已定稿；脚本 v0 已落地并通过 stage/异常场景验证；明文残留已清理

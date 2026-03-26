@@ -777,3 +777,20 @@
   - `https://github.com/Oscarling/openclaw-multi-agent`
   - `README.md`
   - `.github/PULL_REQUEST_TEMPLATE.md`
+
+### 2026-03-26：按业务选择改为公开仓库并启用 `main` 分支保护
+
+- 背景：
+  - 用户明确选择“不升级付费，先公开仓库”
+- 执行动作：
+  - 仓库可见性从 `private` 调整为 `public`
+  - 对 `main` 启用分支保护：`1 review + 会话收敛 + 线性历史 + 禁 force-push/删除`
+- 结果：
+  - 之前私有仓库下的 `403` 限制已解除
+  - 当前协作门禁形成“仓库级合并策略 + 分支保护”双层约束
+- 风险提示：
+  - 公开期间代码可被检索与 fork；后续即使改回私有，公开传播内容不保证可逆收回
+- 证据：
+  - `https://github.com/Oscarling/openclaw-multi-agent`
+  - `README.md`
+  - `BACKLOG.md`
