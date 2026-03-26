@@ -1735,3 +1735,22 @@
   - `design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-minutes-v1.md`
 - 下一步：
   - 按执行卡执行真实 C1 单批次并回填“继续/停机/回滚”结论
+
+### 2026-03-26：完成真实 C1 单批次执行准备验证（waiting_stage_c_receipt）
+
+- 背景：
+  - Stage-C 专项评审已通过，下一步需进入真实 C1 单批次执行
+  - 在无真实回执前，必须验证链路不会误判成功
+- 执行动作：
+  - 以真实 C1 参数执行 `deploy/gate4_stage_c_execute.sh`（不提供回执文件）
+- 结果：
+  - `preflight_result=ready_for_stage_c_execution`
+  - `needs_ticket=yes`
+  - `stagec_receipt_present=no`
+  - `stage_c_result=waiting_stage_c_receipt`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-182510/`
+- 决策：
+  - 维持“无回执不放行”硬约束
+  - 等待真实 C1 回执后复跑并再做阶段结论判定
