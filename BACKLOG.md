@@ -493,3 +493,14 @@
   回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
   验证记录：`design/validation/2026-03-26-gate4-stage-a-execution-prep-validation.md`
   下一动作：提供手工登录回执后复跑，目标 `stage_a_passed`
+
+- [x] 完成 Stage-A 手工回执复跑并通过 DoD（`stage_a_passed`）
+  当前状态：已提供手工回执并复跑成功，`manual_receipt_valid=yes`、`manual_receipt_login_ok=yes`
+  通过记录：`design/validation/2026-03-26-gate4-stage-a-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-a-dod-validation.md`
+  下一动作：触发进入 M2-E4（自动发布链路）准备态
+
+- [x] 启动 M2-E4 自动发布执行链路准备包
+  当前状态：准备包已落地，进入阶段 B 准备中
+  准备文档：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
+  下一动作：补齐阶段 B 预检脚手架与发布回执模板

@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E3（阶段 A）  
-状态：预检就绪（可进入阶段 A 验证）
+状态：已通过（Stage-A DoD 完成，已触发 M2-E4 准备）
 
 ## 1) 目标
 
@@ -70,6 +70,8 @@
 命令：`GATE4_ACCOUNT_ID='<id>' GATE4_OPERATOR='<op>' GATE4_TICKET_ID='<ticket>' bash ./deploy/gate4_stage_a_execute.sh`  
 回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
 
-3. 事件：阶段 A DoD 通过  
+当前进展：`design/validation/2026-03-26-gate4-stage-a-pass-validation.md` 已达到 `stage_a_passed`，DoD 结论为 `Go`。
+
+3. 事件：阶段 A DoD 通过（已满足）  
 动作：进入 M2-E4 准备态（自动发布链路）  
-产物：M2-E4 准备文档（待创建）
+产物：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`

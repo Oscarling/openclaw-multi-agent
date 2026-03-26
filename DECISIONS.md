@@ -1560,3 +1560,35 @@
   - 提供手工登录回执文件后复跑：
     - `GATE4_ACCOUNT_ID='<id>' GATE4_OPERATOR='<op>' GATE4_TICKET_ID='<ticket>' GATE4_MANUAL_RECEIPT_FILE='<receipt.json>' bash ./deploy/gate4_stage_a_execute.sh`
   - 目标结果：`stage_a_passed`
+
+### 2026-03-26：Stage-A 手工回执复跑通过（stage_a_passed）
+
+- 背景：
+  - Stage-A 等待态验证已完成，唯一阻断为“缺少手工登录回执”
+- 执行动作：
+  - 提供回执文件：`runtime/argus/config/gate4/manual_receipt.json`
+  - 执行 `gate4_stage_a_execute.sh` 并指定 `GATE4_MANUAL_RECEIPT_FILE`
+- 结果：
+  - `manual_receipt_present=yes`
+  - `manual_receipt_valid=yes`
+  - `manual_receipt_login_ok=yes`
+  - `stage_a_result=stage_a_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-a-pass-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagea-exec-20260326-174111/`
+  - `design/validation/2026-03-26-gate4-stage-a-dod-validation.md`
+- 决策：
+  - Stage-A DoD 从 `Conditional-Go` 升级为 `Go`
+  - 关闭“手工回执缺失”阻断，允许进入 M2-E4 准备态
+
+### 2026-03-26：由 Stage-A 通过触发 M2-E4 准备态
+
+- 背景：
+  - M2-E3（阶段 A）DoD 已通过，满足进入下一阶段条件
+- 决策：
+  - 启动 M2-E4 自动发布执行链路准备包
+  - 先固化“发布动作 + 发布回执”字段与前置检查，不直接进入自动发布实跑
+- 产物：
+  - `design/2026-03-26-m2-e4-release-chain-prep-v1.md`
+- 下一步：
+  - 落地阶段 B 预检脚手架与发布回执模板

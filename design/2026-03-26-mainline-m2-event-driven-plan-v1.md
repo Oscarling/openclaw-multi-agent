@@ -41,7 +41,9 @@
 - 触发事件：M2-E2 完成并通过评审
 - 当前进展：
   - 实现准备包已落地：`design/2026-03-26-m2-e3-login-implementation-prep-v1.md`
-  - 当前状态：准备中（未进入运行态改造）
+  - 阶段 A 通过记录：`design/validation/2026-03-26-gate4-stage-a-pass-validation.md`
+  - 阶段 A DoD：`design/validation/2026-03-26-gate4-stage-a-dod-validation.md`
+  - 当前状态：阶段 A 已通过（`stage_a_passed`），进入 M2-E4 准备态
 - 完成标准：
   - 至少 1 个受控账号链路可复现
   - secrets 与权限边界明确，不把敏感值入库
@@ -49,6 +51,9 @@
 ### M2-E4：自动发布执行链路（含回执）
 
 - 触发事件：M2-E3 完成且安全护栏验证通过
+- 当前进展：
+  - 准备包已落地：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
+  - 当前状态：准备中（待补阶段 B 预检脚手架与回执模板）
 - 完成标准：
   - “发布动作 + 发布回执”链路可复核
   - 异常回滚与人工接管流程可执行
