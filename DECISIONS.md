@@ -1472,6 +1472,7 @@
   - 预评审纪要：`design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
   - 事件执行卡：`design/2026-03-26-gate4-event-execution-card-v1.md`
   - 正式评审议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
+  - 分阶段 DoD 模板：`design/validation/gate4-dod-checklist-template-v1.md`
 - 关键边界：
   - 三阶段顺序冻结：A（登录）-> B（发布链路）-> C（平台放量）
   - 禁止无回执黑盒发布、禁止跳过高危动作人工闸门、禁止未定义回滚即放行

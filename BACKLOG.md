@@ -468,4 +468,5 @@
   当前状态：已完成 `office-hours -> plan-eng-review` 的会后衔接文档
   执行卡：`design/2026-03-26-gate4-event-execution-card-v1.md`
   议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
+  DoD 模板：`design/validation/gate4-dod-checklist-template-v1.md`
   使用口径：按事件触发推进，不进入时间节点排程
