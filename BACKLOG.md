@@ -148,15 +148,16 @@
   范围：`~/.openclaw/state/argus`、`~/.openclaw/workspaces/argus` 及后续新增持久化目录
   说明：后续进入运维节奏（按月回归演练）
 
-- [ ] 建立备份恢复月度回归节奏
-  当前状态：已完成首次演练与异常场景验证；月度一键脚本已落地并完成预演（同日）；2026-03-26 预检通过，待下次窗口形成“下一次月度记录”
-  跟踪 Issue：`#4` `Gate-1 C2｜执行月度回归窗口（2026-04-22~2026-04-28）`
-  里程碑：`Gate-1 C2 closeout (2026-04 window)`
+- [x] 建立备份恢复月度回归节奏
+  当前状态：已完成首次演练与异常场景验证；月度一键脚本已落地并完成预演（同日）；2026-03-26 已按事件触发完成一次主线执行并形成新记录
+  跟踪 Issue：`#4` `Gate-1 C2｜事件触发执行月度回归`
+  里程碑：`Gate-1 C2 closeout (event-driven)`
   脚本：`deploy/monthly_recovery_drill.sh`
   预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
+  本次执行证据：`design/validation/2026-03-26-monthly-recovery-drill-validation.md`
   预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
-  触发卡：`design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
-  下次执行窗口：2026-04-25 ± 3 天（Asia/Shanghai）
+  触发卡：`design/validation/2026-03-26-gate1-c2-event-trigger-card-v2.md`
+  执行触发事件：`#4` 待执行 + 预检 `ready_for_monthly_window` + 主线无阻断异常
   记录模板：`design/validation/monthly-recovery-drill-template.md`
   验收标准：每月至少一次演练并记录耗时、失败原因、修复动作
 
@@ -181,8 +182,7 @@
 
 - [x] 发起“prompts.chat 角色优化”Gate-3 预评审（office-hours）
   触发条件：Gate-2 已收口，且 prompts.chat 评估文档已确认（当前已满足）
-  执行窗口：触发后 24-48 小时内
-  最晚窗口：触发后 5 个自然日内
+  执行动作：触发条件满足后立即推进
   当前目标：把外部角色库降噪为 10-20 条候选意图/能力点，不直接落运行态
   评估文档：`design/2026-03-26-prompts-chat-role-optimization-assessment-v1.md`
   输入包：`design/2026-03-26-prompts-chat-candidate-intents-v1.md`
@@ -198,8 +198,7 @@
   24h 执行卡：`design/2026-03-26-gate3-24h-execution-card-v1.md`
   会议议程：`design/2026-03-26-gate-3-prompts-chat-plan-eng-review-agenda-v1.md`
   会议纪要：`design/2026-03-26-gate-3-prompts-chat-plan-eng-review-minutes-v1.md`
-  执行窗口：触发后 24-48 小时内
-  最晚窗口：触发后 5 个自然日内
+  执行动作：触发条件满足后立即推进
   验收标准：形成 go/no-go 结论与 v2 试运行边界（不改默认入口）
 
 - [x] 执行 Gate-3 待验证池最小样例回归（`C11/C05/C13`）
@@ -260,15 +259,16 @@
   - 回归清单可执行（逐角色 + 端到端）
 
 - [ ] 关闭 gstack Gate-1 条件项（C1/C2）
-  当前状态：C1 已关闭；C2 已完成同日预演 + 预检通过，待下一次月度窗口记录后关闭
-  跟踪 Issue：`#3` `Gate-1 C2｜窗口记录落盘后触发 gstack 关闭复核`
-  里程碑：`Gate-1 C2 closeout (2026-04 window)`
+  当前状态：C1 已关闭；C2 已完成同日预演 + 预检通过 + 事件触发执行并形成新记录，待 #4 关闭后立即推进 #3 复核收口
+  跟踪 Issue：`#3` `Gate-1 C2｜事件触发后进行 gstack 关闭复核`
+  里程碑：`Gate-1 C2 closeout (event-driven)`
   条件 C1：完成 host `~/.openclaw/state/argus` 与 `~/.openclaw/workspaces/argus` apply 覆盖演练并落盘（已完成）
   C1 证据：`design/validation/2026-03-25-host-apply-drill-validation.md`
-  条件 C2：形成下一次月度回归演练记录
-  C2 执行 Issue：`#4` `Gate-1 C2｜执行月度回归窗口（2026-04-22~2026-04-28）`
-  C2 触发卡：`design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
+  条件 C2：按事件触发形成下一次月度回归演练记录
+  C2 执行 Issue：`#4` `Gate-1 C2｜事件触发执行月度回归`
+  C2 触发卡：`design/validation/2026-03-26-gate1-c2-event-trigger-card-v2.md`
   C2 预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
+  C2 本次记录：`design/validation/2026-03-26-monthly-recovery-drill-validation.md`
   C2 预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
   C2 模板：`design/validation/monthly-recovery-drill-template.md`
   验收证据：`design/validation/2026-03-25-gstack-gate1-review.md`

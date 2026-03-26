@@ -118,11 +118,11 @@ monthly_script_ok=$MONTHLY_SCRIPT_OK
 recovery_script_ok=$RECOVERY_SCRIPT_OK
 host_apply_script_ok=$HOST_APPLY_SCRIPT_OK
 preflight_result=$PREFLIGHT_RESULT
-monthly_window_rule=25th_day_plus_minus_3_days_asia_shanghai
+trigger_mode=event_driven
+trigger_rule=run_when_preflight_ready_and_mainline_unblocked
 EOF
 
 log "done"
 log "check root: $CHECK_ROOT"
 log "summary: $SUMMARY_FILE"
 cat "$SUMMARY_FILE"
-
