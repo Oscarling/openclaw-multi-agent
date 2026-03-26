@@ -153,6 +153,7 @@
   脚本：`deploy/monthly_recovery_drill.sh`
   预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
   预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
+  触发卡：`design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
   下次执行窗口：2026-04-25 ± 3 天（Asia/Shanghai）
   记录模板：`design/validation/monthly-recovery-drill-template.md`
   验收标准：每月至少一次演练并记录耗时、失败原因、修复动作
@@ -261,6 +262,7 @@
   条件 C1：完成 host `~/.openclaw/state/argus` 与 `~/.openclaw/workspaces/argus` apply 覆盖演练并落盘（已完成）
   C1 证据：`design/validation/2026-03-25-host-apply-drill-validation.md`
   条件 C2：形成下一次月度回归演练记录
+  C2 触发卡：`design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
   C2 预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
   C2 预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
   C2 模板：`design/validation/monthly-recovery-drill-template.md`
