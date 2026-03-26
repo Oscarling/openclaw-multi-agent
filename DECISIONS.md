@@ -903,3 +903,31 @@
   - 后续仍按事件触发执行复检，不绑定固定时间节点
 - 证据：
   - `design/validation/2026-03-26-gate3-v2-recheck-r3.md`
+
+### 2026-03-26：为 Gate-3 复检补“一键事件执行”脚本
+
+- 决策：
+  - 将 Gate-3 复检固化为事件触发脚本，减少手工拼装命令与漏项风险
+- 产物：
+  - `deploy/gate3_event_recheck.sh`
+  - `design/validation/gate3-v2-next-check-trigger-card-v1.md`（新增一键执行命令）
+- 执行口径：
+  - 通过 `GATE3_TRIGGER_EVENT + GATE3_RECHECK_ID` 触发复检
+  - 自动采集运行态快照并执行 `C11/C05/C13/X4/H5` 五条样例
+  - 自动生成复检记录到 `design/validation/`，并输出证据目录
+
+### 2026-03-26：执行 Gate-3 事件复检 R4（脚本首跑）
+
+- 触发事件：
+  - `mainline_continue`（按“继续主线”执行一轮受控复检）
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="mainline_continue" GATE3_RECHECK_ID="R4" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R4 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 未触发回滚阈值
+- 决策：
+  - 保持“维持受控范围”结论，不改默认入口与默认命中策略
+  - 后续沿用脚本化事件复检链路（R5+）
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r4.md`

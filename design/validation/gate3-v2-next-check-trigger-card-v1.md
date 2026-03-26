@@ -24,8 +24,15 @@
 3. 回填 runId 到索引与复检记录  
 4. 更新 `BACKLOG/DECISIONS/验收清单`
 
+推荐一键执行（事件触发）：
+
+```bash
+GATE3_TRIGGER_EVENT="role_boundary_changed" GATE3_RECHECK_ID="R4" bash ./deploy/gate3_event_recheck.sh
+```
+
 ## 4) 复检产物路径
 
-- 复检记录：`design/validation/` 下按日期新增 `gate3-v2-controlled-trial-*.md`
+- 复检记录：`design/validation/` 下按日期新增 `gate3-v2-recheck-r*.md`
 - runId 索引：`design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
 - 总回归记录：`design/validation/2026-03-26-gate3-regression-run-record.md`
+- 一键脚本证据目录：`design/validation/artifacts/gate3-v2-recheck-<r#>-<timestamp>/`
