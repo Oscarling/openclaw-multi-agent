@@ -266,7 +266,8 @@
   - 已完成 host `~/.openclaw/state/argus` 与 `~/.openclaw/workspaces/argus` 的 apply 覆盖演练
   - apply 后已执行自动回滚并复核默认入口与角色可见性，运行态无漂移
 - C2 收口计划：
-  - 执行窗口：2026-04-25 ± 3 天（Asia/Shanghai）
+  - 触发条件：主线执行单待执行 + 预检 `ready_for_monthly_window` + 主线无阻断异常
+  - 执行动作：满足触发条件后立即执行事件守卫与月度回归
   - 记录模板：`design/validation/monthly-recovery-drill-template.md`
 - 证据：
   - `design/validation/2026-03-25-host-apply-drill-validation.md`
@@ -281,7 +282,7 @@
   - 避免每月手工拼装命令导致口径漂移
   - 让 C2 证据结构固定化，便于后续 gstack 关口复核
 - 边界：
-  - 当天预演记录不替代“下一次月度窗口记录”；C2 仍按窗口关闭
+  - 当天预演记录不替代“下一次月度记录”；C2 改为按事件触发关闭
   - 演练原始证据归档到 `design/validation/artifacts/`，并在 `.gitignore` 排除
 - 证据：
   - `design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
@@ -337,7 +338,7 @@
 
 ### 2026-03-26：增加 Gate-2/C2 前置探针并完成首次基线
 
-- 决策：在执行窗口前增加“可用性探针 + 月度预检”，用于持续确认前置条件
+- 决策：在执行前增加“可用性探针 + 月度预检”，用于持续确认前置条件
 - 脚本：
   - `deploy/gate2_readiness_probe.sh`
   - `deploy/monthly_recovery_preflight.sh`
@@ -495,16 +496,16 @@
   - 第一阶段仅做离线对齐与评估，不改默认入口 `steward`
   - 试运行采用 v2 角色集或显式 `--agent`，避免真实入站流量直接命中新定义
 - 触发式节奏：
-  - 预评审：在“Gate-2 收口 + 评估文档确认”后 24-48 小时内执行，最晚不超过触发后 5 个自然日
-  - 正式评审：在“预评审完成 + 候选清单标注完成”后 24-48 小时内执行，最晚不超过触发后 5 个自然日
+  - 预评审：在“Gate-2 收口 + 评估文档确认”后立即执行
+  - 正式评审：在“预评审完成 + 候选清单标注完成”后立即执行
 - 证据与材料：
   - `design/2026-03-26-prompts-chat-role-optimization-assessment-v1.md`
 
 ### 2026-03-26：任务排期采用“触发条件优先”口径
 
 - 决策：
-  - 除月度/周度等周期性治理任务外，项目任务默认使用“触发条件 + 执行窗口 + 最晚窗口（相对时间）”
-  - 不再将单次评审任务绑定到固定日历时点，避免“等时间”或“追时间”
+  - 除月度/周度等周期性治理任务外，项目任务默认使用“触发条件 + 执行动作 + 收口条件”
+  - 单次评审任务不绑定固定日历时点，避免“等时间”或“追时间”
 - 应用范围：
   - Gate-3 角色优化评审（含 prompts.chat 相关任务）
   - 后续角色新增/删减评审任务
@@ -820,38 +821,55 @@
 - 证据：
   - `branches/main/protection/required_pull_request_reviews -> required_approving_review_count=0`
 
-### 2026-03-26：固化 Gate-1 C2 的“窗口触发 + 复核触发”执行卡
+### 2026-03-26：固化 Gate-1 C2 的“事件触发 + 复核触发”执行卡
 
 - 决策：
   - 将 C2（月度回归）从“口头待办”收敛为触发卡执行
-  - C2 新窗口记录落盘后，在同日或 24 小时内触发 gstack 关闭复核
-- 触发窗口（绝对日期）：
-  - 2026-04-22 至 2026-04-28（Asia/Shanghai）
+  - C2 新记录落盘并完成台账回填后，立即触发 gstack 关闭复核
+- 触发事件（全部满足即执行）：
+  - `#4` 处于待执行状态（主线执行单）
+  - 最近一次预检结论为 `ready_for_monthly_window`
+  - 主线仓库与运行态无阻断异常
 - 目的：
   - 避免“等时间/追时间”导致的遗漏
   - 让 C2 关闭条件与 gstack 介入时机可复用、可追溯
 - 产物：
-  - `design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
+  - `design/validation/2026-03-26-gate1-c2-event-trigger-card-v2.md`
+  - `deploy/c2_event_guard.sh`
+  - `deploy/c2_window_guard.sh`（兼容入口，内部转发到事件守卫）
 
 ### 2026-03-26：为 C2 执行与复核建立 GitHub Issues 跟踪
 
 - 决策：
   - 将 C2 执行与 C2 复核触发分别落为独立 Issue，减少后续遗漏
 - 跟踪项：
-  - `#4` Gate-1 C2｜执行月度回归窗口（2026-04-22~2026-04-28）
-  - `#3` Gate-1 C2｜窗口记录落盘后触发 gstack 关闭复核
+  - `#4` Gate-1 C2｜事件触发执行月度回归
+  - `#3` Gate-1 C2｜事件触发后进行 gstack 关闭复核
 - 作用：
-  - 将“触发条件 + 绝对窗口 + 收口动作”绑定到可见的执行队列
-  - 便于窗口到达时直接按 issue 执行，不依赖口头提醒
+  - 将“触发条件 + 收口动作”绑定到可见的执行队列
+  - 事件满足后即可执行，不依赖绝对日期窗口
 
 ### 2026-03-26：为 C2 跟踪项补齐里程碑、标签与依赖关系
 
 - 决策：
-  - 对 C2 两个 issue 启用统一里程碑与标签语义，减少窗口执行时的检索成本
+  - 对 C2 两个 issue 启用统一里程碑与标签语义，减少事件执行时的检索成本
 - 落地内容：
-  - 里程碑：`Gate-1 C2 closeout (2026-04 window)`
+  - 里程碑：`Gate-1 C2 closeout (event-driven)`
   - `#4` 标签：`gate1,c2,monthly-drill,trigger-followup`
   - `#3` 标签：`gate1,c2,gstack-review,blocked-by-c2`
   - 在 `#3` 留言标注“依赖 #4 完成后触发”
 - 结果：
-  - C2 执行与复核形成“可见队列 + 依赖顺序 + 统一截止窗口”闭环
+  - C2 执行与复核形成“可见队列 + 依赖顺序 + 事件触发”闭环
+
+### 2026-03-26：C2 事件触发主线执行已完成并落盘新记录
+
+- 执行动作：
+  - 运行 `C2_TRIGGER_EVENT="mainline_ready" bash ./deploy/c2_event_guard.sh`
+  - 预检通过（`preflight_result=ready_for_monthly_window`）后，串联执行月度回归主流程
+- 结果：
+  - 生成新的月度回归验证记录：`design/validation/2026-03-26-monthly-recovery-drill-validation.md`
+  - 生成新的聚合证据目录：`design/validation/artifacts/openclaw-monthly-recovery-20260326-124457`
+  - C2 从“待执行”进入“待关闭复核”阶段（`#4 -> #3`）
+- 同步变更：
+  - `deploy/monthly_recovery_drill.sh` 结论文案改为事件触发口径
+  - `deploy/monthly_recovery_preflight.sh` 摘要改为事件触发规则字段

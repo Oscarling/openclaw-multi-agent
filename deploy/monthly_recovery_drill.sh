@@ -174,10 +174,9 @@ cat >"$REPORT_PATH" <<EOF
 ## 5) 结论
 
 - 本次月度回归演练链路执行完成，证据已落盘。
-- 若本次日期满足“下一次月度回归”窗口，可用于关闭 Gate-1 条件 C2。
+- 满足 C2 事件触发条件后，本次记录可用于关闭 Gate-1 条件 C2。
 EOF
 
 log "done"
 log "report: $REPORT_PATH"
 log "monthly artifact dir: $MONTHLY_ARTIFACT_DIR"
-
