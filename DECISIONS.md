@@ -1505,3 +1505,18 @@
   - `design/2026-03-26-m2-e3-login-implementation-prep-v1.md`
 - 下一步：
   - 按 DoD 模板执行阶段 A 验证并留痕
+
+### 2026-03-26：完成 Stage-A 首轮预检（结果 waiting_allowlist）
+
+- 背景：
+  - M2-E3 已进入准备态，需要先完成执行前置检查
+- 决策：
+  - 新增白名单模板：`shared/templates/gate4_account_allowlist_template.json`
+  - 新增预检脚本：`deploy/gate4_stage_a_preflight.sh`
+  - 首轮执行结果：`preflight_result=waiting_allowlist`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stagea-preflight-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagea-preflight-20260326-165924/`
+- 下一步：
+  - 创建 `runtime/argus/config/gate4/account_allowlist.json`（基于模板）
+  - 复跑 Stage-A 预检，目标状态 `ready_for_stage_a_execution`

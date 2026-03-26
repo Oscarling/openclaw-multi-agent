@@ -34,6 +34,7 @@
 ## 4) 最小交付物（事件触发）
 
 1. 账号白名单样例与字段说明（不含真实敏感值）
+   - 模板：`shared/templates/gate4_account_allowlist_template.json`
 2. 登录链路操作步骤（含失败处理）
 3. 阶段 A DoD 验证记录（基于统一模板）
 4. 回滚步骤（登录态撤销与链路回切）
@@ -58,7 +59,8 @@
 ## 7) 下一事件动作
 
 1. 事件：准备包落盘（已满足）  
-动作：补“白名单样例模板”并发起阶段 A 执行准备  
+动作：复制白名单模板并复跑阶段 A 预检  
+命令：`bash ./deploy/gate4_stage_a_preflight.sh`  
 产物：`design/validation/<date>-gate4-stage-a-dod-validation.md`（待创建）
 
 2. 事件：阶段 A DoD 通过  
