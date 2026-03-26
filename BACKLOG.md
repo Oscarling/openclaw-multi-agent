@@ -258,8 +258,8 @@
   - 四角色差异清单完成（吸收/拒绝/待验证）
   - 回归清单可执行（逐角色 + 端到端）
 
-- [ ] 关闭 gstack Gate-1 条件项（C1/C2）
-  当前状态：C1 已关闭；C2 已完成同日预演 + 预检通过 + 事件触发执行并形成新记录，待 #4 关闭后立即推进 #3 复核收口
+- [x] 关闭 gstack Gate-1 条件项（C1/C2）
+  当前状态：C1/C2 均已关闭；已完成 C2 事件触发执行、关闭复核与台账回填
   跟踪 Issue：`#3` `Gate-1 C2｜事件触发后进行 gstack 关闭复核`
   里程碑：`Gate-1 C2 closeout (event-driven)`
   条件 C1：完成 host `~/.openclaw/state/argus` 与 `~/.openclaw/workspaces/argus` apply 覆盖演练并落盘（已完成）
@@ -272,6 +272,7 @@
   C2 预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
   C2 模板：`design/validation/monthly-recovery-drill-template.md`
   验收证据：`design/validation/2026-03-25-gstack-gate1-review.md`
+  关闭复核：`design/validation/2026-03-26-gstack-gate1-c2-close-review.md`
 
 - [x] 设立“新增/删减角色”的评审门禁（`gstack` 两段式）
   当前状态：已完成 dry-run 实战演练（申请单 + 两段评审 + 四件套草案 + 回归验证）
