@@ -225,7 +225,7 @@
 
 - [x] Gate-3 v2 受控试运行（阶段完成，默认入口不变）
   触发条件：待验证池样例全部通过（当前已满足）
-  当前状态：已完成阶段性收口，且 R1/R2/R3/R4/R5/R6/R7/R8/R9 复检连续通过，结论“维持受控范围”（不放量）
+  当前状态：已完成阶段性收口，且 R1/R2/R3/R4/R5/R6/R7/R8/R9/R10 复检连续通过，结论“维持受控范围”（不放量）
   执行口径：`design/2026-03-26-gate3-v2-routing-and-killswitch-v1.md`
   启动单：`design/2026-03-26-gate3-v2-controlled-trial-plan-v1.md`
   启动记录：`design/validation/2026-03-26-gate3-v2-controlled-trial-kickoff.md`
@@ -234,20 +234,29 @@
   结束报告：`design/validation/2026-03-26-gate3-v2-controlled-trial-closeout.md`
   下一轮触发卡：`design/validation/gate3-v2-next-check-trigger-card-v1.md`
   放量准入：`design/2026-03-26-gate3-v2-scale-up-criteria-v1.md`
-  复检记录：`design/validation/2026-03-26-gate3-v2-recheck-r1.md`、`design/validation/2026-03-26-gate3-v2-recheck-r2.md`、`design/validation/2026-03-26-gate3-v2-recheck-r3.md`、`design/validation/2026-03-26-gate3-v2-recheck-r4.md`、`design/validation/2026-03-26-gate3-v2-recheck-r5.md`、`design/validation/2026-03-26-gate3-v2-recheck-r6.md`、`design/validation/2026-03-26-gate3-v2-recheck-r7.md`、`design/validation/2026-03-26-gate3-v2-recheck-r8.md`、`design/validation/2026-03-26-gate3-v2-recheck-r9.md`
+  复检记录：`design/validation/2026-03-26-gate3-v2-recheck-r1.md`、`design/validation/2026-03-26-gate3-v2-recheck-r2.md`、`design/validation/2026-03-26-gate3-v2-recheck-r3.md`、`design/validation/2026-03-26-gate3-v2-recheck-r4.md`、`design/validation/2026-03-26-gate3-v2-recheck-r5.md`、`design/validation/2026-03-26-gate3-v2-recheck-r6.md`、`design/validation/2026-03-26-gate3-v2-recheck-r7.md`、`design/validation/2026-03-26-gate3-v2-recheck-r8.md`、`design/validation/2026-03-26-gate3-v2-recheck-r9.md`、`design/validation/2026-03-26-gate3-v2-recheck-r10.md`
   复检索引：`design/validation/gate3-v2-recheck-index.md`
   运行记录：`design/validation/2026-03-26-gate3-regression-run-record.md`
   验收标准：受控窗口内关键项无失败，且未触发回滚阈值
 
 - [x] 启动 Gate-3 v2 扩大试运行 Day0（仍不改默认入口）
   触发条件：放量准入判定通过（当前已满足）
-  当前状态：Day0 首批扩大样本已执行，9/9 通过；脚本化事件复检已到 R9 且持续通过，保持受控观察
+  当前状态：Day0 首批扩大样本已执行，9/9 通过；脚本化事件复检已到 R10 且持续通过，保持受控观察
   准入判定：`design/validation/2026-03-26-gate3-v2-scale-up-readiness.md`
   准入标准：`design/2026-03-26-gate3-v2-scale-up-criteria-v1.md`
   执行记录：`design/validation/2026-03-26-gate3-v2-scaleup-day0.md`
-  后续复检：`design/validation/2026-03-26-gate3-v2-recheck-r3.md`、`design/validation/2026-03-26-gate3-v2-recheck-r4.md`、`design/validation/2026-03-26-gate3-v2-recheck-r5.md`、`design/validation/2026-03-26-gate3-v2-recheck-r6.md`、`design/validation/2026-03-26-gate3-v2-recheck-r7.md`、`design/validation/2026-03-26-gate3-v2-recheck-r8.md`、`design/validation/2026-03-26-gate3-v2-recheck-r9.md`
+  后续复检：`design/validation/2026-03-26-gate3-v2-recheck-r3.md`、`design/validation/2026-03-26-gate3-v2-recheck-r4.md`、`design/validation/2026-03-26-gate3-v2-recheck-r5.md`、`design/validation/2026-03-26-gate3-v2-recheck-r6.md`、`design/validation/2026-03-26-gate3-v2-recheck-r7.md`、`design/validation/2026-03-26-gate3-v2-recheck-r8.md`、`design/validation/2026-03-26-gate3-v2-recheck-r9.md`、`design/validation/2026-03-26-gate3-v2-recheck-r10.md`
   runId 索引：`design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
   验收标准：扩大样本后关键项仍 100% 通过，且无回滚触发
+
+- [x] 回填 Gate-3 v2 扩大试运行 Day4 观察记录（仍不改默认入口）
+  触发条件：Day3 观察回填已完成，且触发式复检链路稳定（当前已满足）
+  当前状态：Day4 观察回填已完成，R10 关键样例全部通过，仍保持受控观察
+  Day4 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day4.md`
+  R10 记录：`design/validation/2026-03-26-gate3-v2-recheck-r10.md`
+  复检索引：`design/validation/gate3-v2-recheck-index.md`
+  跟踪 Issue：`#25` `Gate-3 v2｜Day4观察回填 + 事件复检 R10`
+  验收标准：Day4 窗口内关键样例无失败，且无回滚触发
 
 - [x] 回填 Gate-3 v2 扩大试运行 Day3 观察记录（仍不改默认入口）
   触发条件：Day2 观察回填已完成，且触发式复检链路稳定（当前已满足）
@@ -277,7 +286,7 @@
   验收标准：Day1 窗口内关键样例无失败，且无回滚触发
 
 - [x] 固化 Gate-3 复检一键事件执行脚本
-  当前状态：已新增脚本并写入触发卡，且已完成 R4/R5/R6/R7/R8/R9 连续实跑验证
+  当前状态：已新增脚本并写入触发卡，且已完成 R4/R5/R6/R7/R8/R9/R10 连续实跑验证
   脚本：`deploy/gate3_event_recheck.sh`
   触发卡：`design/validation/gate3-v2-next-check-trigger-card-v1.md`
   复检索引：`design/validation/gate3-v2-recheck-index.md`
@@ -287,6 +296,7 @@
   R7 记录：`design/validation/2026-03-26-gate3-v2-recheck-r7.md`
   R8 记录：`design/validation/2026-03-26-gate3-v2-recheck-r8.md`
   R9 记录：`design/validation/2026-03-26-gate3-v2-recheck-r9.md`
+  R10 记录：`design/validation/2026-03-26-gate3-v2-recheck-r10.md`
   跟踪 Issue：`#16` `Gate-3 v2｜事件复检 R6（day1_scaleup_ready）`
   执行口径：`GATE3_TRIGGER_EVENT=<event> GATE3_RECHECK_ID=<R#> bash ./deploy/gate3_event_recheck.sh`
   验收标准：可自动采集快照 + 执行关键样例 + 生成复检记录并写入复检索引
