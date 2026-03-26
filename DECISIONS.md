@@ -873,3 +873,16 @@
 - 同步变更：
   - `deploy/monthly_recovery_drill.sh` 结论文案改为事件触发口径
   - `deploy/monthly_recovery_preflight.sh` 摘要改为事件触发规则字段
+
+### 2026-03-26：Gate-1 条件 C2 完成关闭复核并正式收口
+
+- 复核输入：
+  - C2 执行记录：`design/validation/2026-03-26-monthly-recovery-drill-validation.md`
+  - C2 聚合证据：`design/validation/artifacts/openclaw-monthly-recovery-20260326-124457/`
+  - 关闭复核纪要：`design/validation/2026-03-26-gstack-gate1-c2-close-review.md`
+- 结论：
+  - C2 关闭复核通过（Pass）
+  - Gate-1 条件项 `C1/C2` 全部关闭
+- 收口动作：
+  - 关闭 `#3`（Gate-1 C2 关闭复核 issue）
+  - 保持“事件触发 + 月度回归 + 台账回填”作为后续运维固定口径
