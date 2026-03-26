@@ -83,6 +83,7 @@
 - [x] 增加 CLI 路由口径探针并完成首轮基线留痕
   当前状态：`deploy/cli_route_parity_probe.sh` 已落地并完成首轮执行
   首轮结果：`default_route_agent=main`、`explicit_route_agent=steward`，`probe_result=route_mismatch_detected`
+  同日实验：尝试 `--bind last`，返回 `Unknown channel "last"`，当前版本下无法通过现有绑定机制直接修复
   验证证据：`design/validation/2026-03-26-cli-route-parity-probe-validation.md`
   使用口径：升级/恢复/路由相关变更后复跑探针，再判定是否可关闭已知限制
 

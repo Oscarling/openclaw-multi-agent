@@ -25,3 +25,9 @@
 
 - 联调默认使用 `scripts/openclaw_agent_safe.sh`，强制显式 `--agent`。
 - 保留 `deploy/cli_route_parity_probe.sh` 作为事件触发复检工具（升级、恢复、路由相关变更后复跑）。
+
+## 4) 配置层快速实验（同日补充）
+
+- 尝试命令：`docker exec agent_argus openclaw agents bind --agent steward --bind last --json`
+- 返回：`Unknown channel "last".`
+- 解释：当前 CLI 对 `--to` 路径所涉及的内部 channel 不提供可直接绑定入口，暂无法通过现有 `agents bind` 在本项目侧直接修复默认路由漂移。
