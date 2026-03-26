@@ -53,7 +53,8 @@
 - 触发事件：M2-E3 完成且安全护栏验证通过
 - 当前进展：
   - 准备包已落地：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
-  - 当前状态：准备中（待补阶段 B 预检脚手架与回执模板）
+  - 阶段 B 预检记录：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+  - 当前状态：预检就绪（`ready_for_stage_b_execution`）
 - 完成标准：
   - “发布动作 + 发布回执”链路可复核
   - 异常回滚与人工接管流程可执行

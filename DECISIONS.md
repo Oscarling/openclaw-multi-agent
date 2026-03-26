@@ -1592,3 +1592,21 @@
   - `design/2026-03-26-m2-e4-release-chain-prep-v1.md`
 - 下一步：
   - 落地阶段 B 预检脚手架与发布回执模板
+
+### 2026-03-26：完成 M2-E4 阶段 B 预检脚手架并达到执行就绪
+
+- 背景：
+  - M2-E4 准备态已启动，需要把阶段 B 的“模板 + 预检”先落地，避免直接进入黑盒 dry-run
+- 决策：
+  - 新增发布回执模板：`shared/templates/gate4_release_receipt_template.json`
+  - 新增预检脚手架：`deploy/gate4_stage_b_preflight.sh`
+  - 预检判定口径：Stage-A DoD 为 `Go`、回执模板合法、secrets 基线与路由护栏持续可用
+- 结果：
+  - `stagea_dod_go=yes`
+  - `release_template_valid=yes`
+  - `preflight_result=ready_for_stage_b_execution`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stageb-preflight-20260326-174908/`
+- 下一步：
+  - 创建阶段 B DoD 记录并执行首轮受控 dry-run

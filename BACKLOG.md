@@ -504,3 +504,9 @@
   当前状态：准备包已落地，进入阶段 B 准备中
   准备文档：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
   下一动作：补齐阶段 B 预检脚手架与发布回执模板
+
+- [x] 完成 M2-E4 阶段 B 预检脚手架与回执模板并通过预检
+  当前状态：已新增 `deploy/gate4_stage_b_preflight.sh` 与发布回执模板，预检结果 `ready_for_stage_b_execution`
+  模板：`shared/templates/gate4_release_receipt_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+  下一动作：创建阶段 B DoD 记录并执行首轮 dry-run

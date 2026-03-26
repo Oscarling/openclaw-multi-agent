@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E4（阶段 B 准备）  
-状态：准备中（由 Stage-A DoD 通过触发）
+状态：预检就绪（可进入阶段 B 首轮 dry-run）
 
 ## 1) 目标
 
@@ -56,6 +56,8 @@
 动作：补齐发布回执模板与阶段 B 预检脚手架  
 产物：`shared/templates/gate4_release_receipt_template.json`、`deploy/gate4_stage_b_preflight.sh`
 
-2. 事件：阶段 B 预检就绪  
-动作：执行阶段 B 首轮验证（仅受控 dry-run）  
+2. 事件：阶段 B 预检就绪（已满足）  
+动作：进入阶段 B 首轮验证（仅受控 dry-run）  
 产物：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+
+下一步：创建阶段 B DoD 记录并执行首轮 dry-run 留痕。
