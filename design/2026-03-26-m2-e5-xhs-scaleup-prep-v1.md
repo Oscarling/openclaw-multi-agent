@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E5（阶段 C 准备）  
-状态：专项评审已完成（真实 C1 单批次待执行）
+状态：真实 C1 单批次已通过（待审计收口）
 
 ## 1) 目标
 
@@ -59,6 +59,10 @@
 
 4. 事件：专项评审结论落盘（已满足）  
 动作：执行真实 C1 单批次并回填结果  
-产物：真实 C1 执行记录与阶段结论（待创建）
+产物：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`、`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
 
-当前进展：已完成真实 C1 执行准备验证，结果 `waiting_stage_c_receipt`（等待真实回执）。
+当前进展：真实 C1 单批次结果 `stage_c_passed`，阶段结论 `Conditional-Go`（可进入 C2 评审准备）。
+
+5. 事件：真实 C1 审计收口  
+动作：将 `stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用并复核  
+产物：审计收口记录（待创建）

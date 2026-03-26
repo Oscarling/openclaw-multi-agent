@@ -1754,3 +1754,26 @@
 - 决策：
   - 维持“无回执不放行”硬约束
   - 等待真实 C1 回执后复跑并再做阶段结论判定
+
+### 2026-03-26：真实 C1 回执复跑通过（stage_c_passed）
+
+- 背景：
+  - 真实 C1 执行准备验证已完成，阻断项仅为缺少真实回执
+- 执行动作：
+  - 提供真实回执文件：`runtime/argus/config/gate4/stage_c_real_c1_receipt.json`
+  - 复跑 `deploy/gate4_stage_c_execute.sh`
+- 结果：
+  - `stagec_receipt_present=yes`
+  - `stagec_receipt_valid=yes`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-190935/`
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
+- 决策：
+  - 真实 C1 单批次通过，阶段结论维持 `Conditional-Go`
+  - 允许进入 C2 评审准备，不允许直接执行 C2/C3
+- 注意事项：
+  - 当前回执中的 `evidence_ref` 仍为占位值，需补齐真实引用后完成审计收口

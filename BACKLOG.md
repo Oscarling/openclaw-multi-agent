@@ -553,3 +553,9 @@
   当前状态：真实 C1 执行链路已验证到 `waiting_stage_c_receipt`，未回执不误判通过
   验证记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md`
   下一动作：提供真实 C1 回执后复跑，目标 `stage_c_passed`
+
+- [x] 完成真实 C1 单批次回执复跑并通过（`stage_c_passed`）
+  当前状态：真实 C1 执行结果 `stage_c_passed`，已形成真实 C1 DoD 记录
+  通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
+  下一动作：补齐真实证据引用并发起 C2 评审准备（不直接执行 C2）
