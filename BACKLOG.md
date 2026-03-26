@@ -459,6 +459,13 @@
   计划文档：`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`
 
 - [x] 启动 Gate-4 自动化范围冻结预评审准备包
-  当前状态：预评审输入包已落地，等待用户触发 `gstack office-hours`
+  当前状态：预评审输入包与 `office-hours` 纪要均已落地，进入 `plan-eng-review` 准备态
   输入文档：`design/2026-03-26-gate4-automation-scope-prep-v1.md`
   使用口径：先冻结自动化边界，再进入多账号登录/自动发布实现
+  纪要：`design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
+
+- [x] 产出 Gate-4 事件执行卡与正式评审议程
+  当前状态：已完成 `office-hours -> plan-eng-review` 的会后衔接文档
+  执行卡：`design/2026-03-26-gate4-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
+  使用口径：按事件触发推进，不进入时间节点排程

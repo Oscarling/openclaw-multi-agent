@@ -1459,3 +1459,19 @@
   - 在 M2 计划中登记后续触发路径：`office-hours -> plan-eng-review`
 - 风险边界：
   - 在两段评审通过前，不实施多账号自动登录与自动发布执行链路改造
+
+### 2026-03-26：完成 Gate-4 预评审（office-hours）并进入工程评审准备态
+
+- 背景：
+  - 用户已明确“继续推进项目”
+  - M2-E2 已具备预评审输入包与基础护栏（显式 `--agent` + 路由探针）
+- 决策：
+  - Gate-4 `office-hours` 结论为 `Conditional-Go`
+  - 允许进入 `plan-eng-review`，但仍不进入运行态自动化改造
+- 会后产物：
+  - 预评审纪要：`design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
+  - 事件执行卡：`design/2026-03-26-gate4-event-execution-card-v1.md`
+  - 正式评审议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
+- 关键边界：
+  - 三阶段顺序冻结：A（登录）-> B（发布链路）-> C（平台放量）
+  - 禁止无回执黑盒发布、禁止跳过高危动作人工闸门、禁止未定义回滚即放行
