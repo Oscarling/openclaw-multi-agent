@@ -1163,3 +1163,72 @@
 - 结果：
   - Day6 关键样例稳定通过，未触发回滚阈值
   - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：Gate-3 观察回填节奏切换为“双 Day 批处理收口”
+
+- 决策：
+  - 在不改变“事件触发”口径下，将 Day7/Day8 合并为单批次收口（R13+R14）
+  - 每批先顺序执行两次事件复检，再一次性回填台账与发起 PR
+- 原因：
+  - 可减少单日重复文档与提交流程，提升主线推进速度
+  - 不引入固定时间依赖，仍保持“事件完成即触发下一步”
+- 跟踪：
+  - Issue：`#31` `Gate-3 v2｜Day7-Day8批处理（R13+R14）`
+
+### 2026-03-26：执行 Gate-3 事件复检 R13（day7_observation_logged）
+
+- 触发事件：
+  - `day7_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day7_observation_logged" GATE3_RECHECK_ID="R13" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R13 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R13 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r13.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r13-20260326-142430/`
+
+### 2026-03-26：执行 Gate-3 事件复检 R14（day8_observation_logged）
+
+- 触发事件：
+  - `day8_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day8_observation_logged" GATE3_RECHECK_ID="R14" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - R14 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R14 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r14.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r14-20260326-142431/`
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day7 观察记录
+
+- 决策：
+  - Day7 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day7 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day7 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day7.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day7 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day8 观察记录
+
+- 决策：
+  - Day8 按“边界抽检 + 事件复检”口径回填，保持低风险推进
+  - Day8 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day8 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day8.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day8 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
