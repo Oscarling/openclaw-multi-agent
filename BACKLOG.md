@@ -150,6 +150,7 @@
 
 - [ ] 建立备份恢复月度回归节奏
   当前状态：已完成首次演练与异常场景验证；月度一键脚本已落地并完成预演（同日）；2026-03-26 预检通过，待下次窗口形成“下一次月度记录”
+  跟踪 Issue：`#4` `Gate-1 C2｜执行月度回归窗口（2026-04-22~2026-04-28）`
   脚本：`deploy/monthly_recovery_drill.sh`
   预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
   预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
@@ -259,9 +260,11 @@
 
 - [ ] 关闭 gstack Gate-1 条件项（C1/C2）
   当前状态：C1 已关闭；C2 已完成同日预演 + 预检通过，待下一次月度窗口记录后关闭
+  跟踪 Issue：`#3` `Gate-1 C2｜窗口记录落盘后触发 gstack 关闭复核`
   条件 C1：完成 host `~/.openclaw/state/argus` 与 `~/.openclaw/workspaces/argus` apply 覆盖演练并落盘（已完成）
   C1 证据：`design/validation/2026-03-25-host-apply-drill-validation.md`
   条件 C2：形成下一次月度回归演练记录
+  C2 执行 Issue：`#4` `Gate-1 C2｜执行月度回归窗口（2026-04-22~2026-04-28）`
   C2 触发卡：`design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
   C2 预演证据：`design/validation/2026-03-25-monthly-recovery-drill-validation-20260325-223134.md`
   C2 预检证据：`design/validation/2026-03-26-readiness-preflight-validation.md`
