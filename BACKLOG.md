@@ -521,3 +521,17 @@
   当前状态：准备包已落地，进入阶段 C 准备中
   准备文档：`design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
   下一动作：补齐阶段 C 放量策略卡与预检脚手架
+
+- [x] 完成阶段 C 放量策略卡与预检脚手架并达到执行就绪
+  当前状态：已新增放量策略卡、rollout 模板与 `deploy/gate4_stage_c_preflight.sh`，预检结果 `ready_for_stage_c_execution`
+  策略卡：`design/2026-03-26-m2-e5-rollout-strategy-card-v1.md`
+  模板：`shared/templates/gate4_rollout_policy_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`
+  下一动作：执行阶段 C 首轮受控验证并形成 DoD
+
+- [x] 新增 Stage-C 执行脚本并完成首轮受控验证（`stage_c_passed`）
+  当前状态：`deploy/gate4_stage_c_execute.sh` 已落地，C1 受控批次验证通过
+  回执模板：`shared/templates/gate4_stage_c_receipt_template.json`
+  dry-run 记录：`design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
+  下一动作：发起“真实小流量 C1 运行”专项评审准备

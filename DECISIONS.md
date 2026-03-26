@@ -1646,3 +1646,44 @@
   - `design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
 - 下一步：
   - 落地阶段 C 放量策略卡与预检脚手架
+
+### 2026-03-26：完成阶段 C 放量策略与预检并达到执行就绪
+
+- 背景：
+  - M2-E5 准备态已启动，需要先固化放量阈值和停机阈值，再进入执行验证
+- 决策：
+  - 新增放量策略卡：`design/2026-03-26-m2-e5-rollout-strategy-card-v1.md`
+  - 新增 rollout 模板：`shared/templates/gate4_rollout_policy_template.json`
+  - 新增预检脚手架：`deploy/gate4_stage_c_preflight.sh`
+- 结果：
+  - `stageb_dod_approved=yes`
+  - `rollout_card_valid=yes`
+  - `rollout_template_valid=yes`
+  - `preflight_result=ready_for_stage_c_execution`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagec-preflight-20260326-180621/`
+- 下一步：
+  - 创建 Stage-C 执行脚本并完成首轮受控验证
+
+### 2026-03-26：新增 Stage-C 执行脚本并完成首轮受控验证（stage_c_passed）
+
+- 背景：
+  - 阶段 C 预检已达到 `ready_for_stage_c_execution`
+  - 需要验证“阈值判定 + 停机触发 + 回执追溯”链路
+- 决策：
+  - 新增执行脚本：`deploy/gate4_stage_c_execute.sh`
+  - 新增阶段 C 回执模板：`shared/templates/gate4_stage_c_receipt_template.json`
+  - 放行规则：预检通过、账号白名单、阶段策略有效、需要 ticket 时已提供、回执指标满足阈值
+- 首轮结果：
+  - `phase_id=C1`，`batch_size=5`
+  - `stagec_receipt_valid=yes`
+  - `stagec_receipt_success_rate=1.0`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagec-exec-20260326-180913/`
+  - `design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
+- 决策：
+  - 阶段 C DoD 结论为 `Conditional-Go`
+  - 允许进入“真实小流量 C1 运行”专项评审准备，不直接全量放量

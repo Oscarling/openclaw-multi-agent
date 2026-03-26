@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E5（阶段 C 准备）  
-状态：准备中（由 Stage-B 首轮 dry-run `Conditional-Go` 触发）
+状态：首轮受控验证已完成（`stage_c_passed`）
 
 ## 1) 目标
 
@@ -45,6 +45,12 @@
 动作：补齐阶段 C 放量策略卡与预检脚手架  
 产物：`design/2026-03-26-m2-e5-rollout-strategy-card-v1.md`、`deploy/gate4_stage_c_preflight.sh`
 
-2. 事件：阶段 C 预检就绪  
+2. 事件：阶段 C 预检就绪（已满足）  
 动作：执行阶段 C 首轮受控验证并形成 DoD 记录  
-产物：`design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`
+产物：`design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`、`design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`、`design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
+
+当前进展：阶段 C 首轮受控验证结果 `stage_c_passed`，DoD 结论 `Conditional-Go`。
+
+3. 事件：阶段 C DoD 形成（已满足）  
+动作：发起“真实小流量 C1 运行”专项评审准备（gstack）  
+产物：专项评审议程与执行卡（待创建）
