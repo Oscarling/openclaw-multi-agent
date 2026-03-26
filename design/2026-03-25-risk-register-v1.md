@@ -3,7 +3,7 @@
 更新时间：2026-03-26  
 状态说明：`Open`（进行中）/ `Mitigated`（已缓解）/ `Closed`（已关闭）
 
-## R-01：Gate-1 C2 未关闭（月度记录待下窗口）
+## R-01：Gate-1 C2 未关闭（下一次演练待触发）
 
 - 等级：P1
 - 状态：Open
@@ -12,7 +12,7 @@
   - 已落地一键脚本 `deploy/monthly_recovery_drill.sh`
   - 已完成同日预演并留痕
   - 2026-03-26 预检通过（`ready_for_monthly_window`）
-- 下一动作：2026-04-25 ± 3 天执行下一次月度窗口演练并落盘
+- 下一动作：按事件触发执行下一次月度演练并落盘（不依赖固定时间点）
 
 ## R-02：Telegram 通道健康回归后的运行侧留痕不足
 
@@ -33,11 +33,13 @@
 ## R-03：CLI `--to` 路径与 UI 默认入口口径差异
 
 - 等级：P2
-- 状态：Open
+- 状态：Mitigated
 - 影响：联调口径可能误判默认入口
 - 当前措施：
   - 已在 README/验收口径中明确：CLI 联调必须显式 `--agent`
-- 下一动作：channel/plugin 联调阶段并行评估收敛方案
+  - 已新增工具层护栏：`scripts/openclaw_agent_safe.sh`（无 `--agent` 阻断）
+  - 已完成验证记录：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
+- 下一动作：跟踪上游 CLI 默认路由能力；待底层行为收敛后再将风险状态改为 `Closed`
 
 ## R-04：角色变更流程执行一致性风险
 

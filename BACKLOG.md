@@ -75,6 +75,11 @@
   当前约定：CLI 联调必须显式 `--agent`；UI 入口验收以 `assistantAgentId` 为准
   验收标准：明确并固化“验收/联调时使用哪个入口判定为准”，避免测试结论歧义
 
+- [x] 增加 CLI 安全封装护栏（强制显式 `--agent`）
+  当前状态：`scripts/openclaw_agent_safe.sh` 已落地；无 `--agent` 会阻断，显式 `--agent` 可正常透传
+  验证证据：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
+  风险处置：作为 R-03（CLI/UI 口径差异）的缓解措施，降低联调误判风险
+
 - [x] 跑一轮四角色端到端演练（steward -> hunter -> editor -> publisher）
   当前状态：同一业务 brief 已完成四阶段链路验证，均未越权
   验收证据：`design/validation/2026-03-25-fullchain-validation.md`

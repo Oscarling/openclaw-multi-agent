@@ -1388,3 +1388,19 @@
 - 配套动作：
   - 新增执行文档：`design/2026-03-26-local-first-staged-github-sync-v1.md`
   - 回填：`README.md`、`BACKLOG.md`、`验收清单.md`
+
+### 2026-03-26：新增 CLI 安全封装护栏（缓解 `--to` 路由歧义）
+
+- 背景：
+  - 当前环境下 `openclaw agent --to ...` 未显式 `--agent` 时仍可能落到 `main`
+  - 主线加速阶段需要降低联调误用风险，避免重复口头提醒
+- 决策：
+  - 新增脚本 `scripts/openclaw_agent_safe.sh` 作为 CLI 联调默认入口
+  - 规则：无 `--agent` 直接阻断；显式 `--agent` 正常透传到容器内 `openclaw agent`
+- 验证：
+  - 阻断验证：无 `--agent` 返回退出码 `2`
+  - 透传验证：`--agent steward --help` 正常输出 CLI help
+  - 证据：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
+- 影响：
+  - R-03（CLI/UI 口径差异）状态从 `Open` 调整为 `Mitigated`
+  - 已知限制仍保留（底层默认路由行为未直接修复），但联调误判风险已显著降低

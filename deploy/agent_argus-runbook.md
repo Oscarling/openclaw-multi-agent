@@ -101,8 +101,14 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
 为避免联调歧义，统一口径如下：
 
 1. CLI 验收/联调命令必须显式带 `--agent steward`（或目标角色）
-2. UI 验收以 `control-ui-config.json` 的 `assistantAgentId` 为准
-3. `--to` 且不带 `--agent` 的结果仅作为“遗留路由行为”观察，不作为入口验收依据
+2. 推荐使用安全封装脚本：`bash ./scripts/openclaw_agent_safe.sh --agent <id> ...`
+3. UI 验收以 `control-ui-config.json` 的 `assistantAgentId` 为准
+4. `--to` 且不带 `--agent` 的结果仅作为“遗留路由行为”观察，不作为入口验收依据
+
+安全封装脚本说明：
+
+- 文件：`scripts/openclaw_agent_safe.sh`
+- 行为：未显式 `--agent` 时阻断（退出码 `2`），显式 `--agent` 时透传到 `docker exec agent_argus openclaw agent`
 
 ## 创建前两个 Agent
 

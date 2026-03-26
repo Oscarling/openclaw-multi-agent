@@ -53,6 +53,7 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
 ## 联调约定
 
 - CLI 联调必须显式带 `--agent <id>`，不要用“只带 `--to`”的方式判断默认入口
+- 推荐使用安全封装：`bash ./scripts/openclaw_agent_safe.sh --agent <id> ...`
 - UI 验收以 `control-ui-config.json` 的 `assistantAgentId` 为准
 - 当前已启用 `telegram` channel 插件并完成显式绑定（`steward -> telegram:default`）
 - Gate-2 探针当前状态：`ready_for_binding_test`
