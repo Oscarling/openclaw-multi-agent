@@ -482,7 +482,8 @@
   使用口径：先完成受控账号登录 DoD，再进入 M2-E4
 
 - [x] 新增 Stage-A 预检脚本与白名单模板并完成首轮预检
-  当前状态：`deploy/gate4_stage_a_preflight.sh` 与白名单模板已落地，首轮结果 `waiting_allowlist`
+  当前状态：`deploy/gate4_stage_a_preflight.sh` 与白名单模板已落地，首轮 `waiting_allowlist`，复跑已达 `ready_for_stage_a_execution`
   模板：`shared/templates/gate4_account_allowlist_template.json`
   预检记录：`design/validation/2026-03-26-gate4-stagea-preflight-validation.md`
-  下一动作：创建 `runtime/argus/config/gate4/account_allowlist.json` 后复跑预检
+  复跑记录：`design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md`
+  下一动作：按 DoD 模板启动阶段 A 验证留痕

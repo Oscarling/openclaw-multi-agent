@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E3（阶段 A）  
-状态：准备中（未进入运行态改造）
+状态：预检就绪（可进入阶段 A 验证）
 
 ## 1) 目标
 
@@ -62,6 +62,8 @@
 动作：复制白名单模板并复跑阶段 A 预检  
 命令：`bash ./deploy/gate4_stage_a_preflight.sh`  
 产物：`design/validation/<date>-gate4-stage-a-dod-validation.md`（待创建）
+
+当前进展：`design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md` 已达到 `ready_for_stage_a_execution`。
 
 2. 事件：阶段 A DoD 通过  
 动作：进入 M2-E4 准备态（自动发布链路）  

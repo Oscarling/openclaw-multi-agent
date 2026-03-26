@@ -1520,3 +1520,20 @@
 - 下一步：
   - 创建 `runtime/argus/config/gate4/account_allowlist.json`（基于模板）
   - 复跑 Stage-A 预检，目标状态 `ready_for_stage_a_execution`
+
+### 2026-03-26：Stage-A 预检复跑通过（ready_for_stage_a_execution）
+
+- 背景：
+  - 首轮预检阻断为 `waiting_allowlist`
+- 执行动作：
+  - 基于模板创建 `runtime/argus/config/gate4/account_allowlist.json`
+  - 复跑 `bash ./deploy/gate4_stage_a_preflight.sh`
+- 结果：
+  - `allowlist_present=yes`
+  - `allowlist_valid=yes`
+  - `preflight_result=ready_for_stage_a_execution`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stagea-preflight-20260326-170538/`
+- 决策：
+  - 阶段 A 前置阻断关闭，进入 DoD 验证执行阶段
