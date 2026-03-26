@@ -441,3 +441,12 @@
   执行文档：`design/2026-03-26-local-first-staged-github-sync-v1.md`
   规则：本地先连续推进，满足触发条件后再统一 `push + PR`，不改变现有门禁（PR + squash + 分支保护）
   触发条件：主线事件收口 / 风险项收口 / 可回滚检查点形成
+
+- [x] 将“本地阶段上传 + 恢复对比策略”写入项目契约
+  当前状态：`PROJECT_CONTRACT.md` 已落地并在 README 建立入口
+  执行脚本：`scripts/backlog_lint.py`、`scripts/backlog_sync.py`、`scripts/premerge_check.sh`
+  契约范围：Local-First 阶段上传口径 + `provider/model/profile` 受控对比恢复策略
+
+- [x] 梳理下一里程碑 M2 的事件触发执行计划
+  当前状态：M2 计划文档已落地（不按时间、按事件触发）
+  计划文档：`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`

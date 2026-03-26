@@ -1404,3 +1404,21 @@
 - 影响：
   - R-03（CLI/UI 口径差异）状态从 `Open` 调整为 `Mitigated`
   - 已知限制仍保留（底层默认路由行为未直接修复），但联调误判风险已显著降低
+
+### 2026-03-26：将“本地阶段上传 + 恢复策略”写入项目契约
+
+- 背景：
+  - 用户提出将“本地阶段完成、阶段性上传”固化到项目契约，并补充恢复策略口径
+  - 原建议中的“每 2-3 小时 push”与当前主线“事件触发”原则不完全一致
+- 决策：
+  - 采用事件触发版上传规则，不采用固定小时窗口
+  - 新增项目契约文件：`PROJECT_CONTRACT.md`
+  - 在契约中显式加入 `provider/model/profile` 受控对比恢复策略
+- 配套动作：
+  - 新增本地阶段校验脚本：
+    - `scripts/backlog_lint.py`
+    - `scripts/backlog_sync.py`
+    - `scripts/premerge_check.sh`
+  - 回填：`README.md`、`BACKLOG.md`、`验收清单.md`
+- 下一步：
+  - 按 M2 事件触发计划推进（`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`）

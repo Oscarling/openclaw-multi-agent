@@ -17,6 +17,7 @@
 - `shared/`：共享模板与交接契约
 - `design/`：讨论纪要、工程收口文档、验证证据、治理文档（风险台账/管理评估）
 - `runtime/`：本地运行态（默认不入库）
+- `PROJECT_CONTRACT.md`：项目协作契约（Local-First 阶段上传 + 恢复策略）
 - `BACKLOG.md` / `DECISIONS.md` / `验收清单.md`：项目推进主线
 
 ## 快速开始
