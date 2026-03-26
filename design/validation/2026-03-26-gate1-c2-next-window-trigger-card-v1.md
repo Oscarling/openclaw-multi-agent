@@ -55,5 +55,6 @@ OPENCLAW_BACKUP_PASSPHRASE_FILE="$HOME/.openclaw/secrets/backup_passphrase.txt" 
 
 ## 7) GitHub 跟踪项
 
+- 里程碑：`Gate-1 C2 closeout (2026-04 window)`
 - C2 窗口执行：`https://github.com/Oscarling/openclaw-multi-agent/issues/4`
 - C2 关闭复核触发：`https://github.com/Oscarling/openclaw-multi-agent/issues/3`
