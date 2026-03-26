@@ -225,7 +225,7 @@
 
 - [x] Gate-3 v2 受控试运行（阶段完成，默认入口不变）
   触发条件：待验证池样例全部通过（当前已满足）
-  当前状态：已完成阶段性收口，结论“维持受控范围”（不放量）
+  当前状态：已完成阶段性收口，且 R1/R2/R3 复检连续通过，结论“维持受控范围”（不放量）
   执行口径：`design/2026-03-26-gate3-v2-routing-and-killswitch-v1.md`
   启动单：`design/2026-03-26-gate3-v2-controlled-trial-plan-v1.md`
   启动记录：`design/validation/2026-03-26-gate3-v2-controlled-trial-kickoff.md`
@@ -234,16 +234,17 @@
   结束报告：`design/validation/2026-03-26-gate3-v2-controlled-trial-closeout.md`
   下一轮触发卡：`design/validation/gate3-v2-next-check-trigger-card-v1.md`
   放量准入：`design/2026-03-26-gate3-v2-scale-up-criteria-v1.md`
-  复检记录：`design/validation/2026-03-26-gate3-v2-recheck-r1.md`、`design/validation/2026-03-26-gate3-v2-recheck-r2.md`
+  复检记录：`design/validation/2026-03-26-gate3-v2-recheck-r1.md`、`design/validation/2026-03-26-gate3-v2-recheck-r2.md`、`design/validation/2026-03-26-gate3-v2-recheck-r3.md`
   运行记录：`design/validation/2026-03-26-gate3-regression-run-record.md`
   验收标准：受控窗口内关键项无失败，且未触发回滚阈值
 
 - [x] 启动 Gate-3 v2 扩大试运行 Day0（仍不改默认入口）
   触发条件：放量准入判定通过（当前已满足）
-  当前状态：Day0 首批扩大样本已执行，9/9 通过，继续受控观察
+  当前状态：Day0 首批扩大样本已执行，9/9 通过；C2 收口后事件复检（R3）继续通过，保持受控观察
   准入判定：`design/validation/2026-03-26-gate3-v2-scale-up-readiness.md`
   准入标准：`design/2026-03-26-gate3-v2-scale-up-criteria-v1.md`
   执行记录：`design/validation/2026-03-26-gate3-v2-scaleup-day0.md`
+  后续复检：`design/validation/2026-03-26-gate3-v2-recheck-r3.md`
   runId 索引：`design/validation/artifacts/gate3-min-cases-20260326-1105/runid-index.md`
   验收标准：扩大样本后关键项仍 100% 通过，且无回滚触发
 
