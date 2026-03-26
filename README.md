@@ -124,9 +124,10 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
 - 已关闭：`merge commit`、`rebase merge`
 - 自动清理：PR 合并后自动删除分支
 - `main` 分支保护（已启用）：
-  - 至少 1 个 PR review
+  - 单人维护模式：`required_approving_review_count=0`
   - 会话必须 resolved
   - 线性历史（`required_linear_history=true`）
   - 禁止 force-push / 删除分支
   - 管理员同样受保护（`enforce_admins=true`）
+- 后续建议：当有第二位协作者加入时，把 `required_approving_review_count` 调回 `1`
 - 公开仓库提醒：公开期间代码可能被检索与 fork；如后续改回私有，公开期传播内容不保证可逆收回
