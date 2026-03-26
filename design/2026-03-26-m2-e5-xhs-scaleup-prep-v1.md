@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E5（阶段 C 准备）  
-状态：真实 C1 单批次已通过（待审计收口）
+状态：真实 C1 单批次已通过；C2 专项评审结论 `No-Go`（阻断项待关闭）
 
 ## 1) 目标
 
@@ -66,3 +66,7 @@
 5. 事件：真实 C1 审计收口  
 动作：将 `stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用并复核  
 产物：审计收口记录（待创建）
+
+6. 事件：C2 专项评审结论落盘（已满足）  
+动作：按 `No-Go` 结论先关闭阻断项（C1 连续两批成功 + 审计收口），不直接执行 C2  
+产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`

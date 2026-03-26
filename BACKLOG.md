@@ -559,3 +559,35 @@
   通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
   DoD 记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
   下一动作：补齐真实证据引用并发起 C2 评审准备（不直接执行 C2）
+
+- [x] 完成 C2 受控放量专项评审准备包
+  当前状态：C2 输入包、执行卡与议程均已落地，并用于专项评审
+  输入包：`design/2026-03-26-gate4-stage-c-c2-review-prep-v1.md`
+  执行卡：`design/2026-03-26-gate4-stage-c-c2-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-agenda-v1.md`
+  下一动作：执行 C2 两段式评审并形成放行结论
+
+- [x] 完成 C2 预评审（office-hours）
+  当前状态：结论 `Conditional-Go`（仅允许进入正式评审，不允许直接执行 C2）
+  纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`
+  下一动作：进入 C2 `plan-eng-review` 正式评审
+
+- [x] 完成 C2 正式评审（plan-eng-review）并形成 `No-Go`
+  当前状态：因“C1 连续两批成功未满足 + 审计 `evidence_ref` 未收口”，当前不放行 C2 执行
+  纪要：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
+  下一动作：先关闭阻断项，再触发 C2 复评
+
+- [ ] 关闭 C2 阻断项 A：补齐真实 C1 第 2 批并达到阈值
+  触发条件：第 2 批真实 C1 执行回执可用
+  完成标准：形成“连续 2 批成功”证据（每批 `success_rate >= 0.95` 且未触发停机）
+  产物：第 2 批真实 C1 通过记录（待创建）
+
+- [ ] 关闭 C2 阻断项 B：完成 `evidence_ref` 审计收口
+  触发条件：可提供真实证据引用（消息链接或证据 ID）
+  完成标准：`stage_c_real_c1_receipt.json` 中 `evidence_ref` 非占位值，并完成复核留痕
+  产物：审计收口记录（待创建）
+
+- [ ] 触发 C2 复评并决定是否放行 C2 单批次
+  触发条件：阻断项 A/B 均已关闭
+  完成标准：形成 C2 复评结论（`No-Go/Conditional-Go/Go`）并回填三本账
+  产物：C2 复评纪要（待创建）

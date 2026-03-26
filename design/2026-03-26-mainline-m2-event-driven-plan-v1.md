@@ -78,7 +78,12 @@
   - 真实 C1 执行准备验证：`design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md`
   - 真实 C1 通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
   - 真实 C1 DoD：`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
-  - 当前状态：真实 C1 单批次通过，待审计收口后进入 C2 评审准备
+  - C2 评审输入包：`design/2026-03-26-gate4-stage-c-c2-review-prep-v1.md`
+  - C2 专项执行卡：`design/2026-03-26-gate4-stage-c-c2-event-execution-card-v1.md`
+  - C2 专项议程：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-agenda-v1.md`
+  - C2 专项预评审纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`
+  - C2 专项正式评审纪要：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
+  - 当前状态：C2 正式评审结论 `No-Go`，先关闭阻断项（真实 C1 第二批成功 + 审计收口）后再触发 C2 复评
 - 完成标准：
   - 先小流量受控运行，再按事件放量
   - 成功/失败回执可追溯，留痕完整

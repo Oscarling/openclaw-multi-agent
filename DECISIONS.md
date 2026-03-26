@@ -1777,3 +1777,49 @@
   - 允许进入 C2 评审准备，不允许直接执行 C2/C3
 - 注意事项：
   - 当前回执中的 `evidence_ref` 仍为占位值，需补齐真实引用后完成审计收口
+
+### 2026-03-26：完成 C2 受控放量专项评审准备包
+
+- 背景：
+  - 真实 C1 单批次已通过，阶段结论为 `Conditional-Go`
+  - 下一步是否进入 C2 需要专项评审，不允许直接执行
+- 决策：
+  - 新增 C2 评审输入包：`design/2026-03-26-gate4-stage-c-c2-review-prep-v1.md`
+  - 新增 C2 事件执行卡：`design/2026-03-26-gate4-stage-c-c2-event-execution-card-v1.md`
+  - 新增 C2 评审议程：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-agenda-v1.md`
+- 约束：
+  - 维持“未评审不执行 C2”硬约束
+  - 维持白名单、ticket、完整回执、停机回滚四项边界
+- 下一步：
+  - 执行 C2 `office-hours -> plan-eng-review` 两段式评审
+
+### 2026-03-26：完成 C2 预评审（office-hours）
+
+- 背景：
+  - C2 评审输入包已就绪，需先完成预评审收敛范围
+- 决策：
+  - 预评审结论为 `Conditional-Go`
+  - 允许进入 C2 正式 `plan-eng-review` 评审，不允许直接执行 C2
+- 当前阻断观察：
+  - 仅 1 批真实 C1 成功，未满足“连续 2 批成功”触发条件
+  - `evidence_ref` 仍为占位值，审计收口未完成
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`
+- 下一步：
+  - 进入 C2 `plan-eng-review` 正式评审并给出执行/阻断结论
+
+### 2026-03-26：完成 C2 正式评审（plan-eng-review），结论 No-Go
+
+- 背景：
+  - C2 预评审已完成，正式评审需决定是否放行 C2 单批次
+- 决策：
+  - 正式评审结论为 `No-Go`
+  - 当前不放行 `phase_id=C2` 的真实放量动作
+- 阻断项：
+  - 阻断项 A：未满足“C1 连续 2 批成功”触发条件
+  - 阻断项 B：`stage_c_real_c1_receipt.json` 的 `evidence_ref` 为占位值
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
+- 下一步（事件触发）：
+  - 先关闭阻断项 A/B（第二批真实 C1 成功 + 审计收口）
+  - 阻断项关闭后再触发 C2 复评，不跨级执行
