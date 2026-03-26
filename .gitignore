@@ -1,0 +1,6 @@
+runtime/
+.env
+.env.local
+artifacts/
+design/validation/artifacts/
+.DS_Store

@@ -1,0 +1,7 @@
+services:
+  agent_argus:
+    environment:
+      OPENCLAW_CONFIG_PATH: /root/.openclaw/config/openclaw.json
+    volumes:
+      - "${OPENCLAW_PROJECT_ROOT}/runtime/argus/config:/root/.openclaw/config"
+      - "${OPENCLAW_PROJECT_ROOT}/runtime/argus/agents:/root/.openclaw/agents"
