@@ -470,3 +470,8 @@
   议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
   DoD 模板：`design/validation/gate4-dod-checklist-template-v1.md`
   使用口径：按事件触发推进，不进入时间节点排程
+
+- [x] 完成 Gate-4 正式评审（plan-eng-review）并放行到 M2-E3 准备态
+  当前状态：结论 `Conditional-Go`，允许进入阶段 A（多账号登录）受控实现准备
+  评审纪要：`design/2026-03-26-gate-4-automation-plan-eng-review-minutes-v1.md`
+  放行边界：不跳阶段、不放行无回执动作、不放行无人工闸门高危操作

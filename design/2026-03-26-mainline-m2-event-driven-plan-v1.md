@@ -28,7 +28,8 @@
   - `office-hours` 预评审纪要已落地：`design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
   - 事件执行卡已落地：`design/2026-03-26-gate4-event-execution-card-v1.md`
   - `plan-eng-review` 议程已落地：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
-  - 当前状态：`Conditional-Go`（待执行正式工程评审）
+  - `plan-eng-review` 正式评审纪要已落地：`design/2026-03-26-gate-4-automation-plan-eng-review-minutes-v1.md`
+  - 当前状态：`Conditional-Go`（允许进入 M2-E3 受控实现准备）
 - 执行动作：
   - 先走 `gstack office-hours`
   - 再走 `gstack plan-eng-review`

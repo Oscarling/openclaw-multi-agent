@@ -33,9 +33,12 @@
 
 - [x] G4-T1 已完成（2026-03-26）
   - `design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
-- [ ] G4-T2 待完成
-- [ ] G4-T3 待完成
-- [ ] G4-T4 待完成
+- [x] G4-T2 已完成（2026-03-26）
+  - `design/2026-03-26-gate4-automation-scope-prep-v1.md`（账号白名单 + 二次确认边界）
+- [x] G4-T3 已完成（2026-03-26）
+  - `design/2026-03-26-gate4-automation-scope-prep-v1.md`（请求/回执/异常字段）
+- [x] G4-T4 已完成（2026-03-26）
+  - `design/2026-03-26-gate4-automation-scope-prep-v1.md`、`PROJECT_CONTRACT.md`、`README.md`
 - [x] G4-T5 已完成（2026-03-26）
   - `design/validation/gate4-dod-checklist-template-v1.md`
 - [x] G4-T6 已完成（2026-03-26）
