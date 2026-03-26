@@ -20,6 +20,12 @@ bash ./deploy/monthly_recovery_preflight.sh
 
 3. 预检结论需为可执行（历史口径：`ready_for_monthly_window`）
 
+可选（推荐）执行守卫脚本（自动检查窗口，窗口外拒绝执行）：
+
+```bash
+bash ./deploy/c2_window_guard.sh
+```
+
 ## 3) 窗口内执行动作
 
 执行月度一键回归：
