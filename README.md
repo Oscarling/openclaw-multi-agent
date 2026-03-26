@@ -131,3 +131,13 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
   - 管理员同样受保护（`enforce_admins=true`）
 - 后续建议：当有第二位协作者加入时，把 `required_approving_review_count` 调回 `1`
 - 公开仓库提醒：公开期间代码可能被检索与 fork；如后续改回私有，公开期传播内容不保证可逆收回
+
+## 提速模式（本地优先，分段上云）
+
+- 主线推进默认先在本地连续收口，不要求每个小步骤都立刻 push
+- 上云触发采用事件制，不按时间点：
+  - 一个主线事件收口（例如一次 R 批处理完成）
+  - 一个风险项收口（例如安全/路由修复完成）
+  - 一个可回滚检查点形成（代码+证据+台账已对齐）
+- 触发后再统一执行 `push + PR`，继续保持 `PR + squash + 分支保护` 门禁
+- 执行细则见：`design/2026-03-26-local-first-staged-github-sync-v1.md`

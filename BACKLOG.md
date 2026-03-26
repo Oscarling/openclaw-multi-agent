@@ -429,4 +429,10 @@
   当前状态：模板已落地，首轮周度治理记录（kickoff）已完成
   模板：`shared/templates/weekly_governance_review_template.md`
   首轮记录：`design/validation/2026-03-25-weekly-governance-review-kickoff.md`
-  后续节奏：每周 1 次（建议周末或周初固定窗口）
+  后续节奏：按事件触发（默认每完成一批关键事件后执行一次）
+
+- [x] 启用“本地阶段收口 -> 分段上 GitHub”提速口径
+  当前状态：已定稿并纳入主线执行规则
+  执行文档：`design/2026-03-26-local-first-staged-github-sync-v1.md`
+  规则：本地先连续推进，满足触发条件后再统一 `push + PR`，不改变现有门禁（PR + squash + 分支保护）
+  触发条件：主线事件收口 / 风险项收口 / 可回滚检查点形成
