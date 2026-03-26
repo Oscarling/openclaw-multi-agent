@@ -1039,3 +1039,34 @@
 - 结果：
   - Day2 关键样例稳定通过，未触发回滚阈值
   - Gate-3 主线保持“事件触发推进”口径
+
+### 2026-03-26：执行 Gate-3 事件复检 R9（day3_observation_logged）
+
+- 触发事件：
+  - `day3_observation_logged`
+- 执行动作：
+  - 运行 `GATE3_TRIGGER_EVENT="day3_observation_logged" GATE3_RECHECK_ID="R9" bash ./deploy/gate3_event_recheck.sh`
+  - 建立跟踪 Issue：`#23` `Gate-3 v2｜Day3观察回填 + 事件复检 R9`
+- 结果：
+  - R9 五条关键样例全部通过（`C11/C05/C13/X4/H5`）
+  - Telegram 仍 `probe_ok=true`，默认入口仍为 `steward`
+  - 自动写入复检索引，形成 R1-R9 连续记录
+- 决策：
+  - 继续维持受控观察，不改变默认入口与默认命中策略
+  - 后续沿用“事件触发 + 脚本执行 + 自动索引”链路
+- 证据：
+  - `design/validation/2026-03-26-gate3-v2-recheck-r9.md`
+  - `design/validation/gate3-v2-recheck-index.md`
+  - `design/validation/artifacts/gate3-v2-recheck-r9-20260326-135940/`
+
+### 2026-03-26：回填 Gate-3 v2 扩大试运行 Day3 观察记录
+
+- 决策：
+  - Day3 阶段按“边界抽检 + 事件复检”执行，保持低风险推进
+  - Day3 结论继续维持“受控观察”，不切换默认入口
+- 执行动作：
+  - 新增 Day3 记录：`design/validation/2026-03-26-gate3-v2-scaleup-day3.md`
+  - 回填 `BACKLOG.md`、`验收清单.md`
+- 结果：
+  - Day3 关键样例稳定通过，未触发回滚阈值
+  - Gate-3 主线保持“事件触发推进”口径
