@@ -1841,3 +1841,104 @@
 - 下一步：
   - 将 `stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用并复跑
   - 关闭 C2 阻断项 B 后继续推进第二批真实 C1 与 C2 复评
+
+### 2026-03-26：真实 C1 审计收口完成（阻断项 B 关闭）
+
+- 背景：
+  - `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes` 已上线，证据占位值将被阻断
+  - C2 `No-Go` 阻断项 B 要求替换真实 `evidence_ref`
+- 执行动作：
+  - 将 `runtime/argus/config/gate4/stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用
+  - 以真实审计模式复跑 Stage-C 执行脚本
+- 结果：
+  - `stagec_receipt_evidence_ref_placeholder=no`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
+- 决策：
+  - C2 阻断项 B 关闭，可进入“连续两批成功”阻断项 A 收口
+
+### 2026-03-26：完成真实 C1 第二批执行并通过（阻断项 A 关闭）
+
+- 背景：
+  - C2 `No-Go` 阻断项 A 要求“C1 连续 2 批成功”
+- 执行动作：
+  - 新建 Batch-002 回执：`runtime/argus/config/gate4/stage_c_real_c1_receipt_batch2.json`
+  - 执行 `phase_id=C1` 第二批受控验证并开启真实证据门禁
+- 结果：
+  - `stagec_receipt_batch_id=XHS-REAL-C1-BATCH-002`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c1-batch2-pass-validation.md`
+  - `design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
+- 决策：
+  - C2 原阻断项 A/B 均关闭，触发 C2 复评
+
+### 2026-03-26：C2 复评结论为 Conditional-Go（发现新增一致性阻断项 C）
+
+- 背景：
+  - 原阻断项 A/B 已关闭后，触发 C2 两段式复评
+- 复评结论：
+  - `office-hours`：`Conditional-Go`（允许 C2 单批次候选）
+  - `plan-eng-review`：`Conditional-Go`（放行前需关闭阻断项 C）
+- 新增阻断项 C：
+  - Batch-002 回执 `ticket_id` 与执行票据存在不一致
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`
+- 决策：
+  - 先关闭阻断项 C，再做最终放行判定
+
+### 2026-03-26：关闭 C2 复评新增阻断项 C（票据一致性）
+
+- 背景：
+  - C2 复评指出 Batch-002 回执票据与执行票据不一致
+- 执行动作：
+  - 修正 `runtime/argus/config/gate4/stage_c_real_c1_receipt_batch2.json` 的 `ticket_id=GATE4-C-REAL-002`
+  - 复跑 Stage-C Batch-002 并验证一致性
+- 结果：
+  - `ticket_id=GATE4-C-REAL-002`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-c2-rereview-blocker-c-close-validation.md`
+- 决策：
+  - 阻断项 C 关闭，触发 C2 最终放行复评
+
+### 2026-03-26：C2 最终复评结论 Go（仅放行单批次）
+
+- 背景：
+  - C2 原阻断项 A/B 与复评新增阻断项 C 均已关闭
+- 最终结论：
+  - `office-hours` 最终预评审：`Go`
+  - `plan-eng-review` 最终工程放行：`Go`
+- 放行边界：
+  - 仅放行 C2 单批次（`G4-C2-T2 -> T3 -> T4 -> T5`）
+  - 不放行 C2 连续批次与 C3
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`
+- 下一步：
+  - 执行 C2 单批次受控放量闭环并回填 DoD/三本账
+
+### 2026-03-26：完成 C2 单批次受控放量闭环（stage_c_passed）
+
+- 背景：
+  - C2 最终复评已 `Go`（仅单批次）
+  - 执行前提为 `G4-C2-T2 -> T3 -> T4 -> T5` 全链路闭环
+- 执行动作：
+  - 生成 C2 第 1 批真实回执：`runtime/argus/config/gate4/stage_c_real_c2_receipt_batch1.json`
+  - 执行 `phase_id=C2` 单批次验证并开启真实证据门禁
+- 结果：
+  - `phase_id=C2`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stagec_receipt_halt_triggered=no`
+  - `stagec_receipt_evidence_ref_placeholder=no`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`
+  - `design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
+- 决策：
+  - C2 单批次闭环完成，进入“是否放行 C2 连续批次”的独立复评阶段

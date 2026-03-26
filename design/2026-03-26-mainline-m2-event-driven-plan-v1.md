@@ -77,13 +77,20 @@
   - 专项正式评审纪要：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-minutes-v1.md`
   - 真实 C1 执行准备验证：`design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md`
   - 真实 C1 通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
+  - 真实 C1 审计收口记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
+  - 真实 C1 第二批通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-batch2-pass-validation.md`
+  - C2 阻断项关闭记录：`design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
   - 真实 C1 DoD：`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
   - C2 评审输入包：`design/2026-03-26-gate4-stage-c-c2-review-prep-v1.md`
   - C2 专项执行卡：`design/2026-03-26-gate4-stage-c-c2-event-execution-card-v1.md`
   - C2 专项议程：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-agenda-v1.md`
   - C2 专项预评审纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`
   - C2 专项正式评审纪要：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
-  - 当前状态：C2 正式评审结论 `No-Go`，先关闭阻断项（真实 C1 第二批成功 + 审计收口）后再触发 C2 复评
+  - C2 复评纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`
+  - C2 最终放行纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`
+  - C2 单批次执行记录：`design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`
+  - C2 DoD：`design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
+  - 当前状态：C2 单批次闭环已完成，进入“C2 连续批次是否放行”复评触发态
 - 完成标准：
   - 先小流量受控运行，再按事件放量
   - 成功/失败回执可追溯，留痕完整

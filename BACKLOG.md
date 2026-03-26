@@ -577,22 +577,32 @@
   纪要：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
   下一动作：先关闭阻断项，再触发 C2 复评
 
-- [ ] 关闭 C2 阻断项 A：补齐真实 C1 第 2 批并达到阈值
-  触发条件：第 2 批真实 C1 执行回执可用
-  完成标准：形成“连续 2 批成功”证据（每批 `success_rate >= 0.95` 且未触发停机）
-  产物：第 2 批真实 C1 通过记录（待创建）
+- [x] 关闭 C2 阻断项 A：补齐真实 C1 第 2 批并达到阈值
+  当前状态：第 2 批真实 C1 已完成并通过，形成连续两批成功证据
+  通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-batch2-pass-validation.md`
+  关闭记录：`design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
 
-- [ ] 关闭 C2 阻断项 B：完成 `evidence_ref` 审计收口
-  触发条件：可提供真实证据引用（消息链接或证据 ID）
-  完成标准：`stage_c_real_c1_receipt.json` 中 `evidence_ref` 非占位值，并完成复核留痕
-  产物：审计收口记录（待创建）
+- [x] 关闭 C2 阻断项 B：完成 `evidence_ref` 审计收口
+  当前状态：`stage_c_real_c1_receipt.json` 已替换为真实 `evidence_ref`，真实审计模式复跑通过
+  收口记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
+  关闭记录：`design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
 
 - [x] 增加 Stage-C 真实审计证据硬门禁（防占位值误通过）
   当前状态：`deploy/gate4_stage_c_execute.sh` 已支持 `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes`；占位 `evidence_ref` 会返回 `waiting_stage_c_receipt_fix`
   验证记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-evidence-gate-validation.md`
   下一动作：替换真实 `evidence_ref` 后复跑，关闭 C2 阻断项 B
 
-- [ ] 触发 C2 复评并决定是否放行 C2 单批次
-  触发条件：阻断项 A/B 均已关闭
-  完成标准：形成 C2 复评结论（`No-Go/Conditional-Go/Go`）并回填三本账
-  产物：C2 复评纪要（待创建）
+- [x] 触发 C2 复评并决定是否放行 C2 单批次
+  当前状态：已完成复评收口（rereview + final），C2 最终工程结论为 `Go`（仅放行 C2 单批次）
+  复评纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`
+  一致性关闭：`design/validation/2026-03-26-gate4-stage-c-c2-rereview-blocker-c-close-validation.md`
+
+- [x] 执行 C2 单批次受控放量闭环（`G4-C2-T2 -> T3 -> T4 -> T5`）
+  当前状态：C2 单批次执行通过，阈值判定未触发停机，DoD 已回填
+  执行记录：`design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
+
+- [ ] 发起“是否进入 C2 连续批次”的下一轮复评
+  触发条件：C2 单批次 DoD 已形成（当前已满足）
+  完成标准：形成 C2 连续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
+  产物：C2 连续批次复评纪要（待创建）

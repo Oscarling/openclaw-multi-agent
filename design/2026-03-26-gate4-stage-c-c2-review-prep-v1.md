@@ -1,7 +1,7 @@
 # Gate-4 Stage-C C2 受控放量专项评审输入包（v1）
 
 日期：2026-03-26  
-状态：专项评审已执行完成，当前进入阻断项关闭阶段  
+状态：专项评审与复评已完成，当前结论 `Go`（仅放行 C2 单批次）  
 目标：判断是否满足进入 C2 受控放量的前提条件。
 
 ## 1) 触发背景
@@ -36,10 +36,14 @@
 - `Conditional-Go`：仅允许 C2 单批次验证，保留强人工闸门。
 - `Go`：允许按事件推进到 C2 连续批次（仍不进入 C3）。
 
-## 5) 当前已知阻断项（待评审确认）
+## 5) 阻断项收口结果（复评后）
 
-1. C2 触发条件“C1 连续 2 批成功”尚未满足（当前仅 1 批真实 C1 通过）。
-2. C1 回执 `evidence_ref` 当前为占位式文本，审计收口未完成。
+1. 原阻断项 A（C1 连续 2 批成功）已关闭。  
+   证据：`design/validation/2026-03-26-gate4-stage-c-real-c1-batch2-pass-validation.md`
+2. 原阻断项 B（`evidence_ref` 审计收口）已关闭。  
+   证据：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
+3. 复评新增阻断项 C（Batch-002 `ticket_id` 一致性）已关闭。  
+   证据：`design/validation/2026-03-26-gate4-stage-c-c2-rereview-blocker-c-close-validation.md`
 
 ## 6) 事件触发执行路径
 
@@ -48,5 +52,5 @@
 产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`（已创建）
 
 2. 事件：专项评审形成结论  
-动作：按结论执行；当前为 `No-Go`，先关闭阻断项后再发起 C2 复评  
-产物：阻断项关闭记录与 C2 复评结论（待创建）
+动作：按结论执行；已完成 `No-Go -> Conditional-Go -> Go` 复评链路  
+产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`

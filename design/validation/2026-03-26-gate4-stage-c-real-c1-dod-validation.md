@@ -30,7 +30,7 @@
 | 功能主链路可执行 | 通过 | `design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md` | 真实 C1 返回 `stage_c_passed` |
 | 异常路径可复现 | 通过 | `design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md` | 无回执时正确进入等待态 |
 | 人工闸门可执行 | 通过 | `design/validation/artifacts/openclaw-gate4-stagec-realc1-exec-20260326-190935/artifacts/stage-c-summary.txt` | `needs_ticket=yes` 且 `ticket_id` 已提供 |
-| 回执/日志可追溯 | 通过（待补真实证据引用） | `runtime/argus/config/gate4/stage_c_real_c1_receipt.json` | `evidence_ref` 当前为占位值，需替换 |
+| 回执/日志可追溯 | 通过 | `runtime/argus/config/gate4/stage_c_real_c1_receipt.json` | `evidence_ref` 已替换为真实引用并复核通过 |
 | 回滚动作可执行 | 通过（流程口径） | `design/2026-03-26-m2-e5-rollout-strategy-card-v1.md` | 已定义停机与回滚动作 |
 
 ## 4) 阶段 C（真实 C1）专项检查
@@ -46,5 +46,5 @@
 
 - 结论：`Conditional-Go`
 - 放行范围：真实 C1 单批次通过；可进入“是否启动 C2”专项评审准备
-- 阻断项：`stage_c_real_c1_receipt.json` 中 `evidence_ref` 为占位值，需替换为真实引用后完成审计收口
-- 下一事件动作：补齐真实证据引用并关闭 C2 阻断项，完成 C2 复评前不执行 C2
+- 阻断项：无（C1 审计收口已完成）
+- 下一事件动作：执行真实 C1 第 2 批并触发 C2 复评

@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E5（阶段 C 准备）  
-状态：真实 C1 单批次已通过；C2 专项评审结论 `No-Go`（阻断项待关闭）
+状态：C2 单批次已通过，待发起 C2 连续批次复评
 
 ## 1) 目标
 
@@ -65,8 +65,26 @@
 
 5. 事件：真实 C1 审计收口  
 动作：将 `stage_c_real_c1_receipt.json` 的 `evidence_ref` 替换为真实引用并复核  
-产物：审计收口记录（待创建）
+产物：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
 
 6. 事件：C2 专项评审结论落盘（已满足）  
 动作：按 `No-Go` 结论先关闭阻断项（C1 连续两批成功 + 审计收口），不直接执行 C2  
 产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
+
+当前进展：已完成真实 C1 第 2 批并通过，阻断项关闭记录见 `design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`。
+
+7. 事件：C2 阻断项 A/B 全部关闭（已满足）  
+动作：触发 C2 复评（`office-hours -> plan-eng-review`）并形成最新放行结论  
+产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`
+
+当前进展：复评发现新增一致性阻断项 C，已完成关闭并通过最终复评。
+
+8. 事件：阻断项 C 关闭并完成最终复评（已满足）  
+动作：按最终放行结论执行 C2 单批次闭环（`G4-C2-T2 -> T3 -> T4 -> T5`）  
+产物：`design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`、`design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`、`design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
+
+当前进展：C2 单批次执行结果 `stage_c_passed`，未触发停机阈值。
+
+9. 事件：C2 单批次 DoD 形成（已满足）  
+动作：发起“是否进入 C2 连续批次”的下一轮复评  
+产物：C2 连续批次复评纪要（待创建）

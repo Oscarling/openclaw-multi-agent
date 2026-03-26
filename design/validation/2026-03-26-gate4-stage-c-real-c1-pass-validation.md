@@ -34,5 +34,5 @@ bash ./deploy/gate4_stage_c_execute.sh
 
 ## 4) 备注与后续
 
-- 当前若 `stagec_receipt_evidence_ref` 是占位值，开启 `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes` 时会返回 `waiting_stage_c_receipt_fix`。
-- 在进入 C2 放量评审前，必须替换为真实证据引用并留痕复核。
+- 当前 `stagec_receipt_evidence_ref` 已替换为真实引用：`telegram:chatId=6189851600,messageId=5,batch=XHS-REAL-C1-BATCH-001`。
+- 审计收口复跑已通过，记录见：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`。
