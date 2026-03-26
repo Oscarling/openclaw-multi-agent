@@ -510,3 +510,14 @@
   模板：`shared/templates/gate4_release_receipt_template.json`
   验证记录：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
   下一动作：创建阶段 B DoD 记录并执行首轮 dry-run
+
+- [x] 新增 Stage-B 执行脚本并完成首轮 dry-run（`stage_b_passed`）
+  当前状态：`deploy/gate4_stage_b_execute.sh` 已落地，受控 dry-run 结果 `stage_b_passed`
+  dry-run 记录：`design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-b-dod-validation.md`
+  下一动作：由阶段 B `Conditional-Go` 触发进入 M2-E5 准备态
+
+- [x] 启动 M2-E5 平台受控放量准备包
+  当前状态：准备包已落地，进入阶段 C 准备中
+  准备文档：`design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
+  下一动作：补齐阶段 C 放量策略卡与预检脚手架

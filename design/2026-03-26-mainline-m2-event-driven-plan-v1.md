@@ -54,7 +54,9 @@
 - 当前进展：
   - 准备包已落地：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
   - 阶段 B 预检记录：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
-  - 当前状态：预检就绪（`ready_for_stage_b_execution`）
+  - 阶段 B dry-run：`design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md`
+  - 阶段 B DoD：`design/validation/2026-03-26-gate4-stage-b-dod-validation.md`
+  - 当前状态：首轮 dry-run 通过，结论 `Conditional-Go`
 - 完成标准：
   - “发布动作 + 发布回执”链路可复核
   - 异常回滚与人工接管流程可执行
@@ -62,6 +64,9 @@
 ### M2-E5：自动发小红书（受控放量）
 
 - 触发事件：M2-E4 完成并通过专项评审
+- 当前进展：
+  - 准备包已落地：`design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
+  - 当前状态：准备中（待落地阶段 C 放量策略卡与预检脚手架）
 - 完成标准：
   - 先小流量受控运行，再按事件放量
   - 成功/失败回执可追溯，留痕完整

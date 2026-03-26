@@ -2,7 +2,7 @@
 
 日期：2026-03-26  
 阶段：M2-E4（阶段 B 准备）  
-状态：预检就绪（可进入阶段 B 首轮 dry-run）
+状态：首轮 dry-run 已完成（`stage_b_passed`）
 
 ## 1) 目标
 
@@ -57,7 +57,11 @@
 产物：`shared/templates/gate4_release_receipt_template.json`、`deploy/gate4_stage_b_preflight.sh`
 
 2. 事件：阶段 B 预检就绪（已满足）  
-动作：进入阶段 B 首轮验证（仅受控 dry-run）  
-产物：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+动作：执行阶段 B 首轮验证（仅受控 dry-run）  
+产物：`design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md`
 
-下一步：创建阶段 B DoD 记录并执行首轮 dry-run 留痕。
+当前进展：`design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md` 已达到 `stage_b_passed`，DoD 结论为 `Conditional-Go`。
+
+3. 事件：阶段 B DoD 形成（已满足）  
+动作：触发进入 M2-E5 准备态（平台受控放量）  
+产物：`design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`

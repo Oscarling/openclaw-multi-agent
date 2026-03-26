@@ -1610,3 +1610,39 @@
   - `design/validation/artifacts/openclaw-gate4-stageb-preflight-20260326-174908/`
 - 下一步：
   - 创建阶段 B DoD 记录并执行首轮受控 dry-run
+
+### 2026-03-26：新增 Stage-B 执行脚本并完成首轮 dry-run（stage_b_passed）
+
+- 背景：
+  - 阶段 B 预检已达到 `ready_for_stage_b_execution`
+  - 需要将“发布回执”作为阶段 B 强制闸门，避免无回执放行
+- 决策：
+  - 新增执行脚本：`deploy/gate4_stage_b_execute.sh`
+  - 放行规则：仅当预检通过、账号在白名单、必要工单齐备、且 `release receipt publish_ok=true` 时，才允许 `stage_b_passed`
+- 执行动作：
+  - 提供本地 dry-run 回执：`runtime/argus/config/gate4/release_receipt.json`
+  - 执行 `gate4_stage_b_execute.sh` 并指定 `GATE4_RELEASE_RECEIPT_FILE`
+- 结果：
+  - `release_receipt_present=yes`
+  - `release_receipt_valid=yes`
+  - `release_receipt_publish_ok=yes`
+  - `stage_b_result=stage_b_passed`
+- 证据：
+  - `design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md`
+  - `design/validation/artifacts/openclaw-gate4-stageb-exec-20260326-175619/`
+  - `design/validation/2026-03-26-gate4-stage-b-dod-validation.md`
+- 决策：
+  - 阶段 B 首轮 dry-run 结论为 `Conditional-Go`
+  - 允许进入 M2-E5 准备态，继续保持人工闸门
+
+### 2026-03-26：由 Stage-B `Conditional-Go` 触发 M2-E5 准备态
+
+- 背景：
+  - 阶段 B DoD 已形成且结论为 `Conditional-Go`
+- 决策：
+  - 启动 M2-E5 平台受控放量准备包
+  - 先定义放量阈值与停机阈值，不直接进入放量执行
+- 产物：
+  - `design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
+- 下一步：
+  - 落地阶段 C 放量策略卡与预检脚手架
