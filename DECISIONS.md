@@ -1703,3 +1703,35 @@
 - 下一步：
   - 执行 gstack `office-hours` + `plan-eng-review`
   - 按评审结论决定是否进入真实 C1 单批次运行
+
+### 2026-03-26：完成 Stage-C 真实 C1 预评审（office-hours）
+
+- 背景：
+  - 阶段 C DoD 结论为 `Conditional-Go`，可进入真实流量前置评审
+- 决策：
+  - 预评审结论为 `Conditional-Go`
+  - 允许进入正式 `plan-eng-review`，但评审前不执行真实流量
+- 放行边界（预评审）：
+  - 仅允许 C1 单批次（`batch_size <= 5`）作为候选范围
+  - 必须保留 `operator + ticket_id` 人工闸门
+  - 必须保留完整回执字段与停机回滚口径
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-real-c1-office-hours-minutes-v1.md`
+- 下一步：
+  - 进入 Stage-C 真实 C1 `plan-eng-review` 正式评审
+
+### 2026-03-26：完成 Stage-C 真实 C1 正式评审（plan-eng-review）
+
+- 背景：
+  - 预评审已完成，专项输入包与执行卡已齐备
+- 决策：
+  - 正式评审结论为 `Conditional-Go`
+  - 放行真实 C1 单批次执行，不放行 C2/C3
+- 强制约束：
+  - 执行前复跑 `gate4_stage_c_preflight.sh` 且必须 `ready_for_stage_c_execution`
+  - 真实执行必须具备 `operator + ticket_id + 完整回执`
+  - 触发停机阈值后必须立即回切人工链路
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-minutes-v1.md`
+- 下一步：
+  - 按执行卡执行真实 C1 单批次并回填“继续/停机/回滚”结论

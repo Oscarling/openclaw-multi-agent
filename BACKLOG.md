@@ -542,3 +542,9 @@
   执行卡：`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`
   议程：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
   下一动作：执行 gstack `office-hours` + `plan-eng-review` 并形成放行结论
+
+- [x] 完成“真实小流量 C1 运行”专项评审（`office-hours -> plan-eng-review`）
+  当前状态：两段式评审已收口，结论 `Conditional-Go`，允许进入真实 C1 单批次执行
+  预评审纪要：`design/2026-03-26-gate4-stage-c-real-c1-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-minutes-v1.md`
+  下一动作：按执行卡执行真实 C1 单批次并回填阶段结论
