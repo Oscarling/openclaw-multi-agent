@@ -819,3 +819,16 @@
   - 一旦增加第二位协作者，将审批数调回 `1`
 - 证据：
   - `branches/main/protection/required_pull_request_reviews -> required_approving_review_count=0`
+
+### 2026-03-26：固化 Gate-1 C2 的“窗口触发 + 复核触发”执行卡
+
+- 决策：
+  - 将 C2（月度回归）从“口头待办”收敛为触发卡执行
+  - C2 新窗口记录落盘后，在同日或 24 小时内触发 gstack 关闭复核
+- 触发窗口（绝对日期）：
+  - 2026-04-22 至 2026-04-28（Asia/Shanghai）
+- 目的：
+  - 避免“等时间/追时间”导致的遗漏
+  - 让 C2 关闭条件与 gstack 介入时机可复用、可追溯
+- 产物：
+  - `design/validation/2026-03-26-gate1-c2-next-window-trigger-card-v1.md`
