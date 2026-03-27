@@ -2167,3 +2167,28 @@
 - 决策：
   - 下一事件：关闭三项硬阻断后，重新发起执行放行复评
   - 在复评升级为 `Go` 前，维持“入口可准备、执行不可做”状态
+
+### 2026-03-27：关闭下一阶段执行放行三项硬阻断并复评升级为 Go
+
+- 背景：
+  - 下一阶段执行放行结论为 `Conditional-Go`，阻断项为对象未绑定、模板未实参化、审计实例未闭合
+  - 需先完成阻断项关闭，再触发复评升级
+- 关闭动作：
+  - 绑定执行对象：`xhs_demo_001`（scope=`demo-sandbox`）
+  - 完成对象级策略实参化：`shared/templates/gate4_next_stage_execution_policy_template.json`
+  - 完成审计实例闭合：`operator/ticket_id/evidence_ref` 对象级实例链
+  - 生成阻断项关闭验证记录
+- 复评结果：
+  - `office-hours` 复评：`Go`
+  - `plan-eng-review` 复评：`Go`
+  - 执行边界：`可执行`（非自动执行）
+- 证据：
+  - `design/validation/2026-03-27-gate4-next-stage-execution-object-binding-record.md`
+  - `shared/templates/gate4_next_stage_execution_policy_template.json`
+  - `design/validation/2026-03-27-gate4-next-stage-execution-audit-instance-closure.md`
+  - `design/validation/2026-03-27-gate4-next-stage-execution-blockers-close-validation.md`
+  - `design/2026-03-27-gate4-next-stage-execution-rereview-office-hours-minutes-v1.md`
+  - `design/2026-03-27-gate4-next-stage-execution-rereview-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 下一事件切换为“下一阶段首批受控执行前置校验”
+  - 在前置校验完成前，不自动触发实际执行

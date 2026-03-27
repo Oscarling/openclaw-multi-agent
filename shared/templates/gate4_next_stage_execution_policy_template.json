@@ -1,0 +1,30 @@
+{
+  "phase_id": "NEXT",
+  "description": "Next-stage execution policy instantiated from Stage-C governance baseline.",
+  "execution_boundary": "reviewed-allowed-not-auto-execute",
+  "target_account_id": "xhs_demo_001",
+  "target_platform": "xiaohongshu",
+  "thresholds": {
+    "success_rate_target": 0.97,
+    "success_rate_hard_fail": 0.92,
+    "halt_failure_count": 3
+  },
+  "controls": {
+    "require_manual_gate": true,
+    "require_ticket": true,
+    "require_real_evidence_ref": true,
+    "allowlist_only": true
+  },
+  "rollback": {
+    "on_halt_triggered": "switch_to_manual_pipeline",
+    "on_threshold_breach": "switch_to_manual_pipeline",
+    "record_fields": [
+      "batch_id",
+      "release_id",
+      "account_id",
+      "operator",
+      "ticket_id",
+      "evidence_ref"
+    ]
+  }
+}

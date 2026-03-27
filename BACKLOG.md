@@ -680,8 +680,17 @@
   正式评审纪要：`design/2026-03-27-gate4-next-stage-execution-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Conditional-Go`，执行边界为“待绑定（非可执行）”
 
-- [ ] 关闭“下一阶段执行放行”硬阻断项并触发复评
-  触发条件：执行放行评审结论为 `Conditional-Go`（当前已满足）
-  完成标准：关闭对象绑定/模板实参化/审计实例三项阻断后，重新发起执行放行评审
-  阻断项：执行对象未绑定、模板未实参化、审计实例未闭合
-  产物：阻断项关闭记录与执行放行复评纪要（待创建）
+- [x] 关闭“下一阶段执行放行”硬阻断项并完成复评升级
+  触发条件：执行放行评审结论为 `Conditional-Go`（已满足）
+  完成标准：关闭对象绑定/模板实参化/审计实例三项阻断后，复评结论升级
+  对象绑定：`design/validation/2026-03-27-gate4-next-stage-execution-object-binding-record.md`
+  模板实参：`shared/templates/gate4_next_stage_execution_policy_template.json`
+  审计闭合：`design/validation/2026-03-27-gate4-next-stage-execution-audit-instance-closure.md`
+  关闭验证：`design/validation/2026-03-27-gate4-next-stage-execution-blockers-close-validation.md`
+  复评纪要：`design/2026-03-27-gate4-next-stage-execution-rereview-office-hours-minutes-v1.md`、`design/2026-03-27-gate4-next-stage-execution-rereview-plan-eng-review-minutes-v1.md`
+  当前状态：执行放行复评结论升级为 `Go`，执行边界为“可执行（非自动执行）”
+
+- [ ] 执行“下一阶段首批受控执行”前置校验（仅校验，不直接执行）
+  触发条件：`next_stage_execution_go_confirmed`（当前已满足）
+  完成标准：形成首批执行前校验记录并锁定首批触发条件
+  产物：下一阶段首批执行前校验记录（待创建）
