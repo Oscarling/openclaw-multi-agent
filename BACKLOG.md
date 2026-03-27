@@ -670,7 +670,18 @@
   正式评审纪要：`design/2026-03-27-gate4-next-stage-entry-plan-eng-review-minutes-v1.md`
   当前状态：入口评审结论 `Go`，边界锁定为“仅准备态，不含执行放行”
 
-- [ ] 发起“下一阶段执行放行评审”独立流程（仅发起评审，不执行）
-  触发条件：`next_stage_prerequisites_all_ready`（前置条件清单全部满足）
-  完成标准：形成执行放行评审申请与输入工件，并进入 `office-hours -> plan-eng-review`
-  产物：下一阶段执行放行评审输入包与纪要（待创建）
+- [x] 发起“下一阶段执行放行评审”独立流程并完成两段式评审（仅评审，不执行）
+  触发条件：下一阶段入口评审结论 `Go` 已发布（已满足）
+  完成标准：形成执行放行评审输入工件，并完成 `office-hours -> plan-eng-review`
+  执行放行输入包：`design/2026-03-27-gate4-next-stage-execution-review-prep-v1.md`
+  执行放行事件卡：`design/2026-03-27-gate4-next-stage-execution-event-card-v1.md`
+  执行放行议程：`design/2026-03-27-gate4-next-stage-execution-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-next-stage-execution-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-next-stage-execution-plan-eng-review-minutes-v1.md`
+  当前状态：结论 `Conditional-Go`，执行边界为“待绑定（非可执行）”
+
+- [ ] 关闭“下一阶段执行放行”硬阻断项并触发复评
+  触发条件：执行放行评审结论为 `Conditional-Go`（当前已满足）
+  完成标准：关闭对象绑定/模板实参化/审计实例三项阻断后，重新发起执行放行评审
+  阻断项：执行对象未绑定、模板未实参化、审计实例未闭合
+  产物：阻断项关闭记录与执行放行复评纪要（待创建）
