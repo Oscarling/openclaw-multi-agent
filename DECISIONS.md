@@ -1942,3 +1942,30 @@
   - `design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
 - 决策：
   - C2 单批次闭环完成，进入“是否放行 C2 连续批次”的独立复评阶段
+
+### 2026-03-27：完成 C2 连续批次两段式复评（结论 Conditional-Go）
+
+- 背景：
+  - C2 单批次 DoD 已形成，触发“是否进入 C2 连续批次”独立复评
+  - 本轮复评按既定流程执行：`office-hours -> plan-eng-review`
+- 复评结论：
+  - `office-hours`：`Conditional-Go`
+  - `plan-eng-review`：`Conditional-Go`
+- 放行边界：
+  - 仅允许 C2 有限连续窗口（最多 2 批：`batch2 + batch3`）
+  - 每批必须独立预检、独立回执、独立阈值判定
+  - 严禁外推为 C3 放行，C3 仍需独立复评
+- 执行期硬规则：
+  - 继续门槛：`success_rate >= 0.95` 且 `failure_count < 2` 且 `halt_triggered=false`
+  - 停机阈值：`failure_count >= 2` 或 `halt_triggered=true` 或 `success_rate < 0.90`
+  - 降级阈值：`0.90 <= success_rate < 0.95` 时降级回“仅 C2 单批次策略”
+  - 审计硬约束：回执缺失、字段缺失、`evidence_ref` 非真实引用均按失败处理
+- 证据：
+  - `design/2026-03-26-gate4-stage-c-c2-continuous-review-prep-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-continuous-event-execution-card-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-continuous-office-hours-minutes-v1.md`
+  - `design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 放行下一事件：执行 C2 连续窗口第 2 批（`G4-C2-CONT-T2 -> T3 -> T4`）
+  - 第 2 批完成后再判定是否进入窗口第 3 批或触发降级/停机回滚

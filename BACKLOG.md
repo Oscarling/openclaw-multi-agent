@@ -602,7 +602,17 @@
   执行记录：`design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`
   DoD 记录：`design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
 
-- [ ] 发起“是否进入 C2 连续批次”的下一轮复评
-  触发条件：C2 单批次 DoD 已形成（当前已满足）
+- [x] 发起“是否进入 C2 连续批次”的下一轮复评
+  触发条件：C2 单批次 DoD 已形成（已满足）
   完成标准：形成 C2 连续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
-  产物：C2 连续批次复评纪要（待创建）
+  复评输入包：`design/2026-03-26-gate4-stage-c-c2-continuous-review-prep-v1.md`
+  连续执行卡：`design/2026-03-26-gate4-stage-c-c2-continuous-event-execution-card-v1.md`
+  评审议程：`design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-26-gate4-stage-c-c2-continuous-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审完成，最终结论 `Conditional-Go`（仅放行 C2 有限连续窗口，最多 2 批，逐批判定）
+
+- [ ] 执行 C2 连续窗口第 2 批（`G4-C2-CONT-T2 -> T3 -> T4`）
+  触发条件：C2 连续批次 `Conditional-Go` 已发布（当前已满足）
+  完成标准：第 2 批执行后形成唯一判定（继续/降级/停机回滚）并生成真实回执
+  产物：连续窗口第 2 批执行记录与阈值判定记录（待创建）
