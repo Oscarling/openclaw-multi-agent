@@ -650,7 +650,17 @@
   窗口收口：`design/validation/2026-03-27-gate4-stage-c-c3-followup-window-close-validation.md`
   当前状态：C3 后续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
 
-- [ ] 发起 Stage-C 全阶段收口复核（项目级）
-  触发条件：C3 后续窗口收口完成（当前已满足）
+- [x] 发起 Stage-C 全阶段收口复核（项目级）并完成两段式复核
+  触发条件：C3 后续窗口收口完成（已满足）
   完成标准：形成 Stage-C 全链路收口结论与后续阶段入口建议
-  产物：Stage-C 全阶段收口纪要（待创建）
+  收口输入包：`design/2026-03-27-gate4-stage-c-full-close-review-prep-v1.md`
+  收口事件卡：`design/2026-03-27-gate4-stage-c-full-close-event-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-full-close-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-minutes-v1.md`
+  当前状态：项目级收口结论 `Go`（仅放行下一阶段入口评审，不直接放行后续执行）
+
+- [ ] 发起下一阶段入口评审准备（仅入口，不含执行放行）
+  触发条件：Stage-C 项目级收口 `Go` 已发布（当前已满足）
+  完成标准：形成下一阶段输入包、事件卡、议程，并进入 `office-hours -> plan-eng-review`
+  产物：下一阶段入口评审三件套与评审纪要（待创建）

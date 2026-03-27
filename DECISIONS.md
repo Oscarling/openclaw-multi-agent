@@ -2090,3 +2090,28 @@
 - 决策：
   - C3 后续窗口 v1 已收口，阶段 C 链路在当前范围内执行通过
   - 下一事件进入 Stage-C 全阶段收口复核（项目级）
+
+### 2026-03-27：完成 Stage-C 全阶段项目级收口复核（结论 Go）
+
+- 背景：
+  - C1/C2/C3 链路已形成阶段性收口，触发 Stage-C 项目级收口复核
+  - 本轮按既定流程执行：`office-hours -> plan-eng-review`
+- 复核结论：
+  - `office-hours`：`Go`
+  - `plan-eng-review`：`Go`
+- 结论边界：
+  - `Go` 仅针对 Stage-C 项目级收口通过
+  - 允许进入“下一阶段入口评审”准备
+  - 不直接放行后续阶段执行动作
+- 跨阶段硬规则：
+  - 停机与回滚纪律不降级：触发失败阈值、`halt_triggered=true`、回执缺失/字段异常即停机
+  - 审计字段纪律不降级：`operator/ticket_id/evidence_ref` 必须真实可追溯
+  - 三本台账需与评审纪要、验证记录保持一一映射
+- 证据：
+  - `design/2026-03-27-gate4-stage-c-full-close-review-prep-v1.md`
+  - `design/2026-03-27-gate4-stage-c-full-close-event-card-v1.md`
+  - `design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-27-gate4-stage-c-full-close-office-hours-minutes-v1.md`
+  - `design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-minutes-v1.md`
+- 决策：
+  - Stage-C 项目级收口完成，下一事件切换为“下一阶段入口评审准备（仅入口，不含执行放行）”
