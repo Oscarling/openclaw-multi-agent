@@ -660,7 +660,17 @@
   正式评审纪要：`design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-minutes-v1.md`
   当前状态：项目级收口结论 `Go`（仅放行下一阶段入口评审，不直接放行后续执行）
 
-- [ ] 发起下一阶段入口评审准备（仅入口，不含执行放行）
-  触发条件：Stage-C 项目级收口 `Go` 已发布（当前已满足）
-  完成标准：形成下一阶段输入包、事件卡、议程，并进入 `office-hours -> plan-eng-review`
-  产物：下一阶段入口评审三件套与评审纪要（待创建）
+- [x] 发起下一阶段入口评审准备并完成两段式评审（仅入口，不含执行放行）
+  触发条件：Stage-C 项目级收口 `Go` 已发布（已满足）
+  完成标准：形成下一阶段输入包、事件卡、议程，并完成 `office-hours -> plan-eng-review`
+  入口输入包：`design/2026-03-27-gate4-next-stage-entry-review-prep-v1.md`
+  入口事件卡：`design/2026-03-27-gate4-next-stage-entry-event-card-v1.md`
+  入口议程：`design/2026-03-27-gate4-next-stage-entry-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-next-stage-entry-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-next-stage-entry-plan-eng-review-minutes-v1.md`
+  当前状态：入口评审结论 `Go`，边界锁定为“仅准备态，不含执行放行”
+
+- [ ] 发起“下一阶段执行放行评审”独立流程（仅发起评审，不执行）
+  触发条件：`next_stage_prerequisites_all_ready`（前置条件清单全部满足）
+  完成标准：形成执行放行评审申请与输入工件，并进入 `office-hours -> plan-eng-review`
+  产物：下一阶段执行放行评审输入包与纪要（待创建）

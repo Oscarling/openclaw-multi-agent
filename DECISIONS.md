@@ -2115,3 +2115,30 @@
   - `design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-minutes-v1.md`
 - 决策：
   - Stage-C 项目级收口完成，下一事件切换为“下一阶段入口评审准备（仅入口，不含执行放行）”
+
+### 2026-03-27：完成下一阶段入口两段式评审（结论 Go，边界仅准备态）
+
+- 背景：
+  - Stage-C 项目级收口结论为 `Go`，且明确只允许进入入口评审
+  - 本轮按既定流程执行：`office-hours -> plan-eng-review`
+- 评审结论：
+  - `office-hours`：`Go`
+  - `plan-eng-review`：`Go`
+- 结论边界：
+  - `Go` 仅针对下一阶段入口准备态
+  - 不构成下一阶段执行放行结论
+  - 执行动作需另行发起“执行放行评审”独立流程
+- 前置条件清单（进入执行放行评审前）：
+  - 入口边界持续锁定为“仅准备态，不含执行”
+  - 阈值、停机、降级、回滚规则文档化且不弱于 Stage-C 审计纪律
+  - 强制审计字段模板齐备（`operator/ticket_id/evidence_ref`）
+  - 台账与证据引用映射一致、无断链冲突
+- 证据：
+  - `design/2026-03-27-gate4-next-stage-entry-review-prep-v1.md`
+  - `design/2026-03-27-gate4-next-stage-entry-event-card-v1.md`
+  - `design/2026-03-27-gate4-next-stage-entry-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-27-gate4-next-stage-entry-office-hours-minutes-v1.md`
+  - `design/2026-03-27-gate4-next-stage-entry-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 下一事件：核验 `next_stage_prerequisites_all_ready`
+  - 仅在前置条件全部满足后，发起“下一阶段执行放行评审”（仅发起，不执行）
