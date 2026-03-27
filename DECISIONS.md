@@ -1969,3 +1969,26 @@
 - 决策：
   - 放行下一事件：执行 C2 连续窗口第 2 批（`G4-C2-CONT-T2 -> T3 -> T4`）
   - 第 2 批完成后再判定是否进入窗口第 3 批或触发降级/停机回滚
+
+### 2026-03-27：完成 C2 连续窗口 v1（Batch-002 + Batch-003）执行并收口
+
+- 背景：
+  - C2 连续批次复评结论为 `Conditional-Go`，放行边界为最多 2 批
+  - 需按事件卡执行 `T2 -> T3 -> T4` 逐批判定并在窗口结束后收口
+- 执行动作：
+  - Batch-002：发送证据消息并生成 `stage_c_real_c2_receipt_batch2.json`，执行 `phase_id=C2`
+  - Batch-003：发送证据消息并生成 `stage_c_real_c2_receipt_batch3.json`，执行 `phase_id=C2`
+  - 执行后产出连续窗口收口验证记录
+- 结果：
+  - Batch-002：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`、`stage_c_result=stage_c_passed`
+  - Batch-003：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`、`stage_c_result=stage_c_passed`
+  - 两批均 `stagec_receipt_evidence_ref_placeholder=no`
+  - 连续窗口结论：`window_closed_passed`
+- 证据：
+  - `design/validation/2026-03-27-gate4-stage-c-real-c2-batch2-pass-validation.md`
+  - `design/validation/2026-03-27-gate4-stage-c-real-c2-batch3-pass-validation.md`
+  - `design/validation/2026-03-27-gate4-stage-c-c2-continuous-window-close-validation.md`
+- 决策：
+  - C2 连续窗口 v1 已收口，阶段 C2 连续执行链路通过
+  - 下一事件进入“是否放行 C3 扩大放量”的独立评审准备阶段
+  - 在 C3 独立评审结论落地前，不执行 `phase_id=C3`

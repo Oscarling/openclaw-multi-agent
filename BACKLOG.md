@@ -612,7 +612,15 @@
   正式评审纪要：`design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-minutes-v1.md`
   当前状态：两段式评审完成，最终结论 `Conditional-Go`（仅放行 C2 有限连续窗口，最多 2 批，逐批判定）
 
-- [ ] 执行 C2 连续窗口第 2 批（`G4-C2-CONT-T2 -> T3 -> T4`）
-  触发条件：C2 连续批次 `Conditional-Go` 已发布（当前已满足）
-  完成标准：第 2 批执行后形成唯一判定（继续/降级/停机回滚）并生成真实回执
-  产物：连续窗口第 2 批执行记录与阈值判定记录（待创建）
+- [x] 执行 C2 连续窗口 v1（`batch2 + batch3`）并完成窗口收口
+  触发条件：C2 连续批次 `Conditional-Go` 已发布（已满足）
+  完成标准：在窗口上限内完成逐批执行与阈值判定，形成收口结论
+  Batch-002 记录：`design/validation/2026-03-27-gate4-stage-c-real-c2-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-27-gate4-stage-c-real-c2-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-27-gate4-stage-c-c2-continuous-window-close-validation.md`
+  当前状态：连续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
+
+- [ ] 发起“是否进入 C3 扩大放量”的独立评审准备
+  触发条件：C2 连续窗口收口完成且结果确认（当前已满足）
+  完成标准：形成 C3 评审输入包、执行卡与议程，并进入 `office-hours -> plan-eng-review`
+  产物：C3 独立评审三件套与评审纪要（待创建）
