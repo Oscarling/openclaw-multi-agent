@@ -1992,3 +1992,53 @@
   - C2 连续窗口 v1 已收口，阶段 C2 连续执行链路通过
   - 下一事件进入“是否放行 C3 扩大放量”的独立评审准备阶段
   - 在 C3 独立评审结论落地前，不执行 `phase_id=C3`
+
+### 2026-03-27：完成 C3 独立两段式评审（结论 Conditional-Go）
+
+- 背景：
+  - C2 连续窗口 `batch2 + batch3` 已收口通过，触发 C3 独立评审
+  - C3 需按“先预评审、再正式工程评审”流程决策，不得直接执行
+- 评审结论：
+  - `office-hours`：`Conditional-Go`
+  - `plan-eng-review`：`Conditional-Go`
+- 放行边界：
+  - 仅放行 C3 首批（单批次）受控执行
+  - 不自动放行 C3 第 2 批及后续批次
+  - 不外推到后续阶段
+- 执行期硬规则：
+  - 停机阈值：`failure_count >= 3` 或 `success_rate < 0.92` 或 `halt_triggered=true`
+  - 审计硬约束：回执缺失、字段缺失、`evidence_ref` 非真实引用均按失败处理
+  - 降级规则：首批若未形成稳定闭环则降级为“仅补证与复评”，不进入下一批
+- 证据：
+  - `design/2026-03-27-gate4-stage-c-c3-review-prep-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-event-execution-card-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-office-hours-minutes-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 放行下一事件：执行 C3 首批受控执行（`G4-C3-T2 -> T3 -> T4`）
+  - 首批完成后再决定是否发起“C3 后续批次”独立复评
+
+### 2026-03-27：完成 C3 首批受控执行并形成 DoD（stage_c_passed）
+
+- 背景：
+  - C3 两段式评审结论均为 `Conditional-Go`，放行边界为“仅首批”
+  - 下一事件要求执行 `G4-C3-T2 -> T3 -> T4` 并形成首批判定
+- 执行动作：
+  - 发送 C3 证据消息并生成回执：`runtime/argus/config/gate4/stage_c_real_c3_receipt_batch1.json`
+  - 执行 `phase_id=C3` 首批受控验证，并开启真实证据门禁
+  - 回填 C3 首批通过记录与 C3 DoD 记录
+- 结果：
+  - `phase_id=C3`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stagec_receipt_halt_triggered=no`
+  - `stagec_receipt_evidence_ref_placeholder=no`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-27-gate4-stage-c-real-c3-batch1-pass-validation.md`
+  - `design/validation/2026-03-27-gate4-stage-c-c3-dod-validation.md`
+- 决策：
+  - C3 首批执行闭环完成，阶段结论维持 `Conditional-Go`
+  - 允许进入“是否放行 C3 后续批次”的独立复评，不自动续批
+  - 在后续批次复评结论落地前，不执行第 2 批 C3

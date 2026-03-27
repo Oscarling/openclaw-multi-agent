@@ -620,7 +620,24 @@
   窗口收口：`design/validation/2026-03-27-gate4-stage-c-c2-continuous-window-close-validation.md`
   当前状态：连续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
 
-- [ ] 发起“是否进入 C3 扩大放量”的独立评审准备
-  触发条件：C2 连续窗口收口完成且结果确认（当前已满足）
-  完成标准：形成 C3 评审输入包、执行卡与议程，并进入 `office-hours -> plan-eng-review`
-  产物：C3 独立评审三件套与评审纪要（待创建）
+- [x] 发起“是否进入 C3 扩大放量”的独立评审准备并完成两段式评审
+  触发条件：C2 连续窗口收口完成且结果确认（已满足）
+  完成标准：形成 C3 评审输入包、执行卡与议程，并完成 `office-hours -> plan-eng-review`
+  评审输入包：`design/2026-03-27-gate4-stage-c-c3-review-prep-v1.md`
+  事件执行卡：`design/2026-03-27-gate4-stage-c-c3-event-execution-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-c3-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-c3-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-c3-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审结论均为 `Conditional-Go`（仅放行 C3 首批，不自动续批）
+
+- [x] 执行 C3 首批受控执行（`G4-C3-T2 -> T3 -> T4`）
+  触发条件：C3 `Conditional-Go` 已发布（已满足）
+  完成标准：首批执行后形成唯一判定（继续/停机/回滚/降级）并回填真实回执
+  首批通过记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch1-pass-validation.md`
+  C3 DoD 记录：`design/validation/2026-03-27-gate4-stage-c-c3-dod-validation.md`
+  当前状态：C3 首批 `stage_c_passed`，未触发停机/降级，维持“仅首批放行”边界
+
+- [ ] 发起“是否允许 C3 后续批次”的独立复评
+  触发条件：C3 首批 DoD 已形成（当前已满足）
+  完成标准：形成 C3 后续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
+  产物：C3 后续批次复评纪要（待创建）
