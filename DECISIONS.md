@@ -2042,3 +2042,51 @@
   - C3 首批执行闭环完成，阶段结论维持 `Conditional-Go`
   - 允许进入“是否放行 C3 后续批次”的独立复评，不自动续批
   - 在后续批次复评结论落地前，不执行第 2 批 C3
+
+### 2026-03-27：完成 C3 后续批次两段式复评（结论 Conditional-Go）
+
+- 背景：
+  - C3 首批 DoD 已形成，触发“是否允许 C3 后续批次”独立复评
+  - 本轮按既定流程执行：`office-hours -> plan-eng-review`
+- 复评结论：
+  - `office-hours`：`Conditional-Go`
+  - `plan-eng-review`：`Conditional-Go`
+- 放行边界：
+  - 仅允许 C3 有限后续窗口（最多 2 批：`batch2 + batch3`）
+  - 每批必须独立预检、独立回执、独立阈值判定
+  - 不外推到后续阶段
+- 执行期硬规则：
+  - 目标阈值：`success_rate >= 0.97`
+  - 停机阈值：`failure_count >= 3` 或 `halt_triggered=true` 或 `success_rate < 0.92`
+  - 降级阈值：`0.92 <= success_rate < 0.97` 时降级回“仅 C3 首批策略”
+  - 审计硬约束：回执缺失、字段缺失、`evidence_ref` 非真实引用均按失败处理
+- 证据：
+  - `design/2026-03-27-gate4-stage-c-c3-followup-review-prep-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-followup-event-execution-card-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-followup-office-hours-minutes-v1.md`
+  - `design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 放行下一事件：执行 C3 后续窗口 `batch2 + batch3` 并收口
+
+### 2026-03-27：完成 C3 后续窗口 v1（Batch-002 + Batch-003）执行并收口
+
+- 背景：
+  - C3 后续批次复评结论为 `Conditional-Go`，放行边界为最多 2 批
+  - 需按事件卡执行 `G4-C3-CONT-T2 -> T3 -> T4` 逐批判定并在窗口结束后收口
+- 执行动作：
+  - Batch-002：发送证据消息并生成 `stage_c_real_c3_receipt_batch2.json`，执行 `phase_id=C3`
+  - Batch-003：发送证据消息并生成 `stage_c_real_c3_receipt_batch3.json`，执行 `phase_id=C3`
+  - 执行后产出 C3 后续窗口收口验证记录
+- 结果：
+  - Batch-002：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`、`stage_c_result=stage_c_passed`
+  - Batch-003：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`、`stage_c_result=stage_c_passed`
+  - 两批均 `stagec_receipt_evidence_ref_placeholder=no`
+  - 后续窗口结论：`window_closed_passed`
+- 证据：
+  - `design/validation/2026-03-27-gate4-stage-c-real-c3-batch2-pass-validation.md`
+  - `design/validation/2026-03-27-gate4-stage-c-real-c3-batch3-pass-validation.md`
+  - `design/validation/2026-03-27-gate4-stage-c-c3-followup-window-close-validation.md`
+- 决策：
+  - C3 后续窗口 v1 已收口，阶段 C 链路在当前范围内执行通过
+  - 下一事件进入 Stage-C 全阶段收口复核（项目级）

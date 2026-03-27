@@ -637,7 +637,20 @@
   C3 DoD 记录：`design/validation/2026-03-27-gate4-stage-c-c3-dod-validation.md`
   当前状态：C3 首批 `stage_c_passed`，未触发停机/降级，维持“仅首批放行”边界
 
-- [ ] 发起“是否允许 C3 后续批次”的独立复评
-  触发条件：C3 首批 DoD 已形成（当前已满足）
-  完成标准：形成 C3 后续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
-  产物：C3 后续批次复评纪要（待创建）
+- [x] 发起“是否允许 C3 后续批次”的独立复评并完成后续窗口收口
+  触发条件：C3 首批 DoD 已形成（已满足）
+  完成标准：形成 C3 后续批次 `Go/Conditional-Go/No-Go` 结论，并完成后续窗口执行与收口
+  复评输入包：`design/2026-03-27-gate4-stage-c-c3-followup-review-prep-v1.md`
+  后续执行卡：`design/2026-03-27-gate4-stage-c-c3-followup-event-execution-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-c3-followup-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-minutes-v1.md`
+  Batch-002 记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-27-gate4-stage-c-c3-followup-window-close-validation.md`
+  当前状态：C3 后续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
+
+- [ ] 发起 Stage-C 全阶段收口复核（项目级）
+  触发条件：C3 后续窗口收口完成（当前已满足）
+  完成标准：形成 Stage-C 全链路收口结论与后续阶段入口建议
+  产物：Stage-C 全阶段收口纪要（待创建）
