@@ -690,7 +690,13 @@
   复评纪要：`design/2026-03-27-gate4-next-stage-execution-rereview-office-hours-minutes-v1.md`、`design/2026-03-27-gate4-next-stage-execution-rereview-plan-eng-review-minutes-v1.md`
   当前状态：执行放行复评结论升级为 `Go`，执行边界为“可执行（非自动执行）”
 
-- [ ] 执行“下一阶段首批受控执行”前置校验（仅校验，不直接执行）
-  触发条件：`next_stage_execution_go_confirmed`（当前已满足）
+- [x] 执行“下一阶段首批受控执行”前置校验（仅校验，不直接执行）
+  触发条件：`next_stage_execution_go_confirmed`（已满足）
   完成标准：形成首批执行前校验记录并锁定首批触发条件
-  产物：下一阶段首批执行前校验记录（待创建）
+  校验记录：`design/validation/2026-03-27-gate4-next-stage-first-batch-preflight-validation.md`
+  当前状态：首批前置门禁已锁定，维持“可执行但非自动执行”边界
+
+- [ ] 发起“下一阶段首批受控执行”流程（需人工闸门确认）
+  触发条件：首批前置校验通过（当前已满足）
+  完成标准：完成首批执行并输出“继续/停机/回滚/降级”唯一结论
+  产物：下一阶段首批执行记录与阶段结论（待创建）
