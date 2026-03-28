@@ -893,7 +893,16 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-multi-account-autologin-impl-prep-validation.md`
   当前状态：`parallel_mainline_multi_account_autologin_impl_prep_passed`，`next_event=parallel_mainline_multi_account_autologin_impl_prep_completed`
 
-- [ ] 完成并行主链多账号自动登录首轮执行验证（A38）
+- [x] 完成并行主链多账号自动登录首轮执行验证（A38）
   触发条件：A37 结论发布且 `next_event=parallel_mainline_multi_account_autologin_impl_prep_completed`
   完成标准：完成配置一致性复检 + 异常注入演练 + DoD 结论，形成“通过/阻断”唯一口径
   执行动作：按事件执行卡顺序执行 A38-T1~T3，并回填三本账与 issue #37
+  配置一致性：`design/validation/2026-03-28-parallel-mainline-multi-account-config-parity-validation.md`
+  异常注入：`design/validation/2026-03-28-parallel-mainline-multi-account-failure-injection-validation.md`
+  DoD 结论：`design/validation/2026-03-28-parallel-mainline-multi-account-impl-dod-validation.md`
+  当前状态：`parallel_mainline_multi_account_exec_validation_passed`，`next_event=parallel_mainline_multi_account_exec_validation_completed`
+
+- [ ] 发起并行主链多账号自动登录受控试运行窗口（A39）
+  触发条件：A38 结论发布且 `next_event=parallel_mainline_multi_account_exec_validation_completed`
+  完成标准：形成受控试运行输入包、事件执行卡与放行边界（`Go/Conditional-Go/No-Go`）
+  执行动作：按两段式评审（`office-hours -> plan-eng-review`）生成试运行放行口径并回填三本账
