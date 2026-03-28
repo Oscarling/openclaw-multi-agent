@@ -703,7 +703,20 @@
   阶段 DoD：`design/validation/2026-03-28-gate4-next-stage-dod-validation.md`
   当前状态：下一阶段首批 `stage_c_passed`，未触发停机，进入后续批次复评阶段
 
-- [ ] 发起“下一阶段后续批次”独立复评
-  触发条件：下一阶段首批 DoD 已形成（当前已满足）
-  完成标准：形成后续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
-  产物：下一阶段后续批次复评纪要（待创建）
+- [x] 发起“下一阶段后续批次”独立复评并完成后续窗口收口
+  触发条件：下一阶段首批 DoD 已形成（已满足）
+  完成标准：形成后续批次 `Go/Conditional-Go/No-Go` 结论并完成窗口执行
+  复评输入包：`design/2026-03-28-gate4-next-stage-followup-review-prep-v1.md`
+  后续执行卡：`design/2026-03-28-gate4-next-stage-followup-event-card-v1.md`
+  评审议程：`design/2026-03-28-gate4-next-stage-followup-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-28-gate4-next-stage-followup-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-gate4-next-stage-followup-plan-eng-review-minutes-v1.md`
+  Batch-002 记录：`design/validation/2026-03-28-gate4-next-stage-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-28-gate4-next-stage-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
+  当前状态：后续窗口两批均 `stage_c_passed`，窗口已按边界关闭
+
+- [ ] 发起阶段 NEXT 项目级收口复核
+  触发条件：后续窗口收口完成（当前已满足）
+  完成标准：形成阶段 NEXT 项目级收口结论与下一阶段入口建议
+  产物：阶段 NEXT 项目级收口纪要（待创建）

@@ -2232,3 +2232,29 @@
 - 决策：
   - 下一阶段首批闭环完成，阶段结论为 `Conditional-Go`
   - 下一事件切换为“下一阶段后续批次独立复评”
+
+### 2026-03-28：完成下一阶段后续批次复评并收口后续窗口
+
+- 背景：
+  - 下一阶段首批 DoD 已形成，触发后续批次独立复评
+  - 后续复评要求仅允许有限窗口（最多 2 批）
+- 复评结论：
+  - `office-hours`：`Conditional-Go`
+  - `plan-eng-review`：`Conditional-Go`
+  - 放行边界：仅允许后续窗口 `batch2 + batch3`
+- 执行动作：
+  - 执行 `NEXT-STAGE-BATCH-002` 并通过
+  - 执行 `NEXT-STAGE-BATCH-003` 并通过
+  - 回填后续窗口收口验证记录
+- 结果：
+  - Batch-002：`stage_c_result=stage_c_passed`，`success_rate=1.0`，`failure_count=0`
+  - Batch-003：`stage_c_result=stage_c_passed`，`success_rate=1.0`，`failure_count=0`
+  - 后续窗口结论：`window_closed_passed`
+- 证据：
+  - `design/2026-03-28-gate4-next-stage-followup-office-hours-minutes-v1.md`
+  - `design/2026-03-28-gate4-next-stage-followup-plan-eng-review-minutes-v1.md`
+  - `design/validation/2026-03-28-gate4-next-stage-batch2-pass-validation.md`
+  - `design/validation/2026-03-28-gate4-next-stage-batch3-pass-validation.md`
+  - `design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
+- 决策：
+  - 下一事件切换为“阶段 NEXT 项目级收口复核”
