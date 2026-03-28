@@ -3255,3 +3255,32 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-stageb-account2-check-20260328-210909/artifacts/stage-b-summary.txt`
 - 决策：
   - 采纳 A29，下一执行点固定为补齐 `release_receipt` 并执行 Stage B 严格复检（A30）
+
+### 2026-03-28：完成并行主链 Stage B（xhs_demo_002）发布回执严格复检（A30）
+
+- 背景：
+  - A29 已确认第二账号 Stage B 唯一缺口为 `release_receipt`。
+  - 需要补齐发布回执并在严格模式下验证是否可稳定通过。
+- 执行动作：
+  - 发送 Telegram 证据消息并记录 `messageId=17`。
+  - 新增 `runtime/argus/config/gate4/release_receipt_xhs_demo_002.json`，写入真实证据引用。
+  - 以严格模式执行 Stage B：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_RELEASE_ID=XHS-REL-002`
+    - `GATE4_TICKET_ID=GATE4-B-002`
+    - `GATE4_RELEASE_RECEIPT_FILE=runtime/argus/config/gate4/release_receipt_xhs_demo_002.json`
+    - `GATE4_STAGE_B_STRICT=yes`
+- 结果：
+  - `preflight_result=ready_for_stage_b_execution`
+  - `release_receipt_present=yes`
+  - `release_receipt_valid=yes`
+  - `release_receipt_publish_ok=yes`
+  - `release_receipt_evidence_ref=telegram:chatId=6189851600,messageId=17,release=XHS-REL-002`
+  - `stage_b_result=stage_b_passed`
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stageb-account2-strict-pass-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stageb-account2-strict-20260328-213303/artifacts/stage-b-summary.txt`
+  - `runtime/argus/config/gate4/release_receipt_xhs_demo_002.json`
+- 决策：
+  - 采纳 A30，第二账号 Stage B 已通过
+  - 下一执行点转入 Stage C 就绪检查（A31）
