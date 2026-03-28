@@ -2431,3 +2431,41 @@
 - 决策：
   - 发布 RH 主线阶段性收口结论：`Conditional-Go`
   - 下一事件切换为“关闭 RH-T5-B01 后重开最终 Go/No-Go 复评”
+
+### 2026-03-28：完成 RH-T5-B01 护栏生效子验证（阻断持续治理）
+
+- 背景：
+  - RH-T5 正式评审已将 `RH-T5-B01` 标记为硬阻断。
+  - 阻断关闭前，需先验证关键链路“显式 `--agent` 强制”护栏是否生效。
+- 执行动作：
+  - 使用 `scripts/openclaw_agent_safe.sh` 执行两组验证：
+    - 未显式 `--agent` 调用（预期阻断）
+    - 显式 `--agent steward` 调用（预期通过）
+- 结果：
+  - `missing_agent_exit=2`（阻断命中）
+  - `explicit_agent_exit=0`（执行通过）
+  - `explicit_agent_session_key=agent:steward:main`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-guardrail-enforcement-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-guardrail-20260328-132055/summary.txt`
+- 决策：
+  - 护栏生效子验证通过，但 `RH-T5-B01` 暂不关闭
+  - 下一事件切换为 `rh_t5_route_parity_revalidated`
+
+### 2026-03-28：完成 RH-T5-B01 路由口径复评（阻断维持开启）
+
+- 背景：
+  - `RH-T5-B01` 护栏生效子验证已通过，需继续复评默认/显式路由口径是否收敛。
+- 执行动作：
+  - 触发 `rh_t5_route_parity_revalidated`，重跑 `deploy/cli_route_parity_probe.sh`
+- 结果：
+  - `default_route_exit=0`，`explicit_route_exit=0`
+  - `default_route_session_key=agent:main:main`
+  - `explicit_route_session_key=agent:steward:main`
+  - `probe_result=route_mismatch_detected`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-route-parity-20260328-133402/artifacts/probe-summary.txt`
+- 决策：
+  - `RH-T5-B01` 维持开启，不做关单
+  - 下一事件切换为 `rh_t5_final_go_nogo_rereview_requested`

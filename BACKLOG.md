@@ -772,3 +772,6 @@
   触发条件：RH-T5 正式评审结论发布（已满足）
   完成标准：关键链路实现路由口径一致，或显式 `--agent + safe wrapper` 护栏留痕完成并通过复评
   阻断来源：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  阶段记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-guardrail-enforcement-validation.md`
+  复评记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
+  当前状态：已完成护栏生效与路由复评，`route_mismatch_detected` 仍存在，阻断保持开启
