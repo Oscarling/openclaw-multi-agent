@@ -3347,3 +3347,31 @@
 - 决策：
   - 采纳 A32，第二账号 Stage C 已通过
   - 下一执行点转入 A33：清理 Stage A 占位证据并完成审计口径收口
+
+### 2026-03-28：完成 `xhs_demo_002` Stage A 占位证据清理与严格复检（A33）
+
+- 背景：
+  - A28 留有历史风险：`manual_receipt_xhs_demo_002.json` 的 `evidence_ref` 为占位字符串。
+  - A32 通过后进入账号 2 审计口径收口，需将该占位证据替换为真实引用。
+- 执行动作：
+  - 发送 Stage A 证据确认消息并记录 `messageId=19`。
+  - 更新 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`：
+    - `evidence_ref=telegram:chatId=6189851600,messageId=19,ticket=GATE4-A-002`
+  - 以严格模式重跑 Stage A：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_TICKET_ID=GATE4-A-002`
+    - `GATE4_MANUAL_RECEIPT_FILE=runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`
+    - `GATE4_STAGE_A_STRICT=yes`
+- 结果：
+  - `manual_receipt_present=yes`
+  - `manual_receipt_valid=yes`
+  - `manual_receipt_login_ok=yes`
+  - `manual_receipt_evidence_ref=telegram:chatId=6189851600,messageId=19,ticket=GATE4-A-002`
+  - `stage_a_result=stage_a_passed`
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stagea-account2-evidence-cleanup-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagea-account2-evidence-cleanup-20260328-223831/artifacts/stage-a-summary.txt`
+  - `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`
+- 决策：
+  - 采纳 A33，账号 2 的历史占位证据风险已闭环
+  - 下一执行点转入 A34：形成账号 2 全链路收口复核包并回填结论

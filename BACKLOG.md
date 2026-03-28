@@ -825,7 +825,7 @@
   执行动作：先补 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`，再以 `GATE4_STAGE_A_STRICT=yes` 复检
   验证记录：`design/validation/2026-03-28-parallel-mainline-stagea-account2-strict-pass-validation.md`
   当前状态：`manual_receipt_present=yes`、`manual_receipt_valid=yes`、`manual_receipt_login_ok=yes`、`stage_a_result=stage_a_passed`
-  风险备注：`manual_receipt_evidence_ref` 当前为占位字符串；已转入 A33 做审计口径闭环
+  风险备注：A28 历史占位证据已在 A33 闭环（改为真实 `telegram` 引用）
 
 - [x] 完成并行主链 Stage B（`xhs_demo_002`）就绪检查（A29）
   触发条件：A28 严格复检通过（已满足）
@@ -854,7 +854,14 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-stagec-account2-strict-pass-validation.md`
   当前状态：`stagec_receipt_present=yes`、`stagec_receipt_valid=yes`、`stagec_receipt_publish_ok=yes`、`stagec_receipt_evidence_ref_placeholder=no`、`stage_c_result=stage_c_passed`
 
-- [ ] 完成 `xhs_demo_002` Stage A 证据占位清理并复检（A33）
+- [x] 完成 `xhs_demo_002` Stage A 证据占位清理并复检（A33）
   触发条件：A32 已完成，进入账号2审计口径收口
   完成标准：`manual_receipt_xhs_demo_002.json` 的 `evidence_ref` 替换为真实引用，且 Stage A 严格复检仍为 `stage_a_passed`
   执行动作：发送一条 Stage A 证据确认消息，更新 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json` 后重跑 `GATE4_STAGE_A_STRICT=yes bash ./deploy/gate4_stage_a_execute.sh`
+  验证记录：`design/validation/2026-03-28-parallel-mainline-stagea-account2-evidence-cleanup-validation.md`
+  当前状态：`manual_receipt_evidence_ref=telegram:chatId=6189851600,messageId=19,ticket=GATE4-A-002`，`stage_a_result=stage_a_passed`
+
+- [ ] 完成并行主链账号2全链路收口复核（A34）
+  触发条件：A33 完成
+  完成标准：形成账号 `xhs_demo_002` 的 Gate-4 A/B/C + 审计证据收口纪要，并回填三本账结论
+  执行动作：汇总 A28~A33 证据，产出一份全链路收口验证文档并同步 issue #37
