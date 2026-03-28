@@ -2258,3 +2258,85 @@
   - `design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
 - 决策：
   - 下一事件切换为“阶段 NEXT 项目级收口复核”
+
+### 2026-03-28：锁定“NEXT 项目级收口 -> 角色全面固化”事件链
+
+- 背景：
+  - 阶段 NEXT 后续窗口已收口，主线进入项目级收口复核。
+  - 用户确认“计划先入账本，再按事件触发持续推进并加速收口”。
+- 决策：
+  - 保持当前主线优先级：先完成阶段 NEXT 项目级收口两段式复核（`office-hours -> plan-eng-review`）。
+  - 项目级收口执行包补齐为“三件套”：输入包 + 事件卡 + 评审议程。
+  - 收口结论发布后，进入“角色全面固化”主线（`RH-T1~RH-T5`），不使用固定时间节点。
+  - 角色固化继续沿用门禁：评审通过不等于自动执行，执行事件仍需人工闸门。
+- 证据：
+  - `design/2026-03-28-gate4-next-stage-full-close-review-prep-v1.md`
+  - `design/2026-03-28-gate4-next-stage-full-close-event-card-v1.md`
+  - `design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-agenda-v1.md`
+  - `design/2026-03-28-role-hardening-event-driven-plan-v1.md`
+- 下一事件：
+  - 执行阶段 NEXT 项目级收口 `office-hours` 预评审并形成结论。
+
+### 2026-03-28：完成阶段 NEXT 项目级收口预评审（office-hours）
+
+- 背景：
+  - 阶段 NEXT 首批与后续窗口执行证据已形成并可追溯。
+  - 项目级收口输入包与事件卡、议程已齐备。
+- 预评审结论：
+  - `office-hours`：`Conditional-Go`
+  - 放行边界：仅放行到“项目级正式工程复核”；不放行跨阶段执行
+- 风险点：
+  - 项目级收口后三本台账回填完成的独立验证记录尚未闭合
+  - 需防止“收口复核推进”被误读为“执行放行”
+- 证据：
+  - `design/2026-03-28-gate4-next-stage-full-close-office-hours-minutes-v1.md`
+  - `design/2026-03-28-gate4-next-stage-full-close-review-prep-v1.md`
+  - `design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
+- 决策：
+  - 下一事件切换为“阶段 NEXT 项目级收口正式工程复核（plan-eng-review）”
+
+### 2026-03-28：完成阶段 NEXT 项目级收口正式工程复核（plan-eng-review）
+
+- 背景：
+  - `office-hours` 预评审结论为 `Conditional-Go`，允许进入正式工程复核。
+  - 项目级收口复核边界已锁定为“仅入口准备，不含执行放行”。
+- 正式结论：
+  - `plan-eng-review`：`Conditional-Go`
+  - 放行边界：仅允许进入“下一阶段入口评审准备态”
+- 阻断项：
+  - `B-01`：项目级收口台账闭环验证缺口（需补三本台账回填独立验证记录）
+- 证据：
+  - `design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-minutes-v1.md`
+  - `design/2026-03-28-gate4-next-stage-full-close-office-hours-minutes-v1.md`
+  - `design/validation/2026-03-28-gate4-next-stage-batch1-pass-validation.md`
+  - `design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
+- 决策：
+  - 下一事件切换为“关闭 B-01（台账回填闭环验证）”
+  - `B-01` 关闭前，不进入跨阶段执行动作
+
+### 2026-03-28：关闭阶段 NEXT 项目级收口阻断项 B-01并启动角色全面固化主线
+
+- 背景：
+  - 阶段 NEXT 项目级正式评审结论为 `Conditional-Go`，唯一阻断项为 `B-01`（台账回填闭环验证缺口）。
+  - 已完成三本台账回填与证据映射核对。
+- 关闭动作：
+  - 新增独立验证记录：`design/validation/2026-03-28-gate4-next-stage-full-close-ledger-backfill-validation.md`
+  - 回填 `BACKLOG/DECISIONS/验收清单`，形成项目级收口可追溯闭环
+- 结果：
+  - `b01_result=closed`
+  - 阶段 NEXT 项目级收口阻断项全部关闭
+- 决策：
+  - 启动“角色全面固化”主线（`RH-T1~RH-T5`）
+  - 下一事件切换为“执行 RH-T1 固化范围冻结（吸收/待验证/拒绝）”
+
+### 2026-03-28：完成 RH-T1 角色固化范围冻结并切换 RH-T2
+
+- 背景：
+  - 角色全面固化主线已启动，需先冻结“吸收/待验证/拒绝”边界，避免 RH-T2 改动漂移。
+- 产出：
+  - 固化范围冻结文档：`design/2026-03-28-role-hardening-scope-freeze-v1.md`
+  - 冻结范围覆盖：`steward/hunter/editor/publisher`
+  - 本轮继续拒绝：`R01/R02/R03/R04`
+- 决策：
+  - RH-T1 关闭，进入 RH-T2（四角色契约全面固化：四件套 + 共享模板）
+  - RH-T2 期间维持边界：不新增角色、不改默认入口、不放开自动执行

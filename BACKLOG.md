@@ -716,7 +716,34 @@
   窗口收口：`design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
   当前状态：后续窗口两批均 `stage_c_passed`，窗口已按边界关闭
 
-- [ ] 发起阶段 NEXT 项目级收口复核
+- [x] 发起阶段 NEXT 项目级收口复核
   触发条件：后续窗口收口完成（当前已满足）
   完成标准：形成阶段 NEXT 项目级收口结论与下一阶段入口建议
-  产物：阶段 NEXT 项目级收口纪要（待创建）
+  收口输入包：`design/2026-03-28-gate4-next-stage-full-close-review-prep-v1.md`
+  收口事件卡：`design/2026-03-28-gate4-next-stage-full-close-event-card-v1.md`
+  评审议程：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-28-gate4-next-stage-full-close-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审已完成，结论 `Conditional-Go`（仅放行“下一阶段入口评审准备态”）
+
+- [x] 关闭阶段 NEXT 项目级收口阻断项 B-01（台账回填闭环验证）
+  触发条件：阶段 NEXT 项目级收口正式评审结论发布（已满足）
+  完成标准：补齐三本台账回填验证记录并完成证据映射闭环
+  阻断来源：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-minutes-v1.md`
+  关闭记录：`design/validation/2026-03-28-gate4-next-stage-full-close-ledger-backfill-validation.md`
+
+- [x] 启动“角色全面固化”主线（RH-T1~RH-T5）
+  触发条件：阶段 NEXT 项目级收口阻断项全部关闭（已满足）
+  完成标准：完成“范围冻结 -> 契约固化 -> 运行态同步 -> 黄金回归 -> 项目级收口”闭环
+  执行计划：`design/2026-03-28-role-hardening-event-driven-plan-v1.md`
+  当前状态：主线已启动，待执行 RH-T1 固化范围冻结
+
+- [x] 执行 RH-T1 角色固化范围冻结（吸收/待验证/拒绝）
+  触发条件：角色全面固化主线启动（已满足）
+  完成标准：形成四角色固化范围清单 v1，可直接驱动正式四件套改动
+  输出文档：`design/2026-03-28-role-hardening-scope-freeze-v1.md`
+
+- [ ] 执行 RH-T2 四角色契约全面固化（四件套 + 共享模板）
+  触发条件：RH-T1 固化范围冻结完成（已满足）
+  完成标准：四角色正式契约与共享模板一致升级，并保持默认入口与边界不漂移
+  影响范围：`roles/steward/*`、`roles/hunter/*`、`roles/editor/*`、`roles/publisher/*`、`shared/templates/*`
