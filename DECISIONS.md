@@ -3489,3 +3489,29 @@
   - `design/validation/2026-03-28-parallel-mainline-multi-account-impl-dod-validation.md`
 - 决策：
   - 采纳 A38，下一执行点转入 A39：多账号自动登录受控试运行窗口评审
+
+### 2026-03-28：发起并行主链多账号自动登录受控试运行窗口评审（A39）
+
+- 背景：
+  - A38 已形成执行验证 `passed` 结论，主线需要进入受控试运行窗口决策。
+  - 目标是通过两段式评审锁定窗口边界与放行结论。
+- 执行动作：
+  - 产出输入包：
+    - `design/2026-03-28-parallel-mainline-multi-account-trial-window-prep-v1.md`
+  - 产出事件执行卡：
+    - `design/2026-03-28-parallel-mainline-multi-account-trial-window-event-card-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-28-parallel-mainline-multi-account-trial-window-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-28-parallel-mainline-multi-account-trial-window-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（受控窗口）`
+  - 放行边界：仅双账号、仅受控窗口、保持现有 Gate-4 门禁阈值
+  - 下一事件：`parallel_mainline_multi_account_trial_window_review_completed`
+- 证据：
+  - `design/2026-03-28-parallel-mainline-multi-account-trial-window-prep-v1.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-trial-window-event-card-v1.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-trial-window-office-hours-minutes-v1.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-trial-window-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A39，下一执行点转入 A40：受控试运行窗口首批执行
