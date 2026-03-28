@@ -3203,3 +3203,55 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-stagea-account2-check-20260328-204011/artifacts/stage-a-summary.txt`
 - 决策：
   - 采纳 A27，下一执行点固定为补齐 `xhs_demo_002` 手工登录回执并做 Stage A 严格复检（A28）
+
+### 2026-03-28：完成并行主链 Stage A（xhs_demo_002）手工登录回执严格复检（A28）
+
+- 背景：
+  - A27 已确认第二账号 Stage A 唯一缺口为 `manual_receipt`。
+  - 用户已提交 `manual_receipt_xhs_demo_002.json` 并执行严格复检。
+- 执行动作：
+  - 以严格模式执行 Stage A：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_TICKET_ID=GATE4-A-002`
+    - `GATE4_MANUAL_RECEIPT_FILE=runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`
+    - `GATE4_STAGE_A_STRICT=yes`
+  - 读取 `stage-a-summary` 与回执文件，确认门禁字段。
+- 结果：
+  - `preflight_result=ready_for_stage_a_execution`
+  - `manual_receipt_present=yes`
+  - `manual_receipt_valid=yes`
+  - `manual_receipt_login_ok=yes`
+  - `stage_a_result=stage_a_passed`
+  - 风险备注：`manual_receipt_evidence_ref` 仍是占位字符串，不阻塞当前 Stage A 门禁，但对外审计前需替换为真实证据引用。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stagea-account2-strict-pass-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagea-account2-strict-20260328-210624/artifacts/stage-a-summary.txt`
+  - `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`
+- 决策：
+  - 采纳 A28，第二账号 Stage A 已通过
+  - 下一执行点转入 Stage B 就绪检查（A29）
+
+### 2026-03-28：完成并行主链 Stage B（xhs_demo_002）就绪检查（A29）
+
+- 背景：
+  - A28 已完成第二账号 Stage A 严格复检，需要继续推进同账号 Stage B。
+  - 目标是在不提前构造发布回执的情况下，确认 Stage B 当前唯一缺口。
+- 执行动作：
+  - 执行 Stage B 检查（非严格模式）：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_RELEASE_ID=XHS-REL-002`
+    - `GATE4_TICKET_ID=GATE4-B-002`
+    - `GATE4_STAGE_B_STRICT=no`
+  - 读取 `stage-b-summary` 判定门禁状态。
+- 结果：
+  - `preflight_result=ready_for_stage_b_execution`
+  - `account_found=yes`，`needs_ticket=yes`
+  - `release_receipt_present=no`
+  - `release_receipt_valid=no`
+  - `stage_b_result=waiting_release_receipt`
+  - 结论：Stage B 当前唯一缺口为发布回执文件。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stageb-account2-readiness-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stageb-account2-check-20260328-210909/artifacts/stage-b-summary.txt`
+- 决策：
+  - 采纳 A29，下一执行点固定为补齐 `release_receipt` 并执行 Stage B 严格复检（A30）
