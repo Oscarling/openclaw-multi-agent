@@ -3077,3 +3077,56 @@
   - 采纳 A22 结果，维持 `Conditional-Go` 与 waiting 态不变
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：启动 P5 阻断并行主链策略（A23）
+
+- 背景：
+  - 用户确认“`RH-T5-B01` 阻断保持开启，但可并行推进其它主链”。
+  - 上游旧单 `openclaw/openclaw#56267` 已关闭并重建为 `#56370`，需避免侧线监控盯错对象。
+- 执行动作：
+  - 新增并行策略卡：
+    - `design/validation/2026-03-28-rh-t5-b01-parallel-mainline-policy-v1.md`
+  - 切出并行主链分支：
+    - `codex/parallel-mainline-next01`
+  - 更新侧线监控默认 issue：
+    - `scripts/rh_t5_b01_event_runner.sh` 默认 `UPSTREAM_ISSUE_NUMBER=56370`
+    - `scripts/rh_t5_b01_upstream_feedback_probe.sh` 默认 `UPSTREAM_ISSUE_NUMBER=56370`
+    - 触发卡 `design/validation/2026-03-28-rh-t5-b01-upstream-feedback-trigger-card-v1.md` 切换到 `#56370`
+- 结果：
+  - 实现“双轨并行”：
+    - 轨道 A：`RH-T5-B01` 继续事件驱动治理
+    - 轨道 B：其它不依赖默认 `--to` 路由语义的主链继续推进
+  - 关闭门槛保持不变，未发生策略降级或例外关单。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-parallel-mainline-policy-v1.md`
+  - `scripts/rh_t5_b01_event_runner.sh`
+  - `scripts/rh_t5_b01_upstream_feedback_probe.sh`
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-feedback-trigger-card-v1.md`
+- 决策：
+  - 采纳 A23，并将并行主链策略作为 `RH-T5-B01` 开启期间的默认推进口径
+  - `RH-T5-B01` 继续保持开启
+  - 上游监控目标切换为 `openclaw/openclaw#56370`
+
+### 2026-03-28：完成上游 issue 切换默认监控验证（A24）
+
+- 背景：
+  - A23 已将事件执行器默认 issue 切换到 `#56370`，需要验证默认值生效。
+  - 目标是确认后续执行器不再默认监控已关闭的 `#56267`。
+- 执行动作：
+  - 未显式传递 `UPSTREAM_ISSUE_NUMBER` 执行事件执行器：
+    - `EVENT_REASON=a23_issue_rollover_default_check`
+    - `EVENT_REASON=a23_issue_rollover_default_check_retry`
+  - 首次因网络抖动失败，重试成功。
+- 结果：
+  - 成功轮次摘要包含：
+    - `upstream_issue_number=56370`
+    - `next_event=waiting_upstream_feedback`
+    - `upstream_new_feedback_detected=no`
+    - `action_taken=wait`
+  - 结论：默认监控切换有效，治理状态不漂移。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-issue-rollover-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-195802/artifacts/summary.txt`
+- 决策：
+  - 采纳 A24，保持当前并行推进口径不变
+  - `RH-T5-B01` 继续保持开启，等待 `#56370` 上游新反馈事件
