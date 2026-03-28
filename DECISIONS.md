@@ -3418,3 +3418,27 @@
 - 决策：
   - 采纳 A35，并行主链双账号收口完成
   - 下一执行点转入 A36：多账号自动登录能力范围评审与拆解（`office-hours -> plan-eng-review`）
+
+### 2026-03-28：完成并行主链“多账号自动登录能力”范围评审与拆解（A36）
+
+- 背景：
+  - A35 已确认双账号收口通过，需要把并行主链推进到下一业务目标。
+  - 目标是在不放开安全边界的前提下，形成“多账号自动登录能力”可执行拆解口径。
+- 执行动作：
+  - 产出范围拆解文档：
+    - `design/2026-03-28-parallel-mainline-multi-account-autologin-scope-breakdown-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-28-parallel-mainline-multi-account-autologin-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-28-parallel-mainline-multi-account-autologin-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 范围清单、验收口径、执行拆解项（A37~A40）已明确。
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（受控边界内）`
+  - `RH-T5-B01` 侧线阻断保持开启，不与该主线任务互斥。
+- 证据：
+  - `design/2026-03-28-parallel-mainline-multi-account-autologin-scope-breakdown-v1.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-autologin-office-hours-minutes-v1.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-autologin-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A36，下一执行点转入 A37：多账号自动登录实现准备包 v2
+  - 下一事件：`parallel_mainline_multi_account_autologin_impl_prep_requested`
