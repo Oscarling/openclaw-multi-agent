@@ -1,6 +1,6 @@
 # OpenClaw Multi-Agent Decisions
 
-更新时间：2026-03-26
+更新时间：2026-03-28
 
 ## 已确认决策
 
@@ -2650,3 +2650,25 @@
 - 决策：
   - 进入远端评审协作阶段
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，以 PR/issue 反馈驱动后续整改
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A6（最小复现包，未解决）
+
+- 背景：
+  - A1~A5 后阻断仍开启，需补充“可一键复核”的最小复现包，降低外部协作复现成本。
+  - issue #37 需要稳定、最小、可重放的证据输入。
+- 尝试动作：
+  - 新增并执行脚本：`scripts/rh_t5_b01_min_repro.sh`
+  - 在主运行容器 `agent_argus` 同时执行 baseline、default route、explicit route，并比对 `sessionKey`
+- 结果：
+  - `version_exit=0`，`agents_bindings_exit=0`
+  - `default_exit=0`，`explicit_exit=0`
+  - `default_session_key=agent:main:main`
+  - `explicit_session_key=agent:steward:main`
+  - `result=route_mismatch_detected`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a6-min-repro-pack.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-min-repro-20260328-150851/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，以 A6 最小复现包驱动 issue #37 后续修复闭环
