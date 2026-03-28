@@ -21,15 +21,26 @@ need_cmd() {
 need_cmd rg
 
 # Guardrail:
-# deploy scripts must not invoke "docker exec ... openclaw agent" directly.
-# Use scripts/openclaw_agent_safe.sh instead.
-PATTERN='docker exec[[:space:]].*openclaw agent(?!s)'
+# deploy/scripts shell files must not invoke
+# "docker exec ... openclaw agent" directly unless explicitly exempted
+# for route-parity diagnostics.
+# Use scripts/openclaw_agent_safe.sh for normal execution paths.
+PATTERN='^[[:space:]]*(?!#).*docker exec[[:space:]].*openclaw agent(?!s)'
 EXEMPT_FILES=(
   "deploy/cli_route_parity_probe.sh"
+  "scripts/openclaw_agent_safe.sh"
+  "scripts/rh_t5_b01_min_repro.sh"
+  "scripts/rh_t5_b01_controlled_comparison.sh"
+  "scripts/rh_t5_b01_to_path_probe.sh"
+  "scripts/agent_call_guard.sh"
 )
 
 matches=()
-for file in deploy/*.sh; do
+shopt -s nullglob
+target_files=(deploy/*.sh scripts/*.sh)
+shopt -u nullglob
+
+for file in "${target_files[@]}"; do
   skip="no"
   for exempt in "${EXEMPT_FILES[@]}"; do
     if [[ "$file" == "$exempt" ]]; then
@@ -55,7 +66,7 @@ for file in deploy/*.sh; do
 done
 
 if [[ "${#matches[@]}" -gt 0 ]]; then
-  log "blocked direct openclaw agent calls in deploy scripts:"
+  log "blocked direct openclaw agent calls in guarded shell scripts:"
   printf '%s\n' "${matches[@]}"
   log "please route calls via scripts/openclaw_agent_safe.sh"
   exit 2
