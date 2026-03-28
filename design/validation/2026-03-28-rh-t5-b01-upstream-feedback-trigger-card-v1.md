@@ -6,7 +6,7 @@
 
 ## 1) 触发条件（任一满足即触发）
 
-- 上游 issue `openclaw/openclaw#56267` 出现 maintainer 反馈（修复建议 / 修复提交 / 候选版本）。
+- 上游 issue `openclaw/openclaw#56370` 出现 maintainer 反馈（修复建议 / 修复提交 / 候选版本）。
 - 发现可验证候选版本（release/tag/changelog）明确涉及 `openclaw agent --to` 路由行为。
 - 本地 issue `#37` 被人工标记“允许执行上游反馈复检”。
 
@@ -21,7 +21,7 @@ EVENT_REASON="upstream_feedback_check" AUTO_REOPEN_LOCAL_ISSUE="no" BUNDLE_STRIC
 2. 若仅需单独探针，也可执行反馈探针确认 `next_event`：
 
 ```bash
-ISSUE_OWNER_LOGIN="Oscarling" UPSTREAM_REPO="openclaw/openclaw" UPSTREAM_ISSUE_NUMBER="56267" LOCAL_REPO="Oscarling/openclaw-multi-agent" LOCAL_ISSUE_NUMBER="37" bash scripts/rh_t5_b01_upstream_feedback_probe.sh
+ISSUE_OWNER_LOGIN="Oscarling" UPSTREAM_REPO="openclaw/openclaw" UPSTREAM_ISSUE_NUMBER="56370" LOCAL_REPO="Oscarling/openclaw-multi-agent" LOCAL_ISSUE_NUMBER="37" bash scripts/rh_t5_b01_upstream_feedback_probe.sh
 ```
 
 3. 保持本地护栏不变（继续强制 `scripts/openclaw_agent_safe.sh`）。  
@@ -58,7 +58,7 @@ RECHECK_REASON="upstream_feedback" OPENCLAW_AGENT_CONTAINER=agent_argus bash scr
 
 - 复检后必须同步三本账：`BACKLOG.md`、`DECISIONS.md`、`验收清单.md`
 - 本地追踪 issue：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
-- 上游 issue：`https://github.com/openclaw/openclaw/issues/56267`
+- 上游 issue：`https://github.com/openclaw/openclaw/issues/56370`（`#56267` 已关闭）
 - 若探针输出 `next_event=reopen_local_tracking_issue`，需先重开本地追踪 issue 再进入等待/复检状态
 - 反馈去重状态文件（默认）：`runtime/argus/config/rh_t5_b01/upstream_feedback_state.env`
 
