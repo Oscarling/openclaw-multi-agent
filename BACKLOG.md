@@ -825,7 +825,7 @@
   执行动作：先补 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`，再以 `GATE4_STAGE_A_STRICT=yes` 复检
   验证记录：`design/validation/2026-03-28-parallel-mainline-stagea-account2-strict-pass-validation.md`
   当前状态：`manual_receipt_present=yes`、`manual_receipt_valid=yes`、`manual_receipt_login_ok=yes`、`stage_a_result=stage_a_passed`
-  风险备注：`manual_receipt_evidence_ref` 当前为占位字符串；进入对外审计前需替换为真实证据引用
+  风险备注：`manual_receipt_evidence_ref` 当前为占位字符串；已转入 A33 做审计口径闭环
 
 - [x] 完成并行主链 Stage B（`xhs_demo_002`）就绪检查（A29）
   触发条件：A28 严格复检通过（已满足）
@@ -847,7 +847,14 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-stagec-account2-readiness-validation.md`
   当前状态：`preflight_result=ready_for_stage_c_execution`，`stage_c_result=waiting_stage_c_receipt`（缺 `stage_c_receipt`）
 
-- [ ] 完成 `xhs_demo_002` Stage C 回执并通过严格复检（A32）
+- [x] 完成 `xhs_demo_002` Stage C 回执并通过严格复检（A32）
   触发条件：A31 已确认唯一缺口为 `stage_c_receipt`
   完成标准：`stagec_receipt_present=yes`、`stagec_receipt_valid=yes`、`stagec_receipt_publish_ok=yes`、`stagec_receipt_evidence_ref_placeholder=no`、`stage_c_result=stage_c_passed`
   执行动作：补齐 `runtime/argus/config/gate4/stage_c_real_c1_receipt_xhs_demo_002.json`，并以 `GATE4_STAGE_C_STRICT=yes GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes` 执行 `bash ./deploy/gate4_stage_c_execute.sh`
+  验证记录：`design/validation/2026-03-28-parallel-mainline-stagec-account2-strict-pass-validation.md`
+  当前状态：`stagec_receipt_present=yes`、`stagec_receipt_valid=yes`、`stagec_receipt_publish_ok=yes`、`stagec_receipt_evidence_ref_placeholder=no`、`stage_c_result=stage_c_passed`
+
+- [ ] 完成 `xhs_demo_002` Stage A 证据占位清理并复检（A33）
+  触发条件：A32 已完成，进入账号2审计口径收口
+  完成标准：`manual_receipt_xhs_demo_002.json` 的 `evidence_ref` 替换为真实引用，且 Stage A 严格复检仍为 `stage_a_passed`
+  执行动作：发送一条 Stage A 证据确认消息，更新 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json` 后重跑 `GATE4_STAGE_A_STRICT=yes bash ./deploy/gate4_stage_a_execute.sh`

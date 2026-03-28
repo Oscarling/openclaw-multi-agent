@@ -3311,3 +3311,39 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-stagec-account2-check-20260328-215129/artifacts/stage-c-summary.txt`
 - 决策：
   - 采纳 A31，下一执行点固定为补齐 Stage C 回执并执行严格复检（A32）
+
+### 2026-03-28：完成并行主链 Stage C（xhs_demo_002）回执严格复检（A32）
+
+- 背景：
+  - A31 已确认第二账号 Stage C 唯一缺口为 `stage_c_receipt`。
+  - 需要补齐真实回执并在严格模式（含真实证据校验）下验证是否可稳定通过。
+- 执行动作：
+  - 发送 Telegram 证据消息并记录 `messageId=18`。
+  - 新增 `runtime/argus/config/gate4/stage_c_real_c1_receipt_xhs_demo_002.json`，写入真实证据引用。
+  - 以严格模式执行 Stage C：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_PHASE_ID=C1`
+    - `GATE4_BATCH_ID=XHS-REAL-C1-BATCH-002`
+    - `GATE4_RELEASE_ID=XHS-REAL-C1-REL-002`
+    - `GATE4_TICKET_ID=GATE4-C-002`
+    - `GATE4_STAGE_C_RECEIPT_FILE=runtime/argus/config/gate4/stage_c_real_c1_receipt_xhs_demo_002.json`
+    - `GATE4_STAGE_C_STRICT=yes`
+    - `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes`
+- 结果：
+  - `preflight_result=ready_for_stage_c_execution`
+  - `stagec_receipt_present=yes`
+  - `stagec_receipt_valid=yes`
+  - `stagec_receipt_publish_ok=yes`
+  - `stagec_receipt_halt_triggered=no`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stagec_receipt_evidence_ref=telegram:chatId=6189851600,messageId=18,batch=XHS-REAL-C1-BATCH-002`
+  - `stagec_receipt_evidence_ref_placeholder=no`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stagec-account2-strict-pass-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagec-account2-strict-20260328-222751/artifacts/stage-c-summary.txt`
+  - `runtime/argus/config/gate4/stage_c_real_c1_receipt_xhs_demo_002.json`
+- 决策：
+  - 采纳 A32，第二账号 Stage C 已通过
+  - 下一执行点转入 A33：清理 Stage A 占位证据并完成审计口径收口
