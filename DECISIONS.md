@@ -2700,3 +2700,30 @@
   - `RH-T5-B01` 继续保持开启
   - 当前判断：分裂并非由 `provider/model/profile` 差异或 session-id 变化直接导致，应优先推进 routing 选择层修复
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并将 A7 证据同步至 issue #37
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A8（`--to` 路径特异性，未解决）
+
+- 背景：
+  - A7 已确认分裂与 `provider/model/profile`、session-id 变化无关，但仍需进一步锁定分裂发生位置。
+- 尝试动作：
+  - 新增并执行脚本：`scripts/rh_t5_b01_to_path_probe.sh`
+  - 在同一容器下对照执行：
+    - 默认/显式（不带 `--to`）
+    - 默认/显式（带 `--to`）
+  - 比对 `sessionKey` 与 `workspaceDir`
+- 结果：
+  - `default_no_to_workspace=/root/.openclaw/workspace/steward`
+  - `default_with_to_workspace=/root/.openclaw/workspace-main`
+  - `default_with_to_session_key=agent:main:main`
+  - `explicit_with_to_session_key=agent:steward:main`
+  - `pmp_consistent=yes`
+  - `to_path_split_confirmed=yes`
+  - `result=to_path_specific_split_confirmed`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a8-to-path-probe.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-a8-to-path-probe-20260328-153942/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前判断：分裂主要集中于默认 `--to` 路由分支，后续应优先推进该分支的默认 agent 选择逻辑修复
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并将 A8 证据同步至 issue #37
