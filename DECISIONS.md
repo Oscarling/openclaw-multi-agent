@@ -3021,3 +3021,28 @@
   - 采纳 A20 作为后续上游沟通标准输入
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：完成 RH-T5-B01 gstack 专家再评审（根因 + 解法，A21）
+
+- 背景：
+  - 用户要求再次组织专家，聚焦 P5 阻断“根本原因 + 可执行解法”。
+  - `RH-T5-B01` 仍处于 `waiting_upstream_feedback`，需要避免“只知道等”而缺少可执行技术口径。
+- 执行动作：
+  - 组织 Root-Cause 专家复核：
+    - 基于 A6/A7/A8 与聚合摘要确认问题边界与排除项。
+  - 组织 Solution 专家复核：
+    - 产出 MVP 修复方向、长期稳健方案、回归矩阵与上游沟通草稿。
+  - 汇总为统一纪要：
+    - `design/2026-03-28-rh-t5-b01-gstack-root-cause-solution-rereview-minutes-v1.md`
+- 结果：
+  - 根因口径统一：分裂集中在“默认 `--to` 路径分支”，不是 `provider/model/profile` 或 `session-id` 漂移。
+  - 解法口径统一：短期应让默认 `--to` 与默认入口 agent 先对齐；长期应统一 CLI 解析器并显式暴露 `effectiveAgent` 观测字段。
+  - 治理口径不变：在无上游新反馈时继续事件驱动等待，不追加无事件的本地平台猜测整改。
+- 证据：
+  - `design/2026-03-28-rh-t5-b01-gstack-root-cause-solution-rereview-minutes-v1.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-upstream-recheck-20260328-155702/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-181754/artifacts/summary.txt`
+- 决策：
+  - 采纳 A21 根因/解法复核结论作为 P5 阻断执行口径补强
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
