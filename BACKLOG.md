@@ -789,4 +789,5 @@
   触发条件：RH-T5 最终复评结论发布（已满足）
   完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
   尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`
-  当前状态：A1/A3/A4/A5 均未消除分裂；A2 完成关键脚本护栏硬化；已创建 issue #37 做外部持续追踪
+  外部协作：issue `#37`、PR `#38`
+  当前状态：A1/A3/A4/A5 均未消除分裂；A2 完成关键脚本护栏硬化；已进入远端 PR 评审阶段

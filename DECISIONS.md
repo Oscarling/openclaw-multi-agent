@@ -2635,3 +2635,18 @@
 - 决策：
   - `RH-T5-B01` 外部追踪已启用
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并按 issue #37 持续收敛
+
+### 2026-03-28：创建 RH-T5-B01 远端协作 PR（#38）
+
+- 背景：
+  - 本地已累计 RH-T5 最终复评与 A1~A5 整改证据，主分支受保护策略要求通过 PR 进入主干。
+- 执行动作：
+  - 创建分支：`codex/rh-t5-b01-remediation-batch1`
+  - 推送远端并创建 PR：`#38`
+  - 在 issue `#37` 留言关联 PR 进展
+- 结果：
+  - PR：`https://github.com/Oscarling/openclaw-multi-agent/pull/38`
+  - issue 评论：`https://github.com/Oscarling/openclaw-multi-agent/issues/37#issuecomment-4147451661`
+- 决策：
+  - 进入远端评审协作阶段
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，以 PR/issue 反馈驱动后续整改
