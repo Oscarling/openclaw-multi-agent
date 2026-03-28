@@ -2974,3 +2974,26 @@
   - 采纳双专家建议，维持当前 P5 阻断治理策略不变
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：固化 RH-T5-B01 治理行动卡（A19）
+
+- 背景：
+  - A18 双专家评估结论一致为 `Conditional-Go`，但需要把建议沉淀成可直接执行的单页口径，避免后续执行漂移。
+- 执行动作：
+  - 新增治理行动卡：
+    - `design/validation/2026-03-28-rh-t5-b01-governance-action-card-v1.md`
+  - 固化内容覆盖：
+    - 唯一执行入口（`rh_t5_b01_event_runner.sh`）
+    - 事件分流条件（`reopen_local_tracking_issue` / `waiting_upstream_feedback` / `upstream_feedback_received`）
+    - waiting 阶段必做动作（护栏 + 门禁 + 增量协作）
+    - 关单复评硬门槛（`a6/a7/a8` 全部翻绿 + `blocker_close_ready=yes`）
+    - 禁止事项（不走受控例外关单、不做无事件的猜测整改）
+- 结果：
+  - 主线执行口径进一步统一，可直接按卡执行且不依赖口头解释。
+  - 事件驱动策略与三本账口径保持一致。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-governance-action-card-v1.md`
+- 决策：
+  - 采纳 A19 作为 RH-T5-B01 当前阶段操作基准
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
