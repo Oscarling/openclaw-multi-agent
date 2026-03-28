@@ -2745,3 +2745,28 @@
   - `RH-T5-B01` 继续保持开启
   - 当前阶段进入“等待上游反馈 + 本地护栏维持 + 事件触发复检”模式
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：落地 RH-T5-B01 上游反馈触发卡与一键复检包（A10）
+
+- 背景：
+  - A9 已完成上游问题单升级，但若无明确触发机制，后续容易停留在“等待”而非“可执行”状态。
+- 执行动作：
+  - 新增触发卡：`design/validation/2026-03-28-rh-t5-b01-upstream-feedback-trigger-card-v1.md`
+  - 新增一键复检包脚本：`scripts/rh_t5_b01_upstream_recheck_bundle.sh`
+    - 串行执行 A6/A7/A8
+    - 生成聚合摘要与 `blocker_close_ready` 判定
+  - 执行基线留痕：
+    - `RECHECK_REASON="baseline_after_upstream_escalation" OPENCLAW_AGENT_CONTAINER=agent_argus bash scripts/rh_t5_b01_upstream_recheck_bundle.sh`
+- 结果：
+  - `a6_result=route_mismatch_detected`
+  - `a7_result=route_split_confirmed_under_controlled_pmp`
+  - `a8_result=to_path_specific_split_confirmed`
+  - `blocker_close_ready=no`
+  - `final_result=blocker_still_open`
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-recheck-bundle-baseline.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-upstream-recheck-20260328-155702/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 上游反馈一旦触发，即按触发卡执行一键复检包并回填三本账
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
