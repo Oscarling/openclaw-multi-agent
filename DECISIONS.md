@@ -3396,3 +3396,25 @@
 - 决策：
   - 采纳 A34，确认账号 2 全链路已收口
   - 下一执行点转入 A35：并行主链双账号总收口复核
+
+### 2026-03-28：完成并行主链双账号总收口复核（A35）
+
+- 背景：
+  - A34 已确认账号 2 全链路收口通过。
+  - 需要将账号 1 与账号 2 的 Gate-4 结果并表，形成主线统一收口结论。
+- 执行动作：
+  - 汇总账号 1 证据：
+    - `design/validation/2026-03-28-parallel-mainline-gate4-abc-recheck-validation.md`
+    - `design/validation/2026-03-28-parallel-mainline-gate4-abc-runner-validation.md`
+  - 汇总账号 2 证据：
+    - `design/validation/2026-03-28-parallel-mainline-account2-fullchain-closeout-validation.md`
+  - 输出双账号总收口复核文档。
+- 结果：
+  - 总收口判定：`parallel_mainline_dual_account_closeout_passed`
+  - 账号 1 与账号 2 均满足 Gate-4 A/B/C 全链路通过
+  - 关键证据引用满足可追溯要求
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-dual-account-closeout-validation.md`
+- 决策：
+  - 采纳 A35，并行主链双账号收口完成
+  - 下一执行点转入 A36：多账号自动登录能力范围评审与拆解（`office-hours -> plan-eng-review`）

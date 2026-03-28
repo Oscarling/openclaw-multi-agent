@@ -868,7 +868,14 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-account2-fullchain-closeout-validation.md`
   当前状态：`account2_fullchain_closeout_passed`
 
-- [ ] 完成并行主链双账号总收口复核（A35）
+- [x] 完成并行主链双账号总收口复核（A35）
   触发条件：A34 完成
   完成标准：账号1与账号2的 Gate-4 全链路证据形成统一收口结论，并明确进入下一主线任务的唯一入口
   执行动作：汇总账号1（A25/A26 基线）与账号2（A28~A34）证据，产出双账号总收口文档并同步 issue #37
+  验证记录：`design/validation/2026-03-28-parallel-mainline-dual-account-closeout-validation.md`
+  当前状态：`parallel_mainline_dual_account_closeout_passed`
+
+- [ ] 发起并行主链“多账号自动登录能力”范围评审与拆解（A36）
+  触发条件：A35 完成
+  完成标准：形成下一业务目标的范围清单、验收口径与拆解项，并得到 gstack 专家两段式评审结论
+  执行动作：先组织 `office-hours`（范围梳理）再进入 `plan-eng-review`（执行拆解），输出新一轮事件驱动 backlog
