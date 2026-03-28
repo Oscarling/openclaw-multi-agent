@@ -743,8 +743,32 @@
   完成标准：形成四角色固化范围清单 v1，可直接驱动正式四件套改动
   输出文档：`design/2026-03-28-role-hardening-scope-freeze-v1.md`
 
-- [ ] 执行 RH-T2 四角色契约全面固化（四件套 + 共享模板）
+- [x] 执行 RH-T2 四角色契约全面固化（四件套 + 共享模板）
   触发条件：RH-T1 固化范围冻结完成（已满足）
   完成标准：四角色正式契约与共享模板一致升级，并保持默认入口与边界不漂移
   影响范围：`roles/steward/*`、`roles/hunter/*`、`roles/editor/*`、`roles/publisher/*`、`shared/templates/*`
-  当前状态：已完成首轮契约与模板改造（`AGENTS/SOUL + 4个共享模板`），待 RH-T3 运行态同步与回归验证后关单
+  完成记录：`AGENTS/SOUL` 与 4 个共享模板已升级，并通过 RH-T3/RH-T4 验证闭环
+
+- [x] 执行 RH-T3 运行态同步与路由一致性校验
+  触发条件：RH-T2 契约固化完成（已满足）
+  完成标准：运行态同步完成，默认入口与通道探针稳定，证据链可追溯
+  验证记录：`design/validation/2026-03-28-role-hardening-rh-t3-runtime-sync-validation.md`
+  结论摘要：20/20 哈希一致；默认入口 `steward` 稳定；`route_mismatch_detected` 记为已知限制（当前不阻断）
+
+- [x] 执行 RH-T4 黄金回归与高风险项复检
+  触发条件：RH-T3 通过（已满足）
+  完成标准：关键边界与 `C11/C05/C13` 复检通过，未触发回滚阈值
+  验证记录：`design/validation/2026-03-28-role-hardening-rh-t4-regression-validation.md`
+  复检报告：`design/validation/2026-03-28-gate3-v2-recheck-r19.md`
+
+- [x] 发起 RH-T5 角色全面固化项目级收口复核（两段式）
+  触发条件：RH-T4 通过（已满足）
+  完成标准：形成项目级收口正式结论与后续事件链
+  预评审纪要：`design/2026-03-28-role-hardening-rh-t5-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  当前结论：`Conditional-Go`（允许进入阻断治理与复评态，不放行跨阶段执行）
+
+- [ ] 关闭 RH-T5-B01（CLI 默认/显式路由口径不一致）
+  触发条件：RH-T5 正式评审结论发布（已满足）
+  完成标准：关键链路实现路由口径一致，或显式 `--agent + safe wrapper` 护栏留痕完成并通过复评
+  阻断来源：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`

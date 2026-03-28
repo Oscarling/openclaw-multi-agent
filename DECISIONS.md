@@ -2358,3 +2358,76 @@
 - 决策：
   - RH-T2 进入“待验证”状态
   - 下一事件切换为 RH-T3（运行态同步与黄金回归验证）
+
+### 2026-03-28：完成 RH-T3 运行态同步与路由一致性校验
+
+- 背景：
+  - RH-T2 契约与模板改造已完成，进入运行态一致性验证。
+  - 目标是确认“仓库契约 = 运行态加载状态”，并复核默认入口与通道稳定性。
+- 结果：
+  - 默认入口：`steward`（绑定 `telegram accountId=default`）
+  - 通道状态：`telegram.running=true`、`probe.ok=true`、`lastError=null`
+  - Gate-2 探针：`gate2_probe_result=ready_for_binding_test`
+  - 哈希一致性：20/20 `match=yes`，`mismatch_count=0`
+  - CLI 路由探针：`route_mismatch_detected`（默认 `--to -> main`，显式 `--agent steward -> steward`）
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t3-runtime-sync-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t3-runtime-hash-parity-20260328-125727/parity.tsv`
+  - `design/validation/artifacts/openclaw-rh-t3-route-parity-20260328-124635/artifacts/probe-summary.txt`
+- 决策：
+  - RH-T3 结论：`passed_with_known_cli_limitation`
+  - 已知限制继续纳入治理，不作为本轮阻断
+  - 下一事件切换为 RH-T4（黄金回归与高风险项复检）
+
+### 2026-03-28：完成 RH-T4 黄金回归与高风险项复检
+
+- 背景：
+  - RH-T3 已通过，需对关键边界与高风险样例执行黄金回归。
+- 执行动作：
+  - 触发事件：`role_hardening_rh_t4`
+  - 执行复检：`GATE3_TRIGGER_EVENT="role_hardening_rh_t4" GATE3_RECHECK_ID="R19" bash ./deploy/gate3_event_recheck.sh`
+- 结果：
+  - `R19-C11/C05/C13/X4/H5` 全部通过（5/5）
+  - 运行态边界稳定，未触发回滚阈值
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t4-regression-validation.md`
+  - `design/validation/2026-03-28-gate3-v2-recheck-r19.md`
+- 决策：
+  - RH-T4 关闭，进入 RH-T5 项目级收口评审
+
+### 2026-03-28：完成 RH-T5 项目级收口预评审（office-hours）
+
+- 背景：
+  - RH-T1~RH-T4 证据链已完整，进入项目级收口预评审。
+  - gstack 专家预评审结论要求继续保留已知限制治理边界。
+- 预评审结论：
+  - `office-hours`：`Conditional-Go`
+  - 放行边界：允许进入正式工程复核；不允许外推为跨阶段执行放行
+- 风险点：
+  - `route_mismatch_detected` 仍在，关键链路必须维持“显式 `--agent` + `safe wrapper`”
+- 证据：
+  - `design/2026-03-28-role-hardening-rh-t5-office-hours-minutes-v1.md`
+  - `design/2026-03-28-role-hardening-rh-t5-review-prep-v1.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t3-runtime-sync-validation.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t4-regression-validation.md`
+- 决策：
+  - 下一事件切换为 RH-T5 正式工程复核（plan-eng-review）
+
+### 2026-03-28：完成 RH-T5 项目级正式工程复核（plan-eng-review）
+
+- 背景：
+  - `office-hours` 已给出 `Conditional-Go`，允许进入正式工程复核。
+  - RH-T3/RH-T4 结果稳定，但已知路由限制尚未关闭。
+- 正式结论：
+  - `plan-eng-review`：`Conditional-Go`
+  - 放行边界：允许进入“收口后阻断治理与复评态”，不放行跨阶段执行
+- 阻断项：
+  - `RH-T5-B01`：CLI 默认/显式路由口径不一致（`default --to -> main`，`explicit --agent -> steward`）
+- 证据：
+  - `design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  - `design/2026-03-28-role-hardening-rh-t5-office-hours-minutes-v1.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t3-runtime-sync-validation.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t4-regression-validation.md`
+- 决策：
+  - 发布 RH 主线阶段性收口结论：`Conditional-Go`
+  - 下一事件切换为“关闭 RH-T5-B01 后重开最终 Go/No-Go 复评”
