@@ -2868,3 +2868,27 @@
   - `RH-T5-B01` 继续保持开启
   - 维持“上游反馈触发复检包”的单入口执行口径
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 护栏覆盖面补强（A15）
+
+- 背景：
+  - `RH-T5-B01` 仍处于等待上游反馈态，需持续收敛本地执行风险面。
+  - 既有 `agent_call_guard` 主要覆盖 `deploy/`，需要同步覆盖 `scripts/` 目录，避免后续脚本新增直连调用。
+- 执行动作：
+  - 更新 `scripts/agent_call_guard.sh`：
+    - 扫描范围扩展为 `deploy/*.sh + scripts/*.sh`
+    - 增加 route-parity 诊断链路白名单（`cli_route_parity_probe` + A6/A7/A8 诊断脚本 + safe wrapper）
+    - 规则匹配调整为“非注释行”，减少误报
+  - 执行验证：
+    - `bash scripts/agent_call_guard.sh`
+    - `bash scripts/premerge_check.sh`
+- 结果：
+  - `agent-call-guard` 校验通过
+  - `premerge-check` 全量通过
+  - 新护栏可在不影响诊断脚本的前提下，持续阻断非白名单直连调用
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-agent-call-guard-scope-hardening-validation.md`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 在上游反馈到达前，维持“等待态 + 本地护栏持续强化”策略
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
