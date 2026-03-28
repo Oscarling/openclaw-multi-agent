@@ -800,3 +800,9 @@
   策略卡：`design/validation/2026-03-28-rh-t5-b01-parallel-mainline-policy-v1.md`
   并行分支：`codex/parallel-mainline-next01`
   当前状态：策略生效；`RH-T5-B01` 继续事件驱动等待上游反馈，不按时间推进
+
+- [x] 执行并行主链首轮 Gate-4 A/B/C 严格复检（A25）
+  触发条件：A23 并行主链策略生效（已满足）
+  完成标准：Stage A/Stage B/Stage C 在严格模式下全部通过，且证据链完整可追溯
+  验证记录：`design/validation/2026-03-28-parallel-mainline-gate4-abc-recheck-validation.md`
+  当前状态：`stage_a_passed`、`stage_b_passed`、`stage_c_passed`，并行主链可继续推进

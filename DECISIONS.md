@@ -3130,3 +3130,29 @@
 - 决策：
   - 采纳 A24，保持当前并行推进口径不变
   - `RH-T5-B01` 继续保持开启，等待 `#56370` 上游新反馈事件
+
+### 2026-03-28：执行并行主链 Gate-4 A/B/C 严格复检（A25）
+
+- 背景：
+  - A23 并行策略生效后，需要证明业务主链在当前环境可继续执行，不被 `RH-T5-B01` 侧线阻断拖停。
+  - 目标是完成 Gate-4 执行链路的严格模式复检，形成可继续推进的基线。
+- 执行动作：
+  - Stage A 严格复检：
+    - `GATE4_STAGE_A_STRICT=yes bash ./deploy/gate4_stage_a_execute.sh`
+  - Stage B 严格复检：
+    - `GATE4_STAGE_B_STRICT=yes bash ./deploy/gate4_stage_b_execute.sh`
+  - Stage C 严格复检：
+    - `GATE4_STAGE_C_STRICT=yes bash ./deploy/gate4_stage_c_execute.sh`
+- 结果：
+  - Stage A：`stage_a_result=stage_a_passed`
+  - Stage B：`stage_b_result=stage_b_passed`
+  - Stage C：`stage_c_result=stage_c_passed`
+  - 三段复检均通过，且关键 receipt 字段与证据引用有效。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-gate4-abc-recheck-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagea-recheck-20260328-201438/artifacts/stage-a-summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stageb-recheck-20260328-201519/artifacts/stage-b-summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagec-recheck-20260328-201547/artifacts/stage-c-summary.txt`
+- 决策：
+  - 采纳 A25 结果，确认并行主链具备继续推进条件
+  - `RH-T5-B01` 侧线结论不变：保持开启，等待 `#56370` 上游事件触发
