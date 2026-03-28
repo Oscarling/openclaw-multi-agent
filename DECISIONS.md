@@ -3046,3 +3046,34 @@
   - 采纳 A21 根因/解法复核结论作为 P5 阻断执行口径补强
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 post-A21 事件执行器复检（A22）
+
+- 背景：
+  - A21 已完成并合入主干，需要确认主线状态是否因新增评审动作而漂移。
+  - 用户要求继续推进主线，需按事件卡执行一次实时分流检查。
+- 执行动作：
+  - 运行事件执行器三次（含两次重试）：
+    - `EVENT_REASON=manual_continue_after_a21`
+    - `EVENT_REASON=manual_continue_after_a21_retry1`
+    - `EVENT_REASON=manual_continue_after_a21_retry2`
+  - 前两次探针失败日志均为：
+    - `error connecting to api.github.com`
+  - 第三次执行成功并产出完整摘要。
+- 结果：
+  - 成功轮次摘要：
+    - `next_event=waiting_upstream_feedback`
+    - `upstream_feedback_detected=no`
+    - `upstream_new_feedback_detected=no`
+    - `action_taken=wait`
+    - `action_result=waiting_upstream_feedback`
+  - 结论：网络抖动不改变治理状态，主线仍在等待上游新反馈触发。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-event-runner-post-a21-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-184336/artifacts/probe.log`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-184417/artifacts/probe.log`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-184526/artifacts/summary.txt`
+- 决策：
+  - 采纳 A22 结果，维持 `Conditional-Go` 与 waiting 态不变
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
