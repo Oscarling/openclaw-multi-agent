@@ -2913,3 +2913,38 @@
   - A15 未引入事件分流漂移
   - `RH-T5-B01` 继续保持开启，等待上游反馈触发复检包
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 上游反馈水位线去重改造（A17）
+
+- 背景：
+  - 现有事件链在“存在外部反馈”场景下可能重复触发同一轮复检包，导致冗余执行。
+  - 需要在保持事件驱动口径的前提下，实现“仅新反馈触发复检”。
+- 执行动作：
+  - 改造 `scripts/rh_t5_b01_upstream_feedback_probe.sh`：
+    - 新增 `STATE_FILE`（默认 `runtime/argus/config/rh_t5_b01/upstream_feedback_state.env`）
+    - 输出 `upstream_new_feedback_detected` 与 `processed_*` 水位线字段
+    - `next_event` 判定改为“新外部反馈触发”，非“已有外部反馈触发”
+  - 改造 `scripts/rh_t5_b01_event_runner.sh`：
+    - 透传 `STATE_FILE`
+    - 新增 `state_write_result` 摘要字段
+    - 仅在 `run_upstream_recheck_bundle` 且 `bundle_exit_0` 后写入水位线
+  - 执行验证：
+    - 真实口径基线（无新反馈）：`a17_watermark_baseline`
+    - 隔离态双跑（临时 state 文件）：
+      - run1：`a17_watermark_synthetic_run1`（触发 bundle + 写水位线）
+      - run2：`a17_watermark_synthetic_run2`（同输入进入 waiting，不重复触发）
+- 结果：
+  - 基线：`next_event=waiting_upstream_feedback`、`upstream_new_feedback_detected=no`
+  - 双跑验证：
+    - run1：`next_event=upstream_feedback_received`、`action_taken=run_upstream_recheck_bundle`、`state_write_result=written`
+    - run2：`next_event=waiting_upstream_feedback`、`upstream_new_feedback_detected=no`、`action_taken=wait`
+  - 去重逻辑验证通过：同一反馈不会重复触发复检包
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-feedback-watermark-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-170850/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-a17-sim-run1-20260328-171001/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-a17-sim-run2-20260328-171514/artifacts/summary.txt`
+- 决策：
+  - A17 改造通过，事件执行器进入“新反馈触发复检”模式
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`

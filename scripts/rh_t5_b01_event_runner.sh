@@ -12,6 +12,7 @@ UPSTREAM_ISSUE_NUMBER="${UPSTREAM_ISSUE_NUMBER:-56267}"
 LOCAL_REPO="${LOCAL_REPO:-Oscarling/openclaw-multi-agent}"
 LOCAL_ISSUE_NUMBER="${LOCAL_ISSUE_NUMBER:-37}"
 ISSUE_OWNER_LOGIN="${ISSUE_OWNER_LOGIN:-Oscarling}"
+STATE_FILE="${STATE_FILE:-runtime/argus/config/rh_t5_b01/upstream_feedback_state.env}"
 EXEC_ROOT="${EXEC_ROOT:-design/validation/artifacts/openclaw-rh-t5-b01-event-runner-$TS}"
 ARTIFACT_DIR="$EXEC_ROOT/artifacts"
 
@@ -51,13 +52,19 @@ UPSTREAM_REPO="$UPSTREAM_REPO" \
 UPSTREAM_ISSUE_NUMBER="$UPSTREAM_ISSUE_NUMBER" \
 LOCAL_REPO="$LOCAL_REPO" \
 LOCAL_ISSUE_NUMBER="$LOCAL_ISSUE_NUMBER" \
+STATE_FILE="$STATE_FILE" \
 PROBE_ROOT="$PROBE_ROOT" \
 bash scripts/rh_t5_b01_upstream_feedback_probe.sh >"$ARTIFACT_DIR/probe.log" 2>&1
 
 PROBE_SUMMARY="$PROBE_ROOT/artifacts/summary.txt"
 NEXT_EVENT="$(read_kv "$PROBE_SUMMARY" "next_event")"
 UPSTREAM_FEEDBACK_DETECTED="$(read_kv "$PROBE_SUMMARY" "upstream_feedback_detected")"
+UPSTREAM_NEW_FEEDBACK_DETECTED="$(read_kv "$PROBE_SUMMARY" "upstream_new_feedback_detected")"
 LOCAL_TRACKING_ISSUE_OPEN="$(read_kv "$PROBE_SUMMARY" "local_tracking_issue_open")"
+UPSTREAM_EXTERNAL_COMMENT_COUNT="$(read_kv "$PROBE_SUMMARY" "upstream_external_comment_count")"
+UPSTREAM_LAST_EXTERNAL_COMMENT_AUTHOR="$(read_kv "$PROBE_SUMMARY" "upstream_last_external_comment_author")"
+UPSTREAM_LAST_EXTERNAL_COMMENT_CREATED_AT="$(read_kv "$PROBE_SUMMARY" "upstream_last_external_comment_created_at")"
+UPSTREAM_LAST_EXTERNAL_COMMENT_URL="$(read_kv "$PROBE_SUMMARY" "upstream_last_external_comment_url")"
 
 ACTION_TAKEN="none"
 ACTION_RESULT="not_run"
@@ -65,6 +72,22 @@ BUNDLE_SUMMARY=""
 BUNDLE_FINAL_RESULT=""
 BUNDLE_BLOCKER_CLOSE_READY=""
 REOPEN_RESULT="not_needed"
+STATE_WRITE_RESULT="not_applicable"
+
+write_feedback_state() {
+  local state_dir
+  state_dir="$(dirname "$STATE_FILE")"
+  mkdir -p "$state_dir"
+  cat >"$STATE_FILE" <<EOF
+last_processed_external_comment_count=$UPSTREAM_EXTERNAL_COMMENT_COUNT
+last_processed_external_comment_author=$UPSTREAM_LAST_EXTERNAL_COMMENT_AUTHOR
+last_processed_external_comment_created_at=$UPSTREAM_LAST_EXTERNAL_COMMENT_CREATED_AT
+last_processed_external_comment_url=$UPSTREAM_LAST_EXTERNAL_COMMENT_URL
+last_processed_at=$(date +%Y-%m-%dT%H:%M:%S%z)
+source_exec_root=$EXEC_ROOT
+source_event_reason=$EVENT_REASON
+EOF
+}
 
 if [[ "$NEXT_EVENT" == "reopen_local_tracking_issue" ]]; then
   ACTION_TAKEN="reopen_local_tracking_issue"
@@ -96,6 +119,12 @@ elif [[ "$NEXT_EVENT" == "upstream_feedback_received" ]]; then
     BUNDLE_FINAL_RESULT="$(read_kv "$BUNDLE_SUMMARY" "final_result")"
     BUNDLE_BLOCKER_CLOSE_READY="$(read_kv "$BUNDLE_SUMMARY" "blocker_close_ready")"
   fi
+  if [[ "$BUNDLE_CODE" -eq 0 ]]; then
+    write_feedback_state
+    STATE_WRITE_RESULT="written"
+  else
+    STATE_WRITE_RESULT="skipped_bundle_failed"
+  fi
 else
   ACTION_TAKEN="wait"
   ACTION_RESULT="waiting_upstream_feedback"
@@ -111,6 +140,7 @@ upstream_issue_number=$UPSTREAM_ISSUE_NUMBER
 local_repo=$LOCAL_REPO
 local_issue_number=$LOCAL_ISSUE_NUMBER
 issue_owner_login=$ISSUE_OWNER_LOGIN
+state_file=$STATE_FILE
 openclaw_agent_container=$OPENCLAW_AGENT_CONTAINER
 auto_reopen_local_issue=$AUTO_REOPEN_LOCAL_ISSUE
 bundle_strict=$BUNDLE_STRICT
@@ -118,15 +148,17 @@ probe_root=$PROBE_ROOT
 probe_summary=$PROBE_SUMMARY
 next_event=$NEXT_EVENT
 upstream_feedback_detected=$UPSTREAM_FEEDBACK_DETECTED
+upstream_new_feedback_detected=$UPSTREAM_NEW_FEEDBACK_DETECTED
 local_tracking_issue_open=$LOCAL_TRACKING_ISSUE_OPEN
 action_taken=$ACTION_TAKEN
 action_result=$ACTION_RESULT
+state_write_result=$STATE_WRITE_RESULT
 reopen_result=$REOPEN_RESULT
 bundle_root=$BUNDLE_ROOT
 bundle_summary=$BUNDLE_SUMMARY
 bundle_final_result=$BUNDLE_FINAL_RESULT
 bundle_blocker_close_ready=$BUNDLE_BLOCKER_CLOSE_READY
-note=run_upstream_recheck_bundle means upstream feedback is detected; wait means no upstream feedback yet.
+note=run_upstream_recheck_bundle means new unprocessed upstream feedback is detected; wait means no new upstream feedback yet.
 EOF
 
 log "done"
