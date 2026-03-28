@@ -2340,3 +2340,21 @@
 - 决策：
   - RH-T1 关闭，进入 RH-T2（四角色契约全面固化：四件套 + 共享模板）
   - RH-T2 期间维持边界：不新增角色、不改默认入口、不放开自动执行
+
+### 2026-03-28：执行 RH-T2 首轮契约固化改造（进行中）
+
+- 背景：
+  - RH-T1 已冻结边界，进入 RH-T2 文件级改造阶段。
+- 已执行改造：
+  - `steward/hunter/editor/publisher` 的 `AGENTS/SOUL` 契约升级
+  - 共享模板升级：
+    - `shared/templates/steward_response_template.md`
+    - `shared/templates/hunter_topic_card_template.md`
+    - `shared/templates/editor_output_template.md`
+    - `shared/templates/publisher_output_template.md`
+- 当前边界：
+  - 仍保持 `steward` 作为默认入口
+  - 仍保持“评审通过不等于自动执行”与人工闸门纪律
+- 决策：
+  - RH-T2 进入“待验证”状态
+  - 下一事件切换为 RH-T3（运行态同步与黄金回归验证）
