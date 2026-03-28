@@ -2559,3 +2559,22 @@
 - 决策：
   - A2 已降低关键链路误用风险，但不等于关闭路由分裂
   - `RH-T5-B01` 继续保持开启，下一事件维持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A3（channel=last，未解决）
+
+- 背景：
+  - A1 未解决，A2 完成护栏硬化后继续探索“调用参数层”是否可收敛路由口径。
+- 尝试动作：
+  - 对比 `--channel last` 的默认路径与显式 `--agent steward` 路径 `sessionKey`
+- 结果：
+  - `default_exit=0`，`explicit_exit=0`
+  - `default_session_key=agent:main:main`
+  - `explicit_session_key=agent:steward:main`
+  - `same=no`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-channel-last-test-20260328-140046/`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`

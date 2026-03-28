@@ -787,5 +787,5 @@
 - [ ] 执行 `rh_t5_b01_route_parity_remediation_requested`（路由口径整改）
   触发条件：RH-T5 最终复评结论发布（已满足）
   完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
-  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`
-  当前状态：A1 未消除分裂；A2 完成关键脚本护栏硬化，但 `route_mismatch_detected` 仍在
+  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`
+  当前状态：A1/A3 均未消除分裂；A2 完成关键脚本护栏硬化，但 `route_mismatch_detected` 仍在
