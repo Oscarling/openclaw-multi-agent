@@ -2469,3 +2469,74 @@
 - 决策：
   - `RH-T5-B01` 维持开启，不做关单
   - 下一事件切换为 `rh_t5_final_go_nogo_rereview_requested`
+
+### 2026-03-28：完成 RH-T5-B01 关键链路显式 Agent 审计
+
+- 背景：
+  - 护栏生效与路由复评已完成，需补充“关键链路是否都显式 `--agent`”的审计证据。
+- 执行动作：
+  - 审计 `deploy/recovery_drill.sh`、`deploy/host_apply_drill.sh`、`deploy/gate3_event_recheck.sh`
+  - 复核 `scripts/openclaw_agent_safe.sh` 对缺失 `--agent` 的阻断行为
+- 结果：
+  - `keypath_all_ok=yes`
+  - `wrapper_blocks_missing_agent=yes`
+  - `result=pass`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-keypath-explicit-agent-audit-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-keypath-audit-20260328-134226/summary.txt`
+- 决策：
+  - 关键链路显式 agent 约束已形成审计留痕
+  - 下一事件保持 `rh_t5_final_go_nogo_rereview_requested`
+
+### 2026-03-28：完成 RH-T5 最终 Go/No-Go 复评（office-hours）
+
+- 背景：
+  - `RH-T5-B01` 仍开启，需对“是否允许受控例外关单”做最终预评审。
+- 预评审结论：
+  - `office-hours`：`Conditional-Go`
+  - `RH-T5-B01` 受控例外关单：`no`
+- 核心判断：
+  - 护栏与审计可控但不等于风险消除，默认/显式路由分裂仍构成静默错路由风险
+- 证据：
+  - `design/2026-03-28-role-hardening-rh-t5-final-rereview-office-hours-minutes-v1.md`
+  - `design/2026-03-28-role-hardening-rh-t5-final-rereview-prep-v1.md`
+- 决策：
+  - 下一事件切换为 RH-T5 最终正式工程复评（plan-eng-review）
+
+### 2026-03-28：完成 RH-T5 最终 Go/No-Go 复评（plan-eng-review）
+
+- 背景：
+  - office-hours 已明确 `RH-T5-B01` 不可通过受控例外关单，进入正式工程复评。
+- 正式结论：
+  - `plan-eng-review`：`Conditional-Go`
+  - `RH-T5-B01` 是否可关闭：`no`
+- 阻断项：
+  - `RH-T5-B01`（CLI 默认/显式路由口径不一致）继续保持开启
+  - 关闭标准：route parity 不再出现 session_key 分裂，且护栏/审计持续通过并留痕
+- 证据：
+  - `design/2026-03-28-role-hardening-rh-t5-final-rereview-plan-eng-review-minutes-v1.md`
+  - `design/2026-03-28-role-hardening-rh-t5-final-rereview-office-hours-minutes-v1.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-keypath-explicit-agent-audit-validation.md`
+- 决策：
+  - RH 主线维持 `Conditional-Go`，不宣告最终收口完成
+  - 下一事件切换为 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A1（未解决）
+
+- 背景：
+  - RH-T5 最终复评已确认 `RH-T5-B01` 不可通过受控例外关单，需进入整改事件。
+- 尝试动作：
+  - 验证“默认路径显式加 `--channel telegram`”是否能与显式 `--agent steward` 对齐
+  - 对比两条路径的 `sessionKey`
+- 结果：
+  - `default_session_key=agent:main:main`
+  - `explicit_session_key=agent:steward:main`
+  - `same=no`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-channel-route-test-20260328-135133/`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件维持 `rh_t5_b01_route_parity_remediation_requested`，进入 A2 整改尝试

@@ -770,8 +770,22 @@
 
 - [ ] 关闭 RH-T5-B01（CLI 默认/显式路由口径不一致）
   触发条件：RH-T5 正式评审结论发布（已满足）
-  完成标准：关键链路实现路由口径一致，或显式 `--agent + safe wrapper` 护栏留痕完成并通过复评
+  完成标准：关键链路实现路由口径一致，且显式 `--agent + safe wrapper` 护栏留痕持续通过复评
   阻断来源：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
   阶段记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-guardrail-enforcement-validation.md`
+  审计记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-keypath-explicit-agent-audit-validation.md`
   复评记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
-  当前状态：已完成护栏生效与路由复评，`route_mismatch_detected` 仍存在，阻断保持开启
+  当前状态：已完成护栏生效、关键链路审计与路由复评；`route_mismatch_detected` 仍存在，阻断保持开启
+
+- [x] 完成 RH-T5 最终 Go/No-Go 复评（两段式）
+  触发条件：RH-T5-B01 阻断治理阶段记录形成（已满足）
+  完成标准：形成最终复评结论并明确“阻断可否关闭”的唯一口径
+  预评审纪要：`design/2026-03-28-role-hardening-rh-t5-final-rereview-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-role-hardening-rh-t5-final-rereview-plan-eng-review-minutes-v1.md`
+  结论：`Conditional-Go`，且 `RH-T5-B01` 当前不可关闭
+
+- [ ] 执行 `rh_t5_b01_route_parity_remediation_requested`（路由口径整改）
+  触发条件：RH-T5 最终复评结论发布（已满足）
+  完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
+  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`
+  当前状态：A1（显式 `--channel telegram`）未消除分裂，`route_mismatch_detected` 仍在
