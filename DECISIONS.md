@@ -3284,3 +3284,30 @@
 - 决策：
   - 采纳 A30，第二账号 Stage B 已通过
   - 下一执行点转入 Stage C 就绪检查（A31）
+
+### 2026-03-28：完成并行主链 Stage C（xhs_demo_002）就绪检查（A31）
+
+- 背景：
+  - A30 已完成第二账号 Stage B 严格复检，需要继续推进同账号 Stage C。
+  - 目标是在不提前构造 Stage C 回执的情况下，确认 Stage C 当前唯一缺口。
+- 执行动作：
+  - 执行 Stage C 检查（非严格模式）：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_PHASE_ID=C1`
+    - `GATE4_BATCH_ID=XHS-REAL-C1-BATCH-002`
+    - `GATE4_RELEASE_ID=XHS-REAL-C1-REL-002`
+    - `GATE4_TICKET_ID=GATE4-C-002`
+    - `GATE4_STAGE_C_STRICT=no`
+  - 读取 `stage-c-summary` 判定门禁状态。
+- 结果：
+  - `preflight_result=ready_for_stage_c_execution`
+  - `account_found=yes`，`phase_found=yes`，`needs_ticket=yes`
+  - `stagec_receipt_present=no`
+  - `stagec_receipt_valid=no`
+  - `stage_c_result=waiting_stage_c_receipt`
+  - 结论：Stage C 当前唯一缺口为 Stage C 回执文件。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stagec-account2-readiness-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagec-account2-check-20260328-215129/artifacts/stage-c-summary.txt`
+- 决策：
+  - 采纳 A31，下一执行点固定为补齐 Stage C 回执并执行严格复检（A32）
