@@ -2997,3 +2997,27 @@
   - 采纳 A19 作为 RH-T5-B01 当前阶段操作基准
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：完成 RH-T5-B01 上游 maintainer handoff v2（A20）
+
+- 背景：
+  - A19 后执行口径已统一，但上游 maintainer 仍未给出实质反馈。
+  - 需要把证据链进一步压缩成“最短可执行输入”，提升上游协作转化效率。
+- 执行动作：
+  - 新增 `upstream handoff v2` 文档：
+    - `design/validation/2026-03-28-rh-t5-b01-upstream-maintainer-handoff-v2.md`
+  - 固化内容：
+    - 单句问题定义
+    - 最短复现命令（A6）
+    - 受控排除命令（A7/A8）
+    - 请求 maintainer 明确的默认路由语义
+    - 关单硬门槛（`a6/a7/a8 + blocker_close_ready`）
+- 结果：
+  - 上游协作输入更短、更可执行，减少来回解释成本。
+  - 本地治理策略不变，仍维持等待新上游反馈触发复检。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-maintainer-handoff-v2.md`
+- 决策：
+  - 采纳 A20 作为后续上游沟通标准输入
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
