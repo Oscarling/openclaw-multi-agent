@@ -2672,3 +2672,31 @@
 - 决策：
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，以 A6 最小复现包驱动 issue #37 后续修复闭环
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A7（受控对比，未解决）
+
+- 背景：
+  - A6 已确认最小复现稳定可重放，但仍需缩小根因空间，避免把问题归因到模型配置漂移。
+  - 项目契约已约定恢复策略包含 `provider/model/profile` 受控对比。
+- 尝试动作：
+  - 新增并执行脚本：`scripts/rh_t5_b01_controlled_comparison.sh`
+  - 在 `agent_argus` 下执行四组调用（`explicit_fixed/default_fixed/default_new/explicit_new`），受控比对：
+    - default/explicit 路由是否分裂
+    - 同一 `session-id` 下是否仍分裂
+    - `provider/model/profile` 是否一致
+- 结果：
+  - `default_agent_ids=steward`
+  - `same_sid_route_split=yes`
+  - `pmp_consistent=yes`
+  - `explicit_fixed_session_key=agent:steward:main`
+  - `default_fixed_session_key=agent:main:main`
+  - `default_new_session_key=agent:main:main`
+  - `result=route_split_confirmed_under_controlled_pmp`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a7-controlled-comparison.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-a7-controlled-comparison-20260328-153046/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前判断：分裂并非由 `provider/model/profile` 差异或 session-id 变化直接导致，应优先推进 routing 选择层修复
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并将 A7 证据同步至 issue #37

@@ -788,6 +788,6 @@
 - [ ] 执行 `rh_t5_b01_route_parity_remediation_requested`（路由口径整改）
   触发条件：RH-T5 最终复评结论发布（已满足）
   完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
-  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a6-min-repro-pack.md`
+  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a6-min-repro-pack.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a7-controlled-comparison.md`
   外部协作：issue `#37`、PR `#38`
-  当前状态：A1/A3/A4/A5/A6 均未消除分裂；A2 完成关键脚本护栏硬化；PR #38 已合并，issue #37 持续追踪平台级修复
+  当前状态：A1/A3/A4/A5/A6/A7 均未消除分裂；A2 完成关键脚本护栏硬化；A7 已确认分裂与 provider/model/profile 受控对比无关；PR #38/#39 已合并，issue #37 持续追踪平台级修复
