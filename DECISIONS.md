@@ -2892,3 +2892,24 @@
   - `RH-T5-B01` 继续保持开启
   - 在上游反馈到达前，维持“等待态 + 本地护栏持续强化”策略
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 A15 后状态一致性复检（A16）
+
+- 背景：
+  - A15 已完成并合并，需要确认护栏补强不会改变既有事件分流逻辑。
+- 执行动作：
+  - 执行事件执行器：
+    - `EVENT_REASON="post_a15_guard_hardening_20260328" AUTO_REOPEN_LOCAL_ISSUE="no" BUNDLE_STRICT="no" OPENCLAW_AGENT_CONTAINER=agent_argus bash scripts/rh_t5_b01_event_runner.sh`
+- 结果：
+  - `next_event=waiting_upstream_feedback`
+  - `upstream_feedback_detected=no`
+  - `local_tracking_issue_open=yes`
+  - `action_taken=wait`
+  - `action_result=waiting_upstream_feedback`
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-event-runner-post-a15-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-170038/artifacts/summary.txt`
+- 决策：
+  - A15 未引入事件分流漂移
+  - `RH-T5-B01` 继续保持开启，等待上游反馈触发复检包
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
