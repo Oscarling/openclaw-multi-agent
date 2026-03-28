@@ -861,7 +861,14 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-stagea-account2-evidence-cleanup-validation.md`
   当前状态：`manual_receipt_evidence_ref=telegram:chatId=6189851600,messageId=19,ticket=GATE4-A-002`，`stage_a_result=stage_a_passed`
 
-- [ ] 完成并行主链账号2全链路收口复核（A34）
+- [x] 完成并行主链账号2全链路收口复核（A34）
   触发条件：A33 完成
   完成标准：形成账号 `xhs_demo_002` 的 Gate-4 A/B/C + 审计证据收口纪要，并回填三本账结论
   执行动作：汇总 A28~A33 证据，产出一份全链路收口验证文档并同步 issue #37
+  验证记录：`design/validation/2026-03-28-parallel-mainline-account2-fullchain-closeout-validation.md`
+  当前状态：`account2_fullchain_closeout_passed`
+
+- [ ] 完成并行主链双账号总收口复核（A35）
+  触发条件：A34 完成
+  完成标准：账号1与账号2的 Gate-4 全链路证据形成统一收口结论，并明确进入下一主线任务的唯一入口
+  执行动作：汇总账号1（A25/A26 基线）与账号2（A28~A34）证据，产出双账号总收口文档并同步 issue #37
