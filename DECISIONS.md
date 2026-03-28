@@ -2846,3 +2846,25 @@
   - `RH-T5-B01` 继续保持开启
   - 当前保持等待上游反馈态，不触发关闭复评
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 上游跟进评论补充（A14）
+
+- 背景：
+  - A13 复检后仍为 `waiting_upstream_feedback`，阻断状态未变化。
+  - 为避免“仅等待不推进”，在等待态补充上游可执行上下文。
+- 执行动作：
+  - 向上游 issue `openclaw/openclaw#56267` 追加跟进评论：
+    - `https://github.com/openclaw/openclaw/issues/56267#issuecomment-4147644346`
+  - 评论包含：
+    - A13 最新复检结果
+    - A6/A7/A8 路由分裂关键证据摘要
+    - 本地追踪 issue `#37` 入口
+- 结果：
+  - 上游 issue 仍为 `OPEN`，暂无维护者反馈。
+  - 本地事件状态不变：`waiting_upstream_feedback`。
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-followup-comment-validation.md`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 维持“上游反馈触发复检包”的单入口执行口径
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
