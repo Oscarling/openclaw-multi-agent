@@ -902,7 +902,17 @@
   DoD 结论：`design/validation/2026-03-28-parallel-mainline-multi-account-impl-dod-validation.md`
   当前状态：`parallel_mainline_multi_account_exec_validation_passed`，`next_event=parallel_mainline_multi_account_exec_validation_completed`
 
-- [ ] 发起并行主链多账号自动登录受控试运行窗口（A39）
+- [x] 发起并行主链多账号自动登录受控试运行窗口（A39）
   触发条件：A38 结论发布且 `next_event=parallel_mainline_multi_account_exec_validation_completed`
   完成标准：形成受控试运行输入包、事件执行卡与放行边界（`Go/Conditional-Go/No-Go`）
   执行动作：按两段式评审（`office-hours -> plan-eng-review`）生成试运行放行口径并回填三本账
+  输入包：`design/2026-03-28-parallel-mainline-multi-account-trial-window-prep-v1.md`
+  事件执行卡：`design/2026-03-28-parallel-mainline-multi-account-trial-window-event-card-v1.md`
+  预评审纪要：`design/2026-03-28-parallel-mainline-multi-account-trial-window-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-parallel-mainline-multi-account-trial-window-plan-eng-review-minutes-v1.md`
+  当前状态：结论 `Go（受控窗口）`，`next_event=parallel_mainline_multi_account_trial_window_review_completed`
+
+- [ ] 启动并行主链多账号自动登录受控试运行窗口执行（A40）
+  触发条件：A39 结论发布且 `next_event=parallel_mainline_multi_account_trial_window_review_completed`
+  完成标准：完成首批窗口执行、产出通过/停机唯一结论并回填三本账
+  执行动作：按 A39 事件卡执行窗口首批动作并记录验证摘要
