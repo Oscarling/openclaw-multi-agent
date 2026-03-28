@@ -3180,3 +3180,26 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-gate4-abc-recheck-runner-test-20260328-202651/artifacts/summary.txt`
 - 决策：
   - 采纳 A26，并将该脚本作为并行主链 Gate-4 复检的默认执行入口
+
+### 2026-03-28：完成并行主链 Stage A（xhs_demo_002）就绪检查（A27）
+
+- 背景：
+  - 并行主链已启动，需要把“多账号自动登录”从单账号扩展到第二账号。
+  - 目标是在不改变侧线阻断结论的前提下确认账号 `xhs_demo_002` 当前 Stage A 缺口。
+- 执行动作：
+  - 执行 Stage A 检查（非严格模式）：
+    - `GATE4_ACCOUNT_ID=xhs_demo_002`
+    - `GATE4_TICKET_ID=GATE4-A-002`
+    - `GATE4_STAGE_A_STRICT=no`
+  - 读取 `stage-a-summary` 判定当前门禁状态。
+- 结果：
+  - `preflight_result=ready_for_stage_a_execution`
+  - `account_found=yes`，`account_automation=gated_auto`
+  - `needs_ticket=yes`（本次已提供 ticket）
+  - `stage_a_result=waiting_manual_login`
+  - 结论：第二账号链路可进入“补手工登录回执 -> 严格复检”下一步。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-stagea-account2-readiness-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stagea-account2-check-20260328-204011/artifacts/stage-a-summary.txt`
+- 决策：
+  - 采纳 A27，下一执行点固定为补齐 `xhs_demo_002` 手工登录回执并做 Stage A 严格复检（A28）

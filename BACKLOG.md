@@ -812,3 +812,14 @@
   完成标准：一条命令可完成 A/B/C 严格复检并输出聚合摘要，实测返回通过
   脚本：`deploy/parallel_mainline_gate4_abc_recheck.sh`
   验证记录：`design/validation/2026-03-28-parallel-mainline-gate4-abc-runner-validation.md`
+
+- [x] 完成并行主链 Stage A（`xhs_demo_002`）就绪检查（A27）
+  触发条件：A23 并行策略生效且需要推进多账号能力（已满足）
+  完成标准：明确第二账号在 Stage A 的当前阻断点并留痕
+  验证记录：`design/validation/2026-03-28-parallel-mainline-stagea-account2-readiness-validation.md`
+  当前状态：`preflight_result=ready_for_stage_a_execution`，`stage_a_result=waiting_manual_login`（缺 `manual_receipt`）
+
+- [ ] 完成 `xhs_demo_002` Stage A 手工登录回执并通过严格复检（A28）
+  触发条件：A27 已确认唯一缺口为 `manual_receipt`
+  完成标准：`manual_receipt_present=yes`、`manual_receipt_valid=yes`、`stage_a_result=stage_a_passed`
+  执行动作：先补 `runtime/argus/config/gate4/manual_receipt_xhs_demo_002.json`，再以 `GATE4_STAGE_A_STRICT=yes` 复检
