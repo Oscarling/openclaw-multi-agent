@@ -2822,3 +2822,27 @@
   - `RH-T5-B01` 继续保持开启
   - 后续优先通过事件执行器触发复检流程，保持事件驱动与口径一致
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 事件执行器主线复检（A13，waiting）
+
+- 背景：
+  - 用户触发“继续主线”动作，需要按事件口径确认是否出现上游反馈并决定后续分流。
+  - 当前阻断 `RH-T5-B01` 仍开启，且流程要求“有反馈再复检、无反馈则等待态”。
+- 执行动作：
+  - 执行：
+    - `EVENT_REASON="manual_continue_20260328" AUTO_REOPEN_LOCAL_ISSUE="no" BUNDLE_STRICT="no" OPENCLAW_AGENT_CONTAINER=agent_argus bash scripts/rh_t5_b01_event_runner.sh`
+  - 由执行器自动完成“上游反馈探针 -> 事件分流”。
+- 结果：
+  - `next_event=waiting_upstream_feedback`
+  - `upstream_feedback_detected=no`
+  - `local_tracking_issue_open=yes`
+  - `action_taken=wait`
+  - `action_result=waiting_upstream_feedback`
+  - `bundle_blocker_close_ready=`（未触发复检包）
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-event-runner-manual-continue-validation.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-164323/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前保持等待上游反馈态，不触发关闭复评
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
