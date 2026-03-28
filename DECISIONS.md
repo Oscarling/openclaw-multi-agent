@@ -2948,3 +2948,29 @@
   - A17 改造通过，事件执行器进入“新反馈触发复检”模式
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：完成 RH-T5-B01 gstack 双专家评估（A18）
+
+- 背景：
+  - 用户明确要求“找 gstack 专家评估”当前 P5 阻断治理难度与后续策略。
+  - 阻断 `RH-T5-B01` 仍开启，主线处于 `waiting_upstream_feedback`。
+- 执行动作：
+  - 并行执行两类专家评估：
+    - gstack `office-hours` 视角：策略与推进节奏评估
+    - gstack `plan-eng-review` 视角：工程闭环与关单证据评估
+  - 评估输入统一使用三本账、关键脚本、触发卡与 A17 验证记录。
+  - 追加本地 gstack 评审日志留痕（`gstack-review-log`）：
+    - `skill=office-hours`, `decision=Conditional-Go`
+    - `skill=plan-eng-review`, `decision=Conditional-Go`
+- 结果：
+  - 两位专家结论一致：维持 `Conditional-Go`
+  - 一致建议：
+    - 不新增平台修复型本地实验
+    - 维持“事件执行器单入口 + 护栏门禁 + 上游反馈触发复检”
+    - 仅当 `blocker_close_ready=yes` 时触发两段式关闭复评
+- 证据：
+  - `design/2026-03-28-rh-t5-b01-gstack-dual-expert-assessment-minutes-v1.md`
+- 决策：
+  - 采纳双专家建议，维持当前 P5 阻断治理策略不变
+  - `RH-T5-B01` 继续保持开启
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
