@@ -2619,3 +2619,19 @@
 - 决策：
   - 绑定策略微调不能解决当前路由分裂
   - `RH-T5-B01` 继续保持开启，下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：创建 RH-T5-B01 GitHub 外部追踪单（#37）
+
+- 背景：
+  - A1~A5 已形成连续整改证据，但阻断仍未关闭。
+  - 需将本地阻断治理升级为仓库级公开追踪，避免信息仅停留在本地台账。
+- 执行动作：
+  - 创建 issue：`RH-T5-B01: CLI default route mismatch vs explicit --agent (role-hardening blocker)`
+- 结果：
+  - issue 链接：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
+  - 已包含问题定义、复现步骤、A1~A5 证据链与验收标准
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-issue-creation-validation.md`
+- 决策：
+  - `RH-T5-B01` 外部追踪已启用
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并按 issue #37 持续收敛

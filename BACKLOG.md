@@ -772,6 +772,7 @@
   触发条件：RH-T5 正式评审结论发布（已满足）
   完成标准：关键链路实现路由口径一致，且显式 `--agent + safe wrapper` 护栏留痕持续通过复评
   阻断来源：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  外部追踪：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
   阶段记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-guardrail-enforcement-validation.md`
   审计记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-keypath-explicit-agent-audit-validation.md`
   复评记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
@@ -788,4 +789,4 @@
   触发条件：RH-T5 最终复评结论发布（已满足）
   完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
   尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`
-  当前状态：A1/A3/A4/A5 均未消除分裂；A2 完成关键脚本护栏硬化，但 `route_mismatch_detected` 仍在
+  当前状态：A1/A3/A4/A5 均未消除分裂；A2 完成关键脚本护栏硬化；已创建 issue #37 做外部持续追踪
