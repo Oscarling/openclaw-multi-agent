@@ -3465,3 +3465,27 @@
   - `design/validation/2026-03-28-parallel-mainline-multi-account-autologin-impl-prep-validation.md`
 - 决策：
   - 采纳 A37，下一执行点转入 A38：多账号自动登录首轮执行验证
+
+### 2026-03-28：完成并行主链多账号自动登录首轮执行验证（A38）
+
+- 背景：
+  - A37 已完成实现准备包与事件执行卡，需验证执行口径在正常链路与故障链路下都可预测。
+  - 目标是形成“通过/阻断”唯一结论并锁定下一事件。
+- 执行动作：
+  - 配置一致性复检（双账号 Stage A/B/C 严格模式）：
+    - `design/validation/2026-03-28-parallel-mainline-multi-account-config-parity-validation.md`
+  - 异常注入演练（allowlist 漏配、回执错配、缺 ticket）：
+    - `design/validation/2026-03-28-parallel-mainline-multi-account-failure-injection-validation.md`
+  - DoD 汇总结论：
+    - `design/validation/2026-03-28-parallel-mainline-multi-account-impl-dod-validation.md`
+- 结果：
+  - 正常链路：双账号 Stage A/B/C 严格复检全部通过。
+  - 异常链路：三类注入均命中预期阻断状态，无静默放行。
+  - DoD 结论：`parallel_mainline_multi_account_exec_validation_passed`
+  - 下一事件：`parallel_mainline_multi_account_exec_validation_completed`
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-multi-account-config-parity-validation.md`
+  - `design/validation/2026-03-28-parallel-mainline-multi-account-failure-injection-validation.md`
+  - `design/validation/2026-03-28-parallel-mainline-multi-account-impl-dod-validation.md`
+- 决策：
+  - 采纳 A38，下一执行点转入 A39：多账号自动登录受控试运行窗口评审
