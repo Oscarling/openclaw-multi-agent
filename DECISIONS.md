@@ -2727,3 +2727,21 @@
   - `RH-T5-B01` 继续保持开启
   - 当前判断：分裂主要集中于默认 `--to` 路由分支，后续应优先推进该分支的默认 agent 选择逻辑修复
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`，并将 A8 证据同步至 issue #37
+
+### 2026-03-28：执行 RH-T5-B01 平台级升级（Upstream Issue A9）
+
+- 背景：
+  - A1~A8 已形成连续本地证据，且 A8 已将分裂范围锁定到默认 `--to` 路由分支。
+  - 本仓库无法直接修改 OpenClaw 平台实现，需要进入上游修复通道。
+- 执行动作：
+  - 在 OpenClaw 上游仓库创建问题单，提交复现步骤与受控对比结论。
+- 结果：
+  - 上游 issue：`https://github.com/openclaw/openclaw/issues/56267`
+  - 本地追踪 issue：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
+  - 本地 issue 已补充 A9 升级信息与关联路径
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-upstream-issue-escalation.md`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前阶段进入“等待上游反馈 + 本地护栏维持 + 事件触发复检”模式
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
