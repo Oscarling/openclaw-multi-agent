@@ -2578,3 +2578,44 @@
 - 决策：
   - `RH-T5-B01` 继续保持开启
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A4（影子 2026.3.24，未解决）
+
+- 背景：
+  - 在 A1/A3 调用参数尝试与 A2 护栏硬化后，需验证是否存在“升级即可修复”的版本路径。
+- 尝试动作：
+  - 启动隔离影子容器 `agent_argus_a4_shadow`
+  - 影子版本：`OpenClaw 2026.3.24`
+  - 在影子容器执行 route parity 探针并比对 default/explicit `sessionKey`
+- 结果：
+  - `default_route_session_key=agent:main:main`
+  - `explicit_route_session_key=agent:steward:main`
+  - `probe_result=route_mismatch_detected`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-remediation-a4-shadow2026324-20260328-141426/artifacts/probe-summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前判断：该问题非“简单版本升级即消失”类型
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A5（绑定假设，未解决）
+
+- 背景：
+  - A4 已验证“影子升级仍未解决”，继续验证绑定策略是否存在低风险修复路径。
+- 尝试动作：
+  - 在影子容器尝试 `openclaw agents bind --agent steward --bind telegram`
+  - 在影子容器尝试 `openclaw agents bind --agent steward --bind last`
+  - 完成后重跑 route parity 复评
+- 结果：
+  - `--bind telegram`：`skipped=["telegram"]`（未新增绑定）
+  - `--bind last`：`Unknown channel "last"`
+  - parity 仍为 `route_mismatch_detected`
+  - `attempt_result=not_resolved`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-remediation-a5-binding-hypothesis-20260328-141825/artifacts/probe-summary.txt`
+- 决策：
+  - 绑定策略微调不能解决当前路由分裂
+  - `RH-T5-B01` 继续保持开启，下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
