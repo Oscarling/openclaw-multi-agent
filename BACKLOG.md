@@ -833,7 +833,14 @@
   验证记录：`design/validation/2026-03-28-parallel-mainline-stageb-account2-readiness-validation.md`
   当前状态：`preflight_result=ready_for_stage_b_execution`，`stage_b_result=waiting_release_receipt`（缺 `release_receipt`）
 
-- [ ] 完成 `xhs_demo_002` Stage B 发布回执并通过严格复检（A30）
+- [x] 完成 `xhs_demo_002` Stage B 发布回执并通过严格复检（A30）
   触发条件：A29 已确认唯一缺口为 `release_receipt`
   完成标准：`release_receipt_present=yes`、`release_receipt_valid=yes`、`release_receipt_publish_ok=yes`、`stage_b_result=stage_b_passed`
   执行动作：补齐 `runtime/argus/config/gate4/release_receipt_xhs_demo_002.json`，并以 `GATE4_STAGE_B_STRICT=yes` 执行 `bash ./deploy/gate4_stage_b_execute.sh`
+  验证记录：`design/validation/2026-03-28-parallel-mainline-stageb-account2-strict-pass-validation.md`
+  当前状态：`release_receipt_present=yes`、`release_receipt_valid=yes`、`release_receipt_publish_ok=yes`、`stage_b_result=stage_b_passed`
+
+- [ ] 完成并行主链 Stage C（`xhs_demo_002`）就绪检查（A31）
+  触发条件：A30 严格复检通过
+  完成标准：明确第二账号在 Stage C 的当前阻断点并留痕
+  执行动作：执行 `bash ./deploy/gate4_stage_c_execute.sh`（非严格）并记录 `stage_c_result` 与 receipt 缺口状态
