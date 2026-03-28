@@ -3156,3 +3156,27 @@
 - 决策：
   - 采纳 A25 结果，确认并行主链具备继续推进条件
   - `RH-T5-B01` 侧线结论不变：保持开启，等待 `#56370` 上游事件触发
+
+### 2026-03-28：新增并验证并行主链 Gate-4 A/B/C 一键复检脚本（A26）
+
+- 背景：
+  - A25 已证明 A/B/C 三段严格复检可通过，但手工执行成本高、重复步骤多。
+  - 需要把复检动作沉淀为可复用脚本，提升并行主链推进效率。
+- 执行动作：
+  - 新增脚本：`deploy/parallel_mainline_gate4_abc_recheck.sh`
+    - 串行执行 Stage A / Stage B / Stage C
+    - 固化严格模式
+    - 产出聚合摘要 `overall_result`
+  - 完成实测执行并输出证据。
+- 结果：
+  - 实测摘要：
+    - `stage_a_result=stage_a_passed`
+    - `stage_b_result=stage_b_passed`
+    - `stage_c_result=stage_c_passed`
+    - `overall_result=parallel_gate4_abc_recheck_passed`
+  - 一键复检能力可直接用于后续并行主链回归。
+- 证据：
+  - `design/validation/2026-03-28-parallel-mainline-gate4-abc-runner-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-gate4-abc-recheck-runner-test-20260328-202651/artifacts/summary.txt`
+- 决策：
+  - 采纳 A26，并将该脚本作为并行主链 Gate-4 复检的默认执行入口
