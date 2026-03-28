@@ -32,6 +32,8 @@ RECHECK_REASON="upstream_feedback" OPENCLAW_AGENT_CONTAINER=agent_argus bash scr
 ```
 
 5. 读取汇总结论：
+   - `upstream_new_feedback_detected=yes`：检测到未处理新反馈，事件执行器会触发复检包
+   - `upstream_feedback_detected=yes` 且 `upstream_new_feedback_detected=no`：已有反馈但已处理，不重复触发复检包
    - `final_result=ready_for_blocker_close_rereview`：可进入阻断关闭复评
    - `final_result=blocker_still_open`：阻断继续保持开启
 
@@ -58,6 +60,7 @@ RECHECK_REASON="upstream_feedback" OPENCLAW_AGENT_CONTAINER=agent_argus bash scr
 - 本地追踪 issue：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
 - 上游 issue：`https://github.com/openclaw/openclaw/issues/56267`
 - 若探针输出 `next_event=reopen_local_tracking_issue`，需先重开本地追踪 issue 再进入等待/复检状态
+- 反馈去重状态文件（默认）：`runtime/argus/config/rh_t5_b01/upstream_feedback_state.env`
 
 ## 6) 专家参与口径
 
