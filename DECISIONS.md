@@ -3442,3 +3442,26 @@
 - 决策：
   - 采纳 A36，下一执行点转入 A37：多账号自动登录实现准备包 v2
   - 下一事件：`parallel_mainline_multi_account_autologin_impl_prep_requested`
+
+### 2026-03-28：完成并行主链多账号自动登录实现准备包 v2（A37）
+
+- 背景：
+  - A36 已明确范围、边界与拆解项，下一步需把执行前置口径固定为可复用工件。
+  - 目标是让 A38 执行验证可直接按事件卡推进，避免口径漂移。
+- 执行动作：
+  - 新增实现准备包：
+    - `design/2026-03-28-parallel-mainline-multi-account-autologin-implementation-prep-v2.md`
+  - 新增事件执行卡：
+    - `design/2026-03-28-parallel-mainline-multi-account-autologin-event-card-v1.md`
+  - 新增验证记录：
+    - `design/validation/2026-03-28-parallel-mainline-multi-account-autologin-impl-prep-validation.md`
+- 结果：
+  - 字段契约、目录规范、异常处理、DoD 判定口径四项均已落盘。
+  - A37 验证结论：`parallel_mainline_multi_account_autologin_impl_prep_passed`
+  - 下一事件：`parallel_mainline_multi_account_autologin_impl_prep_completed`
+- 证据：
+  - `design/2026-03-28-parallel-mainline-multi-account-autologin-implementation-prep-v2.md`
+  - `design/2026-03-28-parallel-mainline-multi-account-autologin-event-card-v1.md`
+  - `design/validation/2026-03-28-parallel-mainline-multi-account-autologin-impl-prep-validation.md`
+- 决策：
+  - 采纳 A37，下一执行点转入 A38：多账号自动登录首轮执行验证
