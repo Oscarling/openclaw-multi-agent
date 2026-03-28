@@ -32,6 +32,11 @@ if [[ -f "scripts/openclaw_agent_safe.sh" ]]; then
   bash -n scripts/openclaw_agent_safe.sh
 fi
 
+if [[ -f "scripts/agent_call_guard.sh" ]]; then
+  log "running direct agent-call guard"
+  bash scripts/agent_call_guard.sh
+fi
+
 log "working tree snapshot"
 git status -sb
 
