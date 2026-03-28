@@ -2770,3 +2770,27 @@
   - `RH-T5-B01` 继续保持开启
   - 上游反馈一旦触发，即按触发卡执行一键复检包并回填三本账
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：落地 RH-T5-B01 上游反馈探针并完成基线校验（A11）
+
+- 背景：
+  - A10 已实现“上游反馈后的一键复检”，但仍缺“是否已收到反馈”的可执行判定入口。
+  - 发现本地追踪 issue #37 曾短暂关闭，需补充状态纠偏机制。
+- 执行动作：
+  - 新增探针脚本：`scripts/rh_t5_b01_upstream_feedback_probe.sh`
+    - 采集上游 issue `openclaw/openclaw#56267` 与本地 issue `#37` 状态/评论
+    - 输出事件判定：`waiting_upstream_feedback` / `upstream_feedback_received` / `reopen_local_tracking_issue`
+  - 重开本地追踪 issue #37，恢复阻断治理一致口径
+  - 执行探针基线留痕
+- 结果：
+  - `upstream_feedback_detected=no`
+  - `local_tracking_issue_open=yes`
+  - `next_event=waiting_upstream_feedback`
+  - `attempt_result=feedback_probe_baseline_verified`
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-upstream-feedback-probe-baseline.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-upstream-feedback-probe-20260328-162548/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 当前进入“探针等待态”：无上游反馈前不触发关闭复评，仅维持护栏和事件触发复检
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`

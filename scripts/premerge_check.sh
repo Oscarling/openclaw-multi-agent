@@ -32,6 +32,13 @@ if [[ -f "scripts/openclaw_agent_safe.sh" ]]; then
   bash -n scripts/openclaw_agent_safe.sh
 fi
 
+if compgen -G "scripts/rh_t5_b01_*.sh" >/dev/null; then
+  for f in scripts/rh_t5_b01_*.sh; do
+    log "shell syntax check: $f"
+    bash -n "$f"
+  done
+fi
+
 if [[ -f "scripts/agent_call_guard.sh" ]]; then
   log "running direct agent-call guard"
   bash scripts/agent_call_guard.sh

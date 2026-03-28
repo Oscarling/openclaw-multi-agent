@@ -12,19 +12,26 @@
 
 ## 2) 触发后最小动作
 
-1. 保持本地护栏不变（继续强制 `scripts/openclaw_agent_safe.sh`）。  
-2. 运行一键复检包（A6+A7+A8）：
+1. 先执行上游反馈探针，确认 `next_event`：
+
+```bash
+ISSUE_OWNER_LOGIN="Oscarling" UPSTREAM_REPO="openclaw/openclaw" UPSTREAM_ISSUE_NUMBER="56267" LOCAL_REPO="Oscarling/openclaw-multi-agent" LOCAL_ISSUE_NUMBER="37" bash scripts/rh_t5_b01_upstream_feedback_probe.sh
+```
+
+2. 保持本地护栏不变（继续强制 `scripts/openclaw_agent_safe.sh`）。  
+3. 当探针给出 `next_event=upstream_feedback_received` 时，运行一键复检包（A6+A7+A8）：
 
 ```bash
 RECHECK_REASON="upstream_feedback" OPENCLAW_AGENT_CONTAINER=agent_argus bash scripts/rh_t5_b01_upstream_recheck_bundle.sh
 ```
 
-3. 读取汇总结论：
+4. 读取汇总结论：
    - `final_result=ready_for_blocker_close_rereview`：可进入阻断关闭复评
    - `final_result=blocker_still_open`：阻断继续保持开启
 
 ## 3) 复检产物
 
+- 探针汇总：`design/validation/artifacts/openclaw-rh-t5-b01-upstream-feedback-probe-<ts>/artifacts/summary.txt`
 - 一键包汇总：`design/validation/artifacts/openclaw-rh-t5-b01-upstream-recheck-<ts>/artifacts/summary.txt`
 - 子探针证据：
   - A6：`a6-min-repro`
@@ -43,6 +50,7 @@ RECHECK_REASON="upstream_feedback" OPENCLAW_AGENT_CONTAINER=agent_argus bash scr
 - 复检后必须同步三本账：`BACKLOG.md`、`DECISIONS.md`、`验收清单.md`
 - 本地追踪 issue：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
 - 上游 issue：`https://github.com/openclaw/openclaw/issues/56267`
+- 若探针输出 `next_event=reopen_local_tracking_issue`，需先重开本地追踪 issue 再进入等待/复检状态
 
 ## 6) 专家参与口径
 
