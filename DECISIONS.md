@@ -2794,3 +2794,31 @@
   - `RH-T5-B01` 继续保持开启
   - 当前进入“探针等待态”：无上游反馈前不触发关闭复评，仅维持护栏和事件触发复检
   - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
+
+### 2026-03-28：落地 RH-T5-B01 事件执行器并完成基线校验（A12）
+
+- 背景：
+  - A11 已能判定反馈事件，但执行路径仍需人工拼接命令。
+  - 为避免执行漂移，需将“探针 -> 分流动作”收敛为单入口执行器。
+- 执行动作：
+  - 新增执行器脚本：`scripts/rh_t5_b01_event_runner.sh`
+    - 自动执行 `rh_t5_b01_upstream_feedback_probe.sh`
+    - 按 `next_event` 分流：
+      - `waiting_upstream_feedback` -> wait
+      - `upstream_feedback_received` -> 触发 `rh_t5_b01_upstream_recheck_bundle.sh`
+      - `reopen_local_tracking_issue` -> 支持可选自动重开本地 issue
+  - 执行基线留痕：
+    - `EVENT_REASON="baseline_after_a11" AUTO_REOPEN_LOCAL_ISSUE="no" BUNDLE_STRICT="no" OPENCLAW_AGENT_CONTAINER=agent_argus bash scripts/rh_t5_b01_event_runner.sh`
+- 结果：
+  - `next_event=waiting_upstream_feedback`
+  - `upstream_feedback_detected=no`
+  - `local_tracking_issue_open=yes`
+  - `action_taken=wait`
+  - `action_result=waiting_upstream_feedback`
+- 证据：
+  - `design/validation/2026-03-28-rh-t5-b01-event-runner-baseline.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-event-runner-20260328-163134/artifacts/summary.txt`
+- 决策：
+  - `RH-T5-B01` 继续保持开启
+  - 后续优先通过事件执行器触发复检流程，保持事件驱动与口径一致
+  - 下一事件保持 `rh_t5_b01_route_parity_remediation_requested`
