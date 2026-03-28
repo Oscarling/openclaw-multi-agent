@@ -696,7 +696,14 @@
   校验记录：`design/validation/2026-03-27-gate4-next-stage-first-batch-preflight-validation.md`
   当前状态：首批前置门禁已锁定，维持“可执行但非自动执行”边界
 
-- [ ] 发起“下一阶段首批受控执行”流程（需人工闸门确认）
-  触发条件：首批前置校验通过（当前已满足）
+- [x] 发起“下一阶段首批受控执行”流程并完成首批闭环
+  触发条件：首批前置校验通过（已满足）
   完成标准：完成首批执行并输出“继续/停机/回滚/降级”唯一结论
-  产物：下一阶段首批执行记录与阶段结论（待创建）
+  首批通过记录：`design/validation/2026-03-28-gate4-next-stage-batch1-pass-validation.md`
+  阶段 DoD：`design/validation/2026-03-28-gate4-next-stage-dod-validation.md`
+  当前状态：下一阶段首批 `stage_c_passed`，未触发停机，进入后续批次复评阶段
+
+- [ ] 发起“下一阶段后续批次”独立复评
+  触发条件：下一阶段首批 DoD 已形成（当前已满足）
+  完成标准：形成后续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
+  产物：下一阶段后续批次复评纪要（待创建）

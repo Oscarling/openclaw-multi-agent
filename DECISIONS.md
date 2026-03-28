@@ -2208,3 +2208,27 @@
 - 决策：
   - 下一事件切换为“下一阶段首批受控执行流程”（需人工闸门确认）
   - 维持“非自动执行”硬边界
+
+### 2026-03-28：完成下一阶段首批受控执行并形成 DoD（stage_c_passed）
+
+- 背景：
+  - 下一阶段执行放行复评结论已为 `Go`
+  - 首批前置校验已完成并锁定“非自动执行”边界
+- 执行动作：
+  - 发送首批证据消息并生成回执：`runtime/argus/config/gate4/next_stage_receipt_batch1.json`
+  - 使用对象级策略文件执行首批：`shared/templates/gate4_next_stage_execution_policy_template.json`
+  - 执行 `phase_id=NEXT` 并回填首批通过记录与 DoD
+- 结果：
+  - `phase_id=NEXT`
+  - `phase_found=yes`
+  - `stagec_receipt_success_rate=1.0`
+  - `stagec_receipt_failure_count=0`
+  - `stagec_receipt_halt_triggered=no`
+  - `stagec_receipt_evidence_ref_placeholder=no`
+  - `stage_c_result=stage_c_passed`
+- 证据：
+  - `design/validation/2026-03-28-gate4-next-stage-batch1-pass-validation.md`
+  - `design/validation/2026-03-28-gate4-next-stage-dod-validation.md`
+- 决策：
+  - 下一阶段首批闭环完成，阶段结论为 `Conditional-Go`
+  - 下一事件切换为“下一阶段后续批次独立复评”
