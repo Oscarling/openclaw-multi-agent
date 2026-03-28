@@ -2540,3 +2540,22 @@
 - 决策：
   - `RH-T5-B01` 继续保持开启
   - 下一事件维持 `rh_t5_b01_route_parity_remediation_requested`，进入 A2 整改尝试
+
+### 2026-03-28：执行 RH-T5-B01 路由整改尝试 A2（关键脚本护栏硬化）
+
+- 背景：
+  - A1 验证显示显式 channel 未消除路由分裂，需要继续降低关键链路误用风险。
+- 执行动作：
+  - 将关键脚本中的 agent 调用统一收敛到 `scripts/openclaw_agent_safe.sh`
+  - 覆盖脚本：`deploy/recovery_drill.sh`、`deploy/host_apply_drill.sh`、`deploy/gate3_event_recheck.sh`
+  - 执行静态审计确认关键链路不再存在 `openclaw agent` 直连调用
+- 结果：
+  - `all_key_files_use_wrapper=yes`
+  - `any_direct_openclaw_agent_call=no`
+  - `attempt_result=guardrail_hardening_passed`
+- 证据：
+  - `design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`
+  - `design/validation/artifacts/openclaw-rh-t5-b01-remediation-a2-20260328-135825/summary.txt`
+- 决策：
+  - A2 已降低关键链路误用风险，但不等于关闭路由分裂
+  - `RH-T5-B01` 继续保持开启，下一事件维持 `rh_t5_b01_route_parity_remediation_requested`

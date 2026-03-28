@@ -182,7 +182,8 @@ docker compose \
 docker exec agent_argus openclaw config file >"$ARTIFACT_DIR/applied-config-file.txt"
 docker exec agent_argus openclaw agents list --bindings --json >"$ARTIFACT_DIR/applied-agents.json"
 curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json >"$ARTIFACT_DIR/applied-control-ui-config.json"
-docker exec agent_argus openclaw agent \
+OPENCLAW_AGENT_CONTAINER=agent_argus \
+  bash "$PROJECT_ROOT/scripts/openclaw_agent_safe.sh" \
   --agent steward \
   --message "host apply 演练冒烟：一句话说明职责边界。" \
   --json >"$ARTIFACT_DIR/applied-steward-smoke.json"

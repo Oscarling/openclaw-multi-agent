@@ -104,7 +104,8 @@ docker exec agent_argus sh -lc \
 curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json >"$ARTIFACT_DIR/drill-control-ui-config.json"
 docker logs --tail 60 agent_argus >"$ARTIFACT_DIR/drill-agent-log-tail.txt"
 
-docker exec agent_argus openclaw agent \
+OPENCLAW_AGENT_CONTAINER=agent_argus \
+  bash "$PROJECT_ROOT/scripts/openclaw_agent_safe.sh" \
   --agent steward \
   --message "恢复演练冒烟：请一句话说明你的职责边界。" \
   --json >"$ARTIFACT_DIR/drill-steward-smoke.json"
