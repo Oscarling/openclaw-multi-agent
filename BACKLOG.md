@@ -806,3 +806,9 @@
   完成标准：Stage A/Stage B/Stage C 在严格模式下全部通过，且证据链完整可追溯
   验证记录：`design/validation/2026-03-28-parallel-mainline-gate4-abc-recheck-validation.md`
   当前状态：`stage_a_passed`、`stage_b_passed`、`stage_c_passed`，并行主链可继续推进
+
+- [x] 新增并行主链 Gate-4 A/B/C 一键复检脚本并完成实测（A26）
+  触发条件：A25 已形成可复检基线（已满足）
+  完成标准：一条命令可完成 A/B/C 严格复检并输出聚合摘要，实测返回通过
+  脚本：`deploy/parallel_mainline_gate4_abc_recheck.sh`
+  验证记录：`design/validation/2026-03-28-parallel-mainline-gate4-abc-runner-validation.md`
