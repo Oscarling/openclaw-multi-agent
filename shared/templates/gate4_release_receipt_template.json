@@ -1,0 +1,11 @@
+{
+  "release_id": "XHS-REL-001",
+  "account_id": "xhs_demo_001",
+  "publish_ok": true,
+  "occurred_at": "2026-03-26T18:00:00+08:00",
+  "evidence_ref": "artifacts/publish-success-001.png",
+  "operator": "ops_owner_a",
+  "ticket_id": "GATE4-B-001",
+  "notes": "controlled release dry-run completed",
+  "error_code": ""
+}

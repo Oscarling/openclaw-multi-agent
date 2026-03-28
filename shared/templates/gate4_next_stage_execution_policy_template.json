@@ -1,0 +1,22 @@
+{
+  "version": "v1",
+  "scope": "next_stage_execution_policy",
+  "execution_boundary": "reviewed-allowed-not-auto-execute",
+  "target_account_id": "xhs_demo_001",
+  "target_platform": "xiaohongshu",
+  "global_controls": {
+    "require_ticket": true,
+    "require_real_evidence_ref": true,
+    "allowlist_only": true,
+    "rollback_on_violation": true
+  },
+  "phases": [
+    {
+      "phase_id": "NEXT",
+      "max_batch_size": 50,
+      "success_rate_threshold": 0.97,
+      "halt_failure_count": 3,
+      "require_manual_gate": true
+    }
+  ]
+}

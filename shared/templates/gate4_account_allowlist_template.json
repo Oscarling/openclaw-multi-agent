@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "updated_at": "2026-03-26T00:00:00Z",
+  "accounts": [
+    {
+      "account_id": "xhs_demo_001",
+      "platform": "xiaohongshu",
+      "owner": "ops_owner_a",
+      "risk_level": "low",
+      "automation_level": "assisted"
+    },
+    {
+      "account_id": "xhs_demo_002",
+      "platform": "xiaohongshu",
+      "owner": "ops_owner_b",
+      "risk_level": "medium",
+      "automation_level": "gated_auto"
+    }
+  ]
+}

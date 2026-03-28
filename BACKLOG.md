@@ -75,6 +75,18 @@
   当前约定：CLI 联调必须显式 `--agent`；UI 入口验收以 `assistantAgentId` 为准
   验收标准：明确并固化“验收/联调时使用哪个入口判定为准”，避免测试结论歧义
 
+- [x] 增加 CLI 安全封装护栏（强制显式 `--agent`）
+  当前状态：`scripts/openclaw_agent_safe.sh` 已落地；无 `--agent` 会阻断，显式 `--agent` 可正常透传
+  验证证据：`design/validation/2026-03-26-cli-safe-wrapper-validation.md`
+  风险处置：作为 R-03（CLI/UI 口径差异）的缓解措施，降低联调误判风险
+
+- [x] 增加 CLI 路由口径探针并完成首轮基线留痕
+  当前状态：`deploy/cli_route_parity_probe.sh` 已落地并完成首轮执行
+  首轮结果：`default_route_agent=main`、`explicit_route_agent=steward`，`probe_result=route_mismatch_detected`
+  同日实验：尝试 `--bind last`，返回 `Unknown channel "last"`，当前版本下无法通过现有绑定机制直接修复
+  验证证据：`design/validation/2026-03-26-cli-route-parity-probe-validation.md`
+  使用口径：升级/恢复/路由相关变更后复跑探针，再判定是否可关闭已知限制
+
 - [x] 跑一轮四角色端到端演练（steward -> hunter -> editor -> publisher）
   当前状态：同一业务 brief 已完成四阶段链路验证，均未越权
   验收证据：`design/validation/2026-03-25-fullchain-validation.md`
@@ -429,4 +441,353 @@
   当前状态：模板已落地，首轮周度治理记录（kickoff）已完成
   模板：`shared/templates/weekly_governance_review_template.md`
   首轮记录：`design/validation/2026-03-25-weekly-governance-review-kickoff.md`
-  后续节奏：每周 1 次（建议周末或周初固定窗口）
+  后续节奏：按事件触发（默认每完成一批关键事件后执行一次）
+
+- [x] 启用“本地阶段收口 -> 分段上 GitHub”提速口径
+  当前状态：已定稿并纳入主线执行规则
+  执行文档：`design/2026-03-26-local-first-staged-github-sync-v1.md`
+  规则：本地先连续推进，满足触发条件后再统一 `push + PR`，不改变现有门禁（PR + squash + 分支保护）
+  触发条件：主线事件收口 / 风险项收口 / 可回滚检查点形成
+
+- [x] 将“本地阶段上传 + 恢复对比策略”写入项目契约
+  当前状态：`PROJECT_CONTRACT.md` 已落地并在 README 建立入口
+  执行脚本：`scripts/backlog_lint.py`、`scripts/backlog_sync.py`、`scripts/premerge_check.sh`
+  契约范围：Local-First 阶段上传口径 + `provider/model/profile` 受控对比恢复策略
+
+- [x] 梳理下一里程碑 M2 的事件触发执行计划
+  当前状态：M2 计划文档已落地（不按时间、按事件触发）
+  计划文档：`design/2026-03-26-mainline-m2-event-driven-plan-v1.md`
+
+- [x] 启动 Gate-4 自动化范围冻结预评审准备包
+  当前状态：预评审输入包与 `office-hours` 纪要均已落地，进入 `plan-eng-review` 准备态
+  输入文档：`design/2026-03-26-gate4-automation-scope-prep-v1.md`
+  使用口径：先冻结自动化边界，再进入多账号登录/自动发布实现
+  纪要：`design/2026-03-26-gate-4-automation-scope-office-hours-minutes-v1.md`
+
+- [x] 产出 Gate-4 事件执行卡与正式评审议程
+  当前状态：已完成 `office-hours -> plan-eng-review` 的会后衔接文档
+  执行卡：`design/2026-03-26-gate4-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate-4-automation-plan-eng-review-agenda-v1.md`
+  DoD 模板：`design/validation/gate4-dod-checklist-template-v1.md`
+  使用口径：按事件触发推进，不进入时间节点排程
+
+- [x] 完成 Gate-4 正式评审（plan-eng-review）并放行到 M2-E3 准备态
+  当前状态：结论 `Conditional-Go`，允许进入阶段 A（多账号登录）受控实现准备
+  评审纪要：`design/2026-03-26-gate-4-automation-plan-eng-review-minutes-v1.md`
+  放行边界：不跳阶段、不放行无回执动作、不放行无人工闸门高危操作
+
+- [x] 启动 M2-E3 多账号登录实现准备包
+  当前状态：准备文档已落地，进入阶段 A 执行前置准备
+  准备文档：`design/2026-03-26-m2-e3-login-implementation-prep-v1.md`
+  使用口径：先完成受控账号登录 DoD，再进入 M2-E4
+
+- [x] 新增 Stage-A 预检脚本与白名单模板并完成首轮预检
+  当前状态：`deploy/gate4_stage_a_preflight.sh` 与白名单模板已落地，首轮 `waiting_allowlist`，复跑已达 `ready_for_stage_a_execution`
+  模板：`shared/templates/gate4_account_allowlist_template.json`
+  预检记录：`design/validation/2026-03-26-gate4-stagea-preflight-validation.md`
+  复跑记录：`design/validation/2026-03-26-gate4-stagea-preflight-rerun-validation.md`
+  下一动作：按 DoD 模板启动阶段 A 验证留痕
+
+- [x] 新增 Stage-A 执行脚本与手工回执模板并完成等待态验证
+  当前状态：`deploy/gate4_stage_a_execute.sh` 与回执模板已落地；无回执时结果为 `waiting_manual_login`
+  回执模板：`shared/templates/gate4_stage_a_manual_receipt_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-a-execution-prep-validation.md`
+  下一动作：提供手工登录回执后复跑，目标 `stage_a_passed`
+
+- [x] 完成 Stage-A 手工回执复跑并通过 DoD（`stage_a_passed`）
+  当前状态：已提供手工回执并复跑成功，`manual_receipt_valid=yes`、`manual_receipt_login_ok=yes`
+  通过记录：`design/validation/2026-03-26-gate4-stage-a-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-a-dod-validation.md`
+  下一动作：触发进入 M2-E4（自动发布链路）准备态
+
+- [x] 启动 M2-E4 自动发布执行链路准备包
+  当前状态：准备包已落地，进入阶段 B 准备中
+  准备文档：`design/2026-03-26-m2-e4-release-chain-prep-v1.md`
+  下一动作：补齐阶段 B 预检脚手架与发布回执模板
+
+- [x] 完成 M2-E4 阶段 B 预检脚手架与回执模板并通过预检
+  当前状态：已新增 `deploy/gate4_stage_b_preflight.sh` 与发布回执模板，预检结果 `ready_for_stage_b_execution`
+  模板：`shared/templates/gate4_release_receipt_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-b-preflight-validation.md`
+  下一动作：创建阶段 B DoD 记录并执行首轮 dry-run
+
+- [x] 新增 Stage-B 执行脚本并完成首轮 dry-run（`stage_b_passed`）
+  当前状态：`deploy/gate4_stage_b_execute.sh` 已落地，受控 dry-run 结果 `stage_b_passed`
+  dry-run 记录：`design/validation/2026-03-26-gate4-stage-b-dryrun-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-b-dod-validation.md`
+  下一动作：由阶段 B `Conditional-Go` 触发进入 M2-E5 准备态
+
+- [x] 启动 M2-E5 平台受控放量准备包
+  当前状态：准备包已落地，进入阶段 C 准备中
+  准备文档：`design/2026-03-26-m2-e5-xhs-scaleup-prep-v1.md`
+  下一动作：补齐阶段 C 放量策略卡与预检脚手架
+
+- [x] 完成阶段 C 放量策略卡与预检脚手架并达到执行就绪
+  当前状态：已新增放量策略卡、rollout 模板与 `deploy/gate4_stage_c_preflight.sh`，预检结果 `ready_for_stage_c_execution`
+  策略卡：`design/2026-03-26-m2-e5-rollout-strategy-card-v1.md`
+  模板：`shared/templates/gate4_rollout_policy_template.json`
+  验证记录：`design/validation/2026-03-26-gate4-stage-c-preflight-validation.md`
+  下一动作：执行阶段 C 首轮受控验证并形成 DoD
+
+- [x] 新增 Stage-C 执行脚本并完成首轮受控验证（`stage_c_passed`）
+  当前状态：`deploy/gate4_stage_c_execute.sh` 已落地，C1 受控批次验证通过
+  回执模板：`shared/templates/gate4_stage_c_receipt_template.json`
+  dry-run 记录：`design/validation/2026-03-26-gate4-stage-c-dryrun-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-dod-validation.md`
+  下一动作：发起“真实小流量 C1 运行”专项评审准备
+
+- [x] 完成“真实小流量 C1 运行”专项评审准备包
+  当前状态：专项评审输入包、执行卡与议程均已落地，待执行 gstack 专项评审
+  输入包：`design/2026-03-26-gate4-stage-c-real-c1-review-prep-v1.md`
+  执行卡：`design/2026-03-26-gate4-stage-c-real-c1-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-agenda-v1.md`
+  下一动作：执行 gstack `office-hours` + `plan-eng-review` 并形成放行结论
+
+- [x] 完成“真实小流量 C1 运行”专项评审（`office-hours -> plan-eng-review`）
+  当前状态：两段式评审已收口，结论 `Conditional-Go`，允许进入真实 C1 单批次执行
+  预评审纪要：`design/2026-03-26-gate4-stage-c-real-c1-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-26-gate4-stage-c-real-c1-plan-eng-review-minutes-v1.md`
+  下一动作：按执行卡执行真实 C1 单批次并回填阶段结论
+
+- [x] 完成真实 C1 单批次执行准备验证（等待真实回执）
+  当前状态：真实 C1 执行链路已验证到 `waiting_stage_c_receipt`，未回执不误判通过
+  验证记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-execution-prep-validation.md`
+  下一动作：提供真实 C1 回执后复跑，目标 `stage_c_passed`
+
+- [x] 完成真实 C1 单批次回执复跑并通过（`stage_c_passed`）
+  当前状态：真实 C1 执行结果 `stage_c_passed`，已形成真实 C1 DoD 记录
+  通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-dod-validation.md`
+  下一动作：补齐真实证据引用并发起 C2 评审准备（不直接执行 C2）
+
+- [x] 完成 C2 受控放量专项评审准备包
+  当前状态：C2 输入包、执行卡与议程均已落地，并用于专项评审
+  输入包：`design/2026-03-26-gate4-stage-c-c2-review-prep-v1.md`
+  执行卡：`design/2026-03-26-gate4-stage-c-c2-event-execution-card-v1.md`
+  议程：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-agenda-v1.md`
+  下一动作：执行 C2 两段式评审并形成放行结论
+
+- [x] 完成 C2 预评审（office-hours）
+  当前状态：结论 `Conditional-Go`（仅允许进入正式评审，不允许直接执行 C2）
+  纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-minutes-v1.md`
+  下一动作：进入 C2 `plan-eng-review` 正式评审
+
+- [x] 完成 C2 正式评审（plan-eng-review）并形成 `No-Go`
+  当前状态：因“C1 连续两批成功未满足 + 审计 `evidence_ref` 未收口”，当前不放行 C2 执行
+  纪要：`design/2026-03-26-gate4-stage-c-c2-plan-eng-review-minutes-v1.md`
+  下一动作：先关闭阻断项，再触发 C2 复评
+
+- [x] 关闭 C2 阻断项 A：补齐真实 C1 第 2 批并达到阈值
+  当前状态：第 2 批真实 C1 已完成并通过，形成连续两批成功证据
+  通过记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-batch2-pass-validation.md`
+  关闭记录：`design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
+
+- [x] 关闭 C2 阻断项 B：完成 `evidence_ref` 审计收口
+  当前状态：`stage_c_real_c1_receipt.json` 已替换为真实 `evidence_ref`，真实审计模式复跑通过
+  收口记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-audit-close-validation.md`
+  关闭记录：`design/validation/2026-03-26-gate4-stage-c-c2-blockers-close-validation.md`
+
+- [x] 增加 Stage-C 真实审计证据硬门禁（防占位值误通过）
+  当前状态：`deploy/gate4_stage_c_execute.sh` 已支持 `GATE4_STAGE_C_REQUIRE_REAL_EVIDENCE=yes`；占位 `evidence_ref` 会返回 `waiting_stage_c_receipt_fix`
+  验证记录：`design/validation/2026-03-26-gate4-stage-c-real-c1-evidence-gate-validation.md`
+  下一动作：替换真实 `evidence_ref` 后复跑，关闭 C2 阻断项 B
+
+- [x] 触发 C2 复评并决定是否放行 C2 单批次
+  当前状态：已完成复评收口（rereview + final），C2 最终工程结论为 `Go`（仅放行 C2 单批次）
+  复评纪要：`design/2026-03-26-gate4-stage-c-c2-office-hours-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-rereview-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-office-hours-final-minutes-v1.md`、`design/2026-03-26-gate4-stage-c-c2-plan-eng-final-minutes-v1.md`
+  一致性关闭：`design/validation/2026-03-26-gate4-stage-c-c2-rereview-blocker-c-close-validation.md`
+
+- [x] 执行 C2 单批次受控放量闭环（`G4-C2-T2 -> T3 -> T4 -> T5`）
+  当前状态：C2 单批次执行通过，阈值判定未触发停机，DoD 已回填
+  执行记录：`design/validation/2026-03-26-gate4-stage-c-real-c2-batch1-pass-validation.md`
+  DoD 记录：`design/validation/2026-03-26-gate4-stage-c-c2-dod-validation.md`
+
+- [x] 发起“是否进入 C2 连续批次”的下一轮复评
+  触发条件：C2 单批次 DoD 已形成（已满足）
+  完成标准：形成 C2 连续批次 `Go/Conditional-Go/No-Go` 结论并回填三本账
+  复评输入包：`design/2026-03-26-gate4-stage-c-c2-continuous-review-prep-v1.md`
+  连续执行卡：`design/2026-03-26-gate4-stage-c-c2-continuous-event-execution-card-v1.md`
+  评审议程：`design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-26-gate4-stage-c-c2-continuous-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-26-gate4-stage-c-c2-continuous-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审完成，最终结论 `Conditional-Go`（仅放行 C2 有限连续窗口，最多 2 批，逐批判定）
+
+- [x] 执行 C2 连续窗口 v1（`batch2 + batch3`）并完成窗口收口
+  触发条件：C2 连续批次 `Conditional-Go` 已发布（已满足）
+  完成标准：在窗口上限内完成逐批执行与阈值判定，形成收口结论
+  Batch-002 记录：`design/validation/2026-03-27-gate4-stage-c-real-c2-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-27-gate4-stage-c-real-c2-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-27-gate4-stage-c-c2-continuous-window-close-validation.md`
+  当前状态：连续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
+
+- [x] 发起“是否进入 C3 扩大放量”的独立评审准备并完成两段式评审
+  触发条件：C2 连续窗口收口完成且结果确认（已满足）
+  完成标准：形成 C3 评审输入包、执行卡与议程，并完成 `office-hours -> plan-eng-review`
+  评审输入包：`design/2026-03-27-gate4-stage-c-c3-review-prep-v1.md`
+  事件执行卡：`design/2026-03-27-gate4-stage-c-c3-event-execution-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-c3-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-c3-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-c3-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审结论均为 `Conditional-Go`（仅放行 C3 首批，不自动续批）
+
+- [x] 执行 C3 首批受控执行（`G4-C3-T2 -> T3 -> T4`）
+  触发条件：C3 `Conditional-Go` 已发布（已满足）
+  完成标准：首批执行后形成唯一判定（继续/停机/回滚/降级）并回填真实回执
+  首批通过记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch1-pass-validation.md`
+  C3 DoD 记录：`design/validation/2026-03-27-gate4-stage-c-c3-dod-validation.md`
+  当前状态：C3 首批 `stage_c_passed`，未触发停机/降级，维持“仅首批放行”边界
+
+- [x] 发起“是否允许 C3 后续批次”的独立复评并完成后续窗口收口
+  触发条件：C3 首批 DoD 已形成（已满足）
+  完成标准：形成 C3 后续批次 `Go/Conditional-Go/No-Go` 结论，并完成后续窗口执行与收口
+  复评输入包：`design/2026-03-27-gate4-stage-c-c3-followup-review-prep-v1.md`
+  后续执行卡：`design/2026-03-27-gate4-stage-c-c3-followup-event-execution-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-c3-followup-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-c3-followup-plan-eng-review-minutes-v1.md`
+  Batch-002 记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-27-gate4-stage-c-real-c3-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-27-gate4-stage-c-c3-followup-window-close-validation.md`
+  当前状态：C3 后续窗口两批均 `stage_c_passed`，未触发停机/降级，窗口已按边界关闭
+
+- [x] 发起 Stage-C 全阶段收口复核（项目级）并完成两段式复核
+  触发条件：C3 后续窗口收口完成（已满足）
+  完成标准：形成 Stage-C 全链路收口结论与后续阶段入口建议
+  收口输入包：`design/2026-03-27-gate4-stage-c-full-close-review-prep-v1.md`
+  收口事件卡：`design/2026-03-27-gate4-stage-c-full-close-event-card-v1.md`
+  评审议程：`design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-stage-c-full-close-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-stage-c-full-close-plan-eng-review-minutes-v1.md`
+  当前状态：项目级收口结论 `Go`（仅放行下一阶段入口评审，不直接放行后续执行）
+
+- [x] 发起下一阶段入口评审准备并完成两段式评审（仅入口，不含执行放行）
+  触发条件：Stage-C 项目级收口 `Go` 已发布（已满足）
+  完成标准：形成下一阶段输入包、事件卡、议程，并完成 `office-hours -> plan-eng-review`
+  入口输入包：`design/2026-03-27-gate4-next-stage-entry-review-prep-v1.md`
+  入口事件卡：`design/2026-03-27-gate4-next-stage-entry-event-card-v1.md`
+  入口议程：`design/2026-03-27-gate4-next-stage-entry-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-next-stage-entry-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-next-stage-entry-plan-eng-review-minutes-v1.md`
+  当前状态：入口评审结论 `Go`，边界锁定为“仅准备态，不含执行放行”
+
+- [x] 发起“下一阶段执行放行评审”独立流程并完成两段式评审（仅评审，不执行）
+  触发条件：下一阶段入口评审结论 `Go` 已发布（已满足）
+  完成标准：形成执行放行评审输入工件，并完成 `office-hours -> plan-eng-review`
+  执行放行输入包：`design/2026-03-27-gate4-next-stage-execution-review-prep-v1.md`
+  执行放行事件卡：`design/2026-03-27-gate4-next-stage-execution-event-card-v1.md`
+  执行放行议程：`design/2026-03-27-gate4-next-stage-execution-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-27-gate4-next-stage-execution-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-27-gate4-next-stage-execution-plan-eng-review-minutes-v1.md`
+  当前状态：结论 `Conditional-Go`，执行边界为“待绑定（非可执行）”
+
+- [x] 关闭“下一阶段执行放行”硬阻断项并完成复评升级
+  触发条件：执行放行评审结论为 `Conditional-Go`（已满足）
+  完成标准：关闭对象绑定/模板实参化/审计实例三项阻断后，复评结论升级
+  对象绑定：`design/validation/2026-03-27-gate4-next-stage-execution-object-binding-record.md`
+  模板实参：`shared/templates/gate4_next_stage_execution_policy_template.json`
+  审计闭合：`design/validation/2026-03-27-gate4-next-stage-execution-audit-instance-closure.md`
+  关闭验证：`design/validation/2026-03-27-gate4-next-stage-execution-blockers-close-validation.md`
+  复评纪要：`design/2026-03-27-gate4-next-stage-execution-rereview-office-hours-minutes-v1.md`、`design/2026-03-27-gate4-next-stage-execution-rereview-plan-eng-review-minutes-v1.md`
+  当前状态：执行放行复评结论升级为 `Go`，执行边界为“可执行（非自动执行）”
+
+- [x] 执行“下一阶段首批受控执行”前置校验（仅校验，不直接执行）
+  触发条件：`next_stage_execution_go_confirmed`（已满足）
+  完成标准：形成首批执行前校验记录并锁定首批触发条件
+  校验记录：`design/validation/2026-03-27-gate4-next-stage-first-batch-preflight-validation.md`
+  当前状态：首批前置门禁已锁定，维持“可执行但非自动执行”边界
+
+- [x] 发起“下一阶段首批受控执行”流程并完成首批闭环
+  触发条件：首批前置校验通过（已满足）
+  完成标准：完成首批执行并输出“继续/停机/回滚/降级”唯一结论
+  首批通过记录：`design/validation/2026-03-28-gate4-next-stage-batch1-pass-validation.md`
+  阶段 DoD：`design/validation/2026-03-28-gate4-next-stage-dod-validation.md`
+  当前状态：下一阶段首批 `stage_c_passed`，未触发停机，进入后续批次复评阶段
+
+- [x] 发起“下一阶段后续批次”独立复评并完成后续窗口收口
+  触发条件：下一阶段首批 DoD 已形成（已满足）
+  完成标准：形成后续批次 `Go/Conditional-Go/No-Go` 结论并完成窗口执行
+  复评输入包：`design/2026-03-28-gate4-next-stage-followup-review-prep-v1.md`
+  后续执行卡：`design/2026-03-28-gate4-next-stage-followup-event-card-v1.md`
+  评审议程：`design/2026-03-28-gate4-next-stage-followup-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-28-gate4-next-stage-followup-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-gate4-next-stage-followup-plan-eng-review-minutes-v1.md`
+  Batch-002 记录：`design/validation/2026-03-28-gate4-next-stage-batch2-pass-validation.md`
+  Batch-003 记录：`design/validation/2026-03-28-gate4-next-stage-batch3-pass-validation.md`
+  窗口收口：`design/validation/2026-03-28-gate4-next-stage-followup-window-close-validation.md`
+  当前状态：后续窗口两批均 `stage_c_passed`，窗口已按边界关闭
+
+- [x] 发起阶段 NEXT 项目级收口复核
+  触发条件：后续窗口收口完成（当前已满足）
+  完成标准：形成阶段 NEXT 项目级收口结论与下一阶段入口建议
+  收口输入包：`design/2026-03-28-gate4-next-stage-full-close-review-prep-v1.md`
+  收口事件卡：`design/2026-03-28-gate4-next-stage-full-close-event-card-v1.md`
+  评审议程：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-agenda-v1.md`
+  预评审纪要：`design/2026-03-28-gate4-next-stage-full-close-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-minutes-v1.md`
+  当前状态：两段式评审已完成，结论 `Conditional-Go`（仅放行“下一阶段入口评审准备态”）
+
+- [x] 关闭阶段 NEXT 项目级收口阻断项 B-01（台账回填闭环验证）
+  触发条件：阶段 NEXT 项目级收口正式评审结论发布（已满足）
+  完成标准：补齐三本台账回填验证记录并完成证据映射闭环
+  阻断来源：`design/2026-03-28-gate4-next-stage-full-close-plan-eng-review-minutes-v1.md`
+  关闭记录：`design/validation/2026-03-28-gate4-next-stage-full-close-ledger-backfill-validation.md`
+
+- [x] 启动“角色全面固化”主线（RH-T1~RH-T5）
+  触发条件：阶段 NEXT 项目级收口阻断项全部关闭（已满足）
+  完成标准：完成“范围冻结 -> 契约固化 -> 运行态同步 -> 黄金回归 -> 项目级收口”闭环
+  执行计划：`design/2026-03-28-role-hardening-event-driven-plan-v1.md`
+  当前状态：主线已启动，待执行 RH-T1 固化范围冻结
+
+- [x] 执行 RH-T1 角色固化范围冻结（吸收/待验证/拒绝）
+  触发条件：角色全面固化主线启动（已满足）
+  完成标准：形成四角色固化范围清单 v1，可直接驱动正式四件套改动
+  输出文档：`design/2026-03-28-role-hardening-scope-freeze-v1.md`
+
+- [x] 执行 RH-T2 四角色契约全面固化（四件套 + 共享模板）
+  触发条件：RH-T1 固化范围冻结完成（已满足）
+  完成标准：四角色正式契约与共享模板一致升级，并保持默认入口与边界不漂移
+  影响范围：`roles/steward/*`、`roles/hunter/*`、`roles/editor/*`、`roles/publisher/*`、`shared/templates/*`
+  完成记录：`AGENTS/SOUL` 与 4 个共享模板已升级，并通过 RH-T3/RH-T4 验证闭环
+
+- [x] 执行 RH-T3 运行态同步与路由一致性校验
+  触发条件：RH-T2 契约固化完成（已满足）
+  完成标准：运行态同步完成，默认入口与通道探针稳定，证据链可追溯
+  验证记录：`design/validation/2026-03-28-role-hardening-rh-t3-runtime-sync-validation.md`
+  结论摘要：20/20 哈希一致；默认入口 `steward` 稳定；`route_mismatch_detected` 记为已知限制（当前不阻断）
+
+- [x] 执行 RH-T4 黄金回归与高风险项复检
+  触发条件：RH-T3 通过（已满足）
+  完成标准：关键边界与 `C11/C05/C13` 复检通过，未触发回滚阈值
+  验证记录：`design/validation/2026-03-28-role-hardening-rh-t4-regression-validation.md`
+  复检报告：`design/validation/2026-03-28-gate3-v2-recheck-r19.md`
+
+- [x] 发起 RH-T5 角色全面固化项目级收口复核（两段式）
+  触发条件：RH-T4 通过（已满足）
+  完成标准：形成项目级收口正式结论与后续事件链
+  预评审纪要：`design/2026-03-28-role-hardening-rh-t5-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  当前结论：`Conditional-Go`（允许进入阻断治理与复评态，不放行跨阶段执行）
+
+- [ ] 关闭 RH-T5-B01（CLI 默认/显式路由口径不一致）
+  触发条件：RH-T5 正式评审结论发布（已满足）
+  完成标准：关键链路实现路由口径一致，且显式 `--agent + safe wrapper` 护栏留痕持续通过复评
+  阻断来源：`design/2026-03-28-role-hardening-rh-t5-plan-eng-review-minutes-v1.md`
+  外部追踪：`https://github.com/Oscarling/openclaw-multi-agent/issues/37`
+  阶段记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-guardrail-enforcement-validation.md`
+  审计记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-keypath-explicit-agent-audit-validation.md`
+  复评记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-route-parity-revalidation.md`
+  当前状态：已完成护栏生效、关键链路审计与路由复评；`route_mismatch_detected` 仍存在，阻断保持开启
+
+- [x] 完成 RH-T5 最终 Go/No-Go 复评（两段式）
+  触发条件：RH-T5-B01 阻断治理阶段记录形成（已满足）
+  完成标准：形成最终复评结论并明确“阻断可否关闭”的唯一口径
+  预评审纪要：`design/2026-03-28-role-hardening-rh-t5-final-rereview-office-hours-minutes-v1.md`
+  正式评审纪要：`design/2026-03-28-role-hardening-rh-t5-final-rereview-plan-eng-review-minutes-v1.md`
+  结论：`Conditional-Go`，且 `RH-T5-B01` 当前不可关闭
+
+- [ ] 执行 `rh_t5_b01_route_parity_remediation_requested`（路由口径整改）
+  触发条件：RH-T5 最终复评结论发布（已满足）
+  完成标准：提供可复核整改动作并完成一轮 route parity 复评，且不再出现 `route_mismatch_detected`
+  尝试记录：`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a1.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a2-script-hardening.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a3-channel-last.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a4-shadow-2026-3-24.md`、`design/validation/2026-03-28-role-hardening-rh-t5-b01-remediation-attempt-a5-binding-hypothesis.md`
+  外部协作：issue `#37`、PR `#38`
+  当前状态：A1/A3/A4/A5 均未消除分裂；A2 完成关键脚本护栏硬化；已进入远端 PR 评审阶段

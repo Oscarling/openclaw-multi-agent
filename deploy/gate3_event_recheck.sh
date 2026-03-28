@@ -59,7 +59,8 @@ run_case() {
   local out_json="$ARTIFACT_DIR/${case_id}.json"
   local run_id text preview status note
 
-  docker exec "$CONTAINER_NAME" openclaw agent \
+  OPENCLAW_AGENT_CONTAINER="$CONTAINER_NAME" \
+    bash "$PROJECT_ROOT/scripts/openclaw_agent_safe.sh" \
     --agent "$agent_id" \
     --session-id "gate3-${RECHECK_SLUG}-${session_suffix}-${TS}" \
     --message "$message" \

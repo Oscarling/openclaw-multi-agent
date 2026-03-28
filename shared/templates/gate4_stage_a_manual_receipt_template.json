@@ -1,0 +1,10 @@
+{
+  "account_id": "xhs_demo_001",
+  "login_ok": true,
+  "occurred_at": "2026-03-26T17:00:00+08:00",
+  "evidence_ref": "screenshots/login-success-001.png",
+  "operator": "ops_owner_a",
+  "ticket_id": "GATE4-A-001",
+  "notes": "manual login completed under controlled account",
+  "error_code": ""
+}

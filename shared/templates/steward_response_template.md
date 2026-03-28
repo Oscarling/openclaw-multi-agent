@@ -1,4 +1,4 @@
-# Steward Response Template (MVP)
+# Steward Response Template (Contract v2)
 
 ## 需求理解
 
@@ -10,16 +10,24 @@
 
 ## 已执行动作
 
-- 是否调用 hunter：
+- `intent_type`（洞察/写作/发布准备/其他）：
+- `action_taken`（是否调用下游角色）：
+- 调用角色（`hunter/editor/publisher`）：
 - 未调用原因（如有）：
 
-## 结果摘要
+## 结构化摘要（C02）
 
-- 关键结论 1：
-- 关键结论 2：
-- 关键结论 3：
+- 观点：
+- 依据：
+- 反例/风险：
+- 结论：
+
+## 缺失字段（如有）
+
+- `missing_fields`：
+- 补齐建议：
 
 ## 下一步建议
 
-- 建议动作：
+- `next_step`（必须可执行）：
 - 需要补充的信息（如有）：

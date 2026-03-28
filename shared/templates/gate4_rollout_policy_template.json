@@ -1,0 +1,28 @@
+{
+  "version": "v1",
+  "platform": "xiaohongshu",
+  "updated_at": "2026-03-26T00:00:00Z",
+  "phases": [
+    {
+      "phase_id": "C1",
+      "max_batch_size": 5,
+      "success_rate_threshold": 0.95,
+      "halt_failure_count": 1,
+      "require_manual_gate": true
+    },
+    {
+      "phase_id": "C2",
+      "max_batch_size": 20,
+      "success_rate_threshold": 0.95,
+      "halt_failure_count": 2,
+      "require_manual_gate": true
+    },
+    {
+      "phase_id": "C3",
+      "max_batch_size": 50,
+      "success_rate_threshold": 0.97,
+      "halt_failure_count": 3,
+      "require_manual_gate": true
+    }
+  ]
+}

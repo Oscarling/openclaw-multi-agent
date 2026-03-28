@@ -17,6 +17,7 @@
 - `shared/`：共享模板与交接契约
 - `design/`：讨论纪要、工程收口文档、验证证据、治理文档（风险台账/管理评估）
 - `runtime/`：本地运行态（默认不入库）
+- `PROJECT_CONTRACT.md`：项目协作契约（Local-First 阶段上传 + 恢复策略）
 - `BACKLOG.md` / `DECISIONS.md` / `验收清单.md`：项目推进主线
 
 ## 快速开始
@@ -53,6 +54,8 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
 ## 联调约定
 
 - CLI 联调必须显式带 `--agent <id>`，不要用“只带 `--to`”的方式判断默认入口
+- 推荐使用安全封装：`bash ./scripts/openclaw_agent_safe.sh --agent <id> ...`
+- 路由复检探针：`bash ./deploy/cli_route_parity_probe.sh`
 - UI 验收以 `control-ui-config.json` 的 `assistantAgentId` 为准
 - 当前已启用 `telegram` channel 插件并完成显式绑定（`steward -> telegram:default`）
 - Gate-2 探针当前状态：`ready_for_binding_test`
@@ -131,3 +134,13 @@ curl -fsSL http://localhost:3001/__openclaw/control-ui-config.json
   - 管理员同样受保护（`enforce_admins=true`）
 - 后续建议：当有第二位协作者加入时，把 `required_approving_review_count` 调回 `1`
 - 公开仓库提醒：公开期间代码可能被检索与 fork；如后续改回私有，公开期传播内容不保证可逆收回
+
+## 提速模式（本地优先，分段上云）
+
+- 主线推进默认先在本地连续收口，不要求每个小步骤都立刻 push
+- 上云触发采用事件制，不按时间点：
+  - 一个主线事件收口（例如一次 R 批处理完成）
+  - 一个风险项收口（例如安全/路由修复完成）
+  - 一个可回滚检查点形成（代码+证据+台账已对齐）
+- 触发后再统一执行 `push + PR`，继续保持 `PR + squash + 分支保护` 门禁
+- 执行细则见：`design/2026-03-26-local-first-staged-github-sync-v1.md`
