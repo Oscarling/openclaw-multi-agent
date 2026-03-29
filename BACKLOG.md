@@ -967,7 +967,15 @@
   值守复核：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-watch-review-validation.md`
   当前状态：`parallel_mainline_multi_account_trial_window_steady_state_watch_review_passed`，`next_event=parallel_mainline_multi_account_trial_window_steady_state_watch_review_completed`
 
-- [ ] 固化并行主链多账号自动登录受控窗口常态值守节奏与触发规则（A47）
+- [x] 固化并行主链多账号自动登录受控窗口常态值守节奏与触发规则（A47）
   触发条件：A46 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_state_watch_review_completed`
   完成标准：形成常态值守触发规则（事件驱动）与异常升级路径，并回填三本账
   执行动作：基于 A45/A46 结果产出“值守节奏规则 v1”，同步 issue #37
+  规则文档：`design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-v1.md`
+  验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`，`next_event=parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
+
+- [ ] 执行并行主链多账号自动登录受控窗口第 2 轮值守复核（A48）
+  触发条件：A47 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
+  完成标准：按 A47 规则触发一次值守复核并形成“继续/停机”唯一结论，回填三本账
+  执行动作：按值守节奏规则执行一次复核并输出验证摘要，更新 issue #37
