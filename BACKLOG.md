@@ -991,7 +991,15 @@
   正式评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（值守策略收口，进入常态策略稳定态）`，`next_event=parallel_mainline_multi_account_trial_window_watch_strategy_close_review_completed`
 
-- [ ] 固化并行主链多账号自动登录受控窗口常态策略稳定态包（A50）
+- [x] 固化并行主链多账号自动登录受控窗口常态策略稳定态包（A50）
   触发条件：A49 完成且 `next_event=parallel_mainline_multi_account_trial_window_watch_strategy_close_review_completed`
   完成标准：形成常态策略稳定态定义、维持规则与升级策略，并回填三本账
   执行动作：汇总 A47~A49 结论，产出“稳定态策略包 v1”，同步 issue #37
+  稳定态包：`design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-v1.md`
+  验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_steady_strategy_package_completed`，`next_event=parallel_mainline_multi_account_trial_window_steady_strategy_package_completed`
+
+- [ ] 发起并行主链多账号自动登录受控窗口稳定态运行入口确认（A51）
+  触发条件：A50 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_strategy_package_completed`
+  完成标准：形成稳定态运行入口确认结论与后续常态节奏建议，并回填三本账
+  执行动作：组织两段式评审确认“稳定态运行入口”是否正式生效
