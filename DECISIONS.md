@@ -3538,3 +3538,26 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-trial-window-batch1-account2-20260329-124458/artifacts/summary.txt`
 - 决策：
   - 采纳 A40，下一执行点转入 A41：受控试运行窗口收口评审
+
+### 2026-03-29：完成并行主链多账号自动登录受控试运行窗口收口评审（A41）
+
+- 背景：
+  - A40 已形成双账号首批窗口执行通过结论，主线进入窗口阶段收口判定。
+  - 目标是在不扩容账号的前提下确认当前窗口是否可收口，并给出下一事件入口。
+- 执行动作：
+  - 产出收口输入包：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-prep-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（窗口阶段收口）`
+  - 约束口径：保持双账号受控范围，不自动扩展新账号
+  - 下一事件：`parallel_mainline_multi_account_trial_window_close_review_completed`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-prep-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-office-hours-minutes-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A41，下一执行点转入 A42：受控窗口运行口径固化
