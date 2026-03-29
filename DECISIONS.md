@@ -3668,3 +3668,23 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-account2-20260329-142557/artifacts/summary.txt`
 - 决策：
   - 采纳 A46，下一执行点转入 A47：常态值守节奏与触发规则固化
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口常态值守节奏与触发规则固化（A47）
+
+- 背景：
+  - A46 已确认常态值守首轮复核通过，需要把后续复核改为事件驱动规则。
+  - 目标是固定“触发 -> 执行 -> 判定 -> 升级”的重复闭环。
+- 执行动作：
+  - 产出值守节奏规则文档：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-v1.md`
+  - 产出规则固化验证：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-validation.md`
+- 结果：
+  - 触发规则、继续条件、停机条件、升级路径、回填纪律、边界约束全部固化。
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-v1.md`
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-validation.md`
+- 决策：
+  - 采纳 A47，下一执行点转入 A48：第 2 轮值守复核
