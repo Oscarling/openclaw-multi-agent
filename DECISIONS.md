@@ -3603,3 +3603,26 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-runbook-drill-account2-20260329-125336/artifacts/summary.txt`
 - 决策：
   - 采纳 A43，下一执行点转入 A44：演练后收口评审
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口演练后收口评审（A44）
+
+- 背景：
+  - A43 已形成首轮演练通过结论，主线需要确认是否进入常态受控运行。
+  - 目标是在不扩容账号的前提下完成演练后收口并锁定下一事件。
+- 执行动作：
+  - 产出演练后收口输入包：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-prep-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（演练后收口，进入常态受控运行）`
+  - 约束口径：维持双账号受控范围，不自动扩容
+  - 下一事件：`parallel_mainline_multi_account_trial_window_post_drill_close_review_completed`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-prep-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-office-hours-minutes-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A44，下一执行点转入 A45：常态运行交接包固化
