@@ -3710,3 +3710,26 @@
   - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-round2-account2-20260329-143401/artifacts/summary.txt`
 - 决策：
   - 采纳 A48，下一执行点转入 A49：值守策略收口评审
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口值守策略收口评审（A49）
+
+- 背景：
+  - A48 已验证第 2 轮值守复核通过，主线进入值守策略收口判定。
+  - 目标是给出“是否进入常态策略稳定态”的唯一结论。
+- 执行动作：
+  - 产出收口输入包：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-prep-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（值守策略收口，进入常态策略稳定态）`
+  - 约束口径：维持双账号受控范围，继续事件驱动推进
+  - 下一事件：`parallel_mainline_multi_account_trial_window_watch_strategy_close_review_completed`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-prep-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-office-hours-minutes-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A49，下一执行点转入 A50：常态策略稳定态包固化
