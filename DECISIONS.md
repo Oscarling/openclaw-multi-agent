@@ -3753,3 +3753,26 @@
   - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-validation.md`
 - 决策：
   - 采纳 A50，下一执行点转入 A51：稳定态运行入口确认
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口稳定态运行入口确认（A51）
+
+- 背景：
+  - A50 已完成稳定态策略包固化，主线进入稳定态运行入口确认。
+  - 目标是确认“常态稳定运行中”状态是否正式生效。
+- 执行动作：
+  - 产出入口确认输入包：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-prep-v1.md`
+  - 完成两段式评审：
+    - `office-hours`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-office-hours-minutes-v1.md`
+    - `plan-eng-review`：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-plan-eng-review-minutes-v1.md`
+- 结果：
+  - 预评审结论：`Conditional-Go`
+  - 正式评审结论：`Go（稳定态运行入口生效）`
+  - 约束口径：维持双账号受控范围，不扩容、不过阈值
+  - 下一事件：`parallel_mainline_multi_account_trial_window_stable_entry_confirm_completed`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-prep-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-office-hours-minutes-v1.md`
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-plan-eng-review-minutes-v1.md`
+- 决策：
+  - 采纳 A51，下一执行点转入 A52：稳定态运行首轮持续复核
