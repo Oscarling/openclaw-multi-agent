@@ -3581,3 +3581,25 @@
   - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-validation.md`
 - 决策：
   - 采纳 A42，下一执行点转入 A43：运行手册首轮演练
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口运行手册首轮演练（A43）
+
+- 背景：
+  - A42 已固化运行口径，需要用实跑演练验证“继续/停机”规则可执行。
+  - 目标是在双账号受控范围内完成首轮演练并输出唯一结论。
+- 执行动作：
+  - 按运行手册对账号 1、账号 2 各执行一次 Gate-4 A/B/C 严格链路回归。
+  - 汇总演练结果并形成验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-drill-validation.md`
+- 结果：
+  - 双账号均为 `stage_a_passed`、`stage_b_passed`、`stage_c_passed`
+  - 双账号 `overall_result=parallel_gate4_abc_recheck_passed`
+  - Stage C 指标一致：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_runbook_drill_passed`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_runbook_drill_completed`
+- 证据：
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-drill-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-runbook-drill-account1-20260329-125328/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-runbook-drill-account2-20260329-125336/artifacts/summary.txt`
+- 决策：
+  - 采纳 A43，下一执行点转入 A44：演练后收口评审

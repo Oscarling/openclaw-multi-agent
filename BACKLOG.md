@@ -936,7 +936,14 @@
   验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-validation.md`
   当前状态：`parallel_mainline_multi_account_trial_window_runbook_hardened`，`next_event=parallel_mainline_multi_account_trial_window_runbook_hardened`
 
-- [ ] 执行并行主链多账号自动登录受控窗口运行手册首轮演练（A43）
+- [x] 执行并行主链多账号自动登录受控窗口运行手册首轮演练（A43）
   触发条件：A42 完成且 `next_event=parallel_mainline_multi_account_trial_window_runbook_hardened`
   完成标准：按运行手册完成一次首轮演练并形成“继续/停机”唯一结论
   执行动作：执行双账号受控窗口回归并输出演练验证摘要，回填三本账与 issue #37
+  演练验证：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-drill-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_runbook_drill_passed`，`next_event=parallel_mainline_multi_account_trial_window_runbook_drill_completed`
+
+- [ ] 发起并行主链多账号自动登录受控窗口演练后收口评审（A44）
+  触发条件：A43 完成且 `next_event=parallel_mainline_multi_account_trial_window_runbook_drill_completed`
+  完成标准：形成演练后收口结论与后续常态运行入口建议，并回填三本账
+  执行动作：组织两段式评审确认“继续受控运行/进入下一扩展评审”的唯一入口
