@@ -952,7 +952,15 @@
   正式评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-post-drill-close-review-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（演练后收口，进入常态受控运行）`，`next_event=parallel_mainline_multi_account_trial_window_post_drill_close_review_completed`
 
-- [ ] 固化并行主链多账号自动登录受控窗口常态运行交接包（A45）
+- [x] 固化并行主链多账号自动登录受控窗口常态运行交接包（A45）
   触发条件：A44 结论发布且 `next_event=parallel_mainline_multi_account_trial_window_post_drill_close_review_completed`
   完成标准：形成常态运行交接包（职责、回归入口、停机处置、审计回填）并回填三本账
   执行动作：汇总 A42~A44 口径并产出“常态运行交接包 v1”，同步 issue #37
+  交接包：`design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-handoff-v1.md`
+  验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-handoff-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_steady_state_handoff_completed`，`next_event=parallel_mainline_multi_account_trial_window_steady_state_handoff_completed`
+
+- [ ] 执行并行主链多账号自动登录受控窗口常态运行首轮值守复核（A46）
+  触发条件：A45 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_state_handoff_completed`
+  完成标准：完成常态运行首轮值守复核并形成“继续/停机”唯一结论，回填三本账
+  执行动作：按交接包执行一次值守复核，输出验证摘要并同步 issue #37
