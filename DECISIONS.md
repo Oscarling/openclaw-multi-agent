@@ -3646,3 +3646,25 @@
   - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-handoff-validation.md`
 - 决策：
   - 采纳 A45，下一执行点转入 A46：常态运行首轮值守复核
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口常态运行首轮值守复核（A46）
+
+- 背景：
+  - A45 已完成常态运行交接，主线进入首轮值守复核。
+  - 目标是在受控范围内确认“继续/停机”规则可稳定执行。
+- 执行动作：
+  - 按交接包入口分别对账号 1、账号 2 执行 Gate-4 A/B/C 严格回归。
+  - 产出值守复核验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-watch-review-validation.md`
+- 结果：
+  - 双账号均为 `stage_a_passed`、`stage_b_passed`、`stage_c_passed`
+  - 双账号 `overall_result=parallel_gate4_abc_recheck_passed`
+  - Stage C 指标一致：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_steady_state_watch_review_passed`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_steady_state_watch_review_completed`
+- 证据：
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-state-watch-review-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-account1-20260329-142548/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-account2-20260329-142557/artifacts/summary.txt`
+- 决策：
+  - 采纳 A46，下一执行点转入 A47：常态值守节奏与触发规则固化
