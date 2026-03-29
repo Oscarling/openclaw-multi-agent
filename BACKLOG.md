@@ -975,7 +975,14 @@
   验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-validation.md`
   当前状态：`parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`，`next_event=parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
 
-- [ ] 执行并行主链多账号自动登录受控窗口第 2 轮值守复核（A48）
+- [x] 执行并行主链多账号自动登录受控窗口第 2 轮值守复核（A48）
   触发条件：A47 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_watch_cadence_hardened`
   完成标准：按 A47 规则触发一次值守复核并形成“继续/停机”唯一结论，回填三本账
   执行动作：按值守节奏规则执行一次复核并输出验证摘要，更新 issue #37
+  复核验证：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-round2-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_steady_watch_round2_passed`，`next_event=parallel_mainline_multi_account_trial_window_steady_watch_round2_completed`
+
+- [ ] 发起并行主链多账号自动登录受控窗口值守策略收口评审（A49）
+  触发条件：A48 完成且 `next_event=parallel_mainline_multi_account_trial_window_steady_watch_round2_completed`
+  完成标准：形成值守策略收口结论与后续常态策略入口建议，并回填三本账
+  执行动作：组织两段式评审（`office-hours -> plan-eng-review`）确认值守策略是否进入稳定态

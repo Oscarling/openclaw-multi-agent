@@ -3688,3 +3688,25 @@
   - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-cadence-rules-validation.md`
 - 决策：
   - 采纳 A47，下一执行点转入 A48：第 2 轮值守复核
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口第 2 轮值守复核（A48）
+
+- 背景：
+  - A47 已固化常态值守节奏，主线进入规则触发下的第 2 轮值守复核。
+  - 目标是验证规则在重复执行场景仍保持稳定继续结论。
+- 执行动作：
+  - 按 A47 规则执行双账号 Gate-4 A/B/C 严格复核。
+  - 产出值守复核验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-round2-validation.md`
+- 结果：
+  - 双账号均为 `stage_a_passed`、`stage_b_passed`、`stage_c_passed`
+  - 双账号 `overall_result=parallel_gate4_abc_recheck_passed`
+  - Stage C 指标一致：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_steady_watch_round2_passed`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_steady_watch_round2_completed`
+- 证据：
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-watch-round2-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-round2-account1-20260329-143353/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-steady-watch-round2-account2-20260329-143401/artifacts/summary.txt`
+- 决策：
+  - 采纳 A48，下一执行点转入 A49：值守策略收口评审
