@@ -3561,3 +3561,23 @@
   - `design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-plan-eng-review-minutes-v1.md`
 - 决策：
   - 采纳 A41，下一执行点转入 A42：受控窗口运行口径固化
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口运行口径固化（A42）
+
+- 背景：
+  - A41 已确认窗口阶段收口 `Go`，需要把运行边界固化为可执行手册。
+  - 目标是在提速推进下保持“可继续/可停机/可回归”一致口径。
+- 执行动作：
+  - 产出受控窗口运行手册：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-v1.md`
+  - 产出运行口径固化验证：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-validation.md`
+- 结果：
+  - 继续条件、停机条件、回归入口、护栏约束、下一事件已全部固化。
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_runbook_hardened`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_runbook_hardened`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-v1.md`
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-validation.md`
+- 决策：
+  - 采纳 A42，下一执行点转入 A43：运行手册首轮演练

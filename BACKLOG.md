@@ -928,7 +928,15 @@
   正式评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-close-review-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（窗口阶段收口）`，`next_event=parallel_mainline_multi_account_trial_window_close_review_completed`
 
-- [ ] 固化并行主链多账号自动登录受控窗口运行口径（A42）
+- [x] 固化并行主链多账号自动登录受控窗口运行口径（A42）
   触发条件：A41 结论发布且 `next_event=parallel_mainline_multi_account_trial_window_close_review_completed`
   完成标准：形成受控窗口运行手册、继续/停机触发规则与回归入口，并回填三本账
   执行动作：汇总 A39~A41 结论，产出“运行口径固化包”并同步 issue #37
+  运行手册：`design/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-v1.md`
+  验证记录：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-runbook-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_runbook_hardened`，`next_event=parallel_mainline_multi_account_trial_window_runbook_hardened`
+
+- [ ] 执行并行主链多账号自动登录受控窗口运行手册首轮演练（A43）
+  触发条件：A42 完成且 `next_event=parallel_mainline_multi_account_trial_window_runbook_hardened`
+  完成标准：按运行手册完成一次首轮演练并形成“继续/停机”唯一结论
+  执行动作：执行双账号受控窗口回归并输出演练验证摘要，回填三本账与 issue #37
