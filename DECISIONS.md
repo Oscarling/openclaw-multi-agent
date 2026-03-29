@@ -3515,3 +3515,26 @@
   - `design/2026-03-28-parallel-mainline-multi-account-trial-window-plan-eng-review-minutes-v1.md`
 - 决策：
   - 采纳 A39，下一执行点转入 A40：受控试运行窗口首批执行
+
+### 2026-03-29：启动并行主链多账号自动登录受控试运行窗口首批执行（A40）
+
+- 背景：
+  - A39 已给出正式结论 `Go（受控窗口）`，允许进入窗口首批执行。
+  - 目标是以双账号实跑结果形成“通过/停机”唯一结论，并保持事件驱动推进。
+- 执行动作：
+  - 对账号 1（`xhs_demo_001`）执行受控窗口首批 A/B/C 严格链路复检。
+  - 对账号 2（`xhs_demo_002`）执行受控窗口首批 A/B/C 严格链路复检。
+  - 汇总两账号结果并产出统一验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-batch1-execution-validation.md`
+- 结果：
+  - 账号 1：`stage_a_passed`、`stage_b_passed`、`stage_c_passed`、`overall_result=parallel_gate4_abc_recheck_passed`
+  - 账号 2：`stage_a_passed`、`stage_b_passed`、`stage_c_passed`、`overall_result=parallel_gate4_abc_recheck_passed`
+  - 两账号 Stage C 均满足：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_batch1_passed`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_batch1_completed`
+- 证据：
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-batch1-execution-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-trial-window-batch1-account1-20260329-124449/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-trial-window-batch1-account2-20260329-124458/artifacts/summary.txt`
+- 决策：
+  - 采纳 A40，下一执行点转入 A41：受控试运行窗口收口评审
