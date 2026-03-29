@@ -1008,7 +1008,15 @@
   正式评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（稳定态运行入口生效）`，`next_event=parallel_mainline_multi_account_trial_window_stable_entry_confirm_completed`
 
-- [ ] 执行并行主链多账号自动登录受控窗口稳定态运行首轮持续复核（A52）
+- [x] 执行并行主链多账号自动登录受控窗口稳定态运行首轮持续复核（A52）
   触发条件：A51 完成且 `next_event=parallel_mainline_multi_account_trial_window_stable_entry_confirm_completed`
   完成标准：完成稳定态运行首轮持续复核并形成“继续/停机”唯一结论，回填三本账
   执行动作：按稳定态入口规则触发一次持续复核并同步 issue #37
+  复核验证：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-round1-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_stable_run_round1_passed`，`next_event=parallel_mainline_multi_account_trial_window_stable_run_round1_completed`
+
+- [ ] 发起并行主链多账号自动登录受控窗口稳定态运行阶段收口评审（A53）
+  触发条件：A52 完成且 `next_event=parallel_mainline_multi_account_trial_window_stable_run_round1_completed`
+  完成标准：形成稳定态运行阶段收口结论与“继续试运行/阶段收口完成”入口建议，并回填三本账
+  执行动作：组织两段式评审（`office-hours -> plan-eng-review`）确认稳定态运行是否进入阶段收口
+  输入包：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-close-review-prep-v1.md`

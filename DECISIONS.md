@@ -3776,3 +3776,28 @@
   - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-entry-confirm-plan-eng-review-minutes-v1.md`
 - 决策：
   - 采纳 A51，下一执行点转入 A52：稳定态运行首轮持续复核
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口稳定态运行首轮持续复核（A52）
+
+- 背景：
+  - A51 已确认稳定态运行入口生效，主线进入稳定态持续复核阶段。
+  - 目标是给出首轮“继续/停机”唯一结论，验证稳定态入口可持续运行。
+- 执行动作：
+  - 按稳定态入口规则执行双账号 Gate-4 A/B/C 严格复核：
+    - `xhs_demo_001`
+    - `xhs_demo_002`
+  - 产出首轮持续复核验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-round1-validation.md`
+- 结果：
+  - 双账号均为 `stage_a_passed`、`stage_b_passed`、`stage_c_passed`
+  - 双账号 `overall_result=parallel_gate4_abc_recheck_passed`
+  - Stage C 指标一致：`success_rate=1.0`、`failure_count=0`、`halt_triggered=no`
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_stable_run_round1_passed`
+  - 判定：`Continue`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_stable_run_round1_completed`
+- 证据：
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-round1-validation.md`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stable-run-round1-account1-20260329-144919/artifacts/summary.txt`
+  - `design/validation/artifacts/openclaw-parallel-mainline-stable-run-round1-account2-20260329-144919/artifacts/summary.txt`
+- 决策：
+  - 采纳 A52，下一执行点转入 A53：稳定态运行阶段收口评审
