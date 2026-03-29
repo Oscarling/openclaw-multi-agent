@@ -3733,3 +3733,23 @@
   - `design/2026-03-29-parallel-mainline-multi-account-trial-window-watch-strategy-close-review-plan-eng-review-minutes-v1.md`
 - 决策：
   - 采纳 A49，下一执行点转入 A50：常态策略稳定态包固化
+
+### 2026-03-29：完成并行主链多账号自动登录受控窗口常态策略稳定态包固化（A50）
+
+- 背景：
+  - A49 已确认值守策略收口 `Go`，主线进入稳定态策略固化阶段。
+  - 目标是固定稳定态定义、维持规则、升级与降级策略。
+- 执行动作：
+  - 产出稳定态策略包：
+    - `design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-v1.md`
+  - 产出稳定态包验证记录：
+    - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-validation.md`
+- 结果：
+  - 稳定态定义、维持规则、升级策略、降级策略全部可追溯。
+  - 唯一结论：`parallel_mainline_multi_account_trial_window_steady_strategy_package_completed`
+  - 下一事件：`parallel_mainline_multi_account_trial_window_steady_strategy_package_completed`
+- 证据：
+  - `design/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-v1.md`
+  - `design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-steady-strategy-package-validation.md`
+- 决策：
+  - 采纳 A50，下一执行点转入 A51：稳定态运行入口确认
