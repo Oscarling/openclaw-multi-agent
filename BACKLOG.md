@@ -912,7 +912,14 @@
   正式评审纪要：`design/2026-03-28-parallel-mainline-multi-account-trial-window-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（受控窗口）`，`next_event=parallel_mainline_multi_account_trial_window_review_completed`
 
-- [ ] 启动并行主链多账号自动登录受控试运行窗口执行（A40）
+- [x] 启动并行主链多账号自动登录受控试运行窗口执行（A40）
   触发条件：A39 结论发布且 `next_event=parallel_mainline_multi_account_trial_window_review_completed`
   完成标准：完成首批窗口执行、产出通过/停机唯一结论并回填三本账
   执行动作：按 A39 事件卡执行窗口首批动作并记录验证摘要
+  执行验证：`design/validation/2026-03-29-parallel-mainline-multi-account-trial-window-batch1-execution-validation.md`
+  当前状态：`parallel_mainline_multi_account_trial_window_batch1_passed`，`next_event=parallel_mainline_multi_account_trial_window_batch1_completed`
+
+- [ ] 发起并行主链多账号自动登录受控试运行窗口收口评审（A41）
+  触发条件：A40 完成且 `next_event=parallel_mainline_multi_account_trial_window_batch1_completed`
+  完成标准：形成受控窗口阶段收口结论与后续扩展/维持建议，并回填三本账
+  执行动作：组织两段式评审（`office-hours -> plan-eng-review`）确认窗口收口与下一阶段入口
