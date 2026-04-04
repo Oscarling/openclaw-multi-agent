@@ -1,0 +1,48 @@
+{
+  "task_id": "GOAL-XHS-ASSET-001",
+  "post_id": "P01",
+  "platform": "xiaohongshu",
+  "material_dir": "/root/.openclaw/workspace/steward/outputs/GOAL-XHS-ASSET-001/P01/20260401T001853Z/export",
+  "final_title": "从0到1起号SOP：新号先把这6步跑通",
+  "title_candidates": [
+    "从0到1起号SOP：新号先把这6步跑通",
+    "新号别乱发：先做这套小红书起号SOP"
+  ],
+  "title_recommendation": "A",
+  "body_text": "如果你刚开始做小红书，先别急着追热点，先把定位、主页、栏目、节奏这4步搭好。",
+  "hashtags": [
+    "#小红书运营",
+    "#小红书起号",
+    "#起号SOP",
+    "#账号定位",
+    "#内容运营",
+    "#图文运营",
+    "#新媒体运营",
+    "#运营方法论"
+  ],
+  "first_comment": "补一个使用建议：别一上来就追热点，先把基础盘搭好再提速。",
+  "cover_file": "001-cover.png",
+  "image_files": [
+    "001-cover.png",
+    "002-01-positioning.png",
+    "003-02-profile.png",
+    "004-03-columns.png",
+    "005-04-rhythm.png",
+    "006-05-template.png",
+    "007-06-review.png"
+  ],
+  "stop_before_publish": true,
+  "operator_checklist": [
+    "已完成标题粘贴",
+    "已完成正文粘贴",
+    "已完成图片上传与排序",
+    "已完成标签填写",
+    "已停在发布按钮前等待人工确认"
+  ],
+  "evidence_ref": {
+    "export": "GOAL-XHS-ASSET-001/P01/export/v1/<TS>",
+    "preview": "GOAL-XHS-ASSET-001/P01/preview/v1/<TS>",
+    "manifest": "GOAL-XHS-ASSET-001/P01/manifest/v1/<TS>",
+    "publish": "GOAL-XHS-ASSET-001/P01/publish/v1/<TS>"
+  }
+}

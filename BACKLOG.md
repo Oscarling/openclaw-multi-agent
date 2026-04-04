@@ -1023,3 +1023,17 @@
   预评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-close-review-office-hours-minutes-v1.md`
   正式评审纪要：`design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-close-review-plan-eng-review-minutes-v1.md`
   当前状态：结论 `Go（稳定态运行阶段收口完成，进入常态受控运营）`，`next_event=parallel_mainline_multi_account_trial_window_stable_run_stage_closeout_completed`
+
+- [x] 固化 XHS 发布包防跑偏自动闸门（A54）
+  触发条件：进入 P02 发布包准备并要求“减少人工监督”
+  完成标准：`publish_job` 在 bridge 前可自动校验，不合格自动阻断并生成重试提示词
+  执行动作：新增 `xhs_publish_job_guard.js` 与 `xhs_argus_prep_gate.sh`；`xhs_bridge_run.sh` 接入前置校验
+  验证记录：`design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+  当前状态：`xhs_publish_job_antidrift_guard_hardened`，`next_event=post_publish_oneclick_pipeline_ready`
+
+- [x] 固化 XHS 发布后一键自动登记与 24h 复盘流水线（A55）
+  触发条件：A54 完成且主线要求“仅保留关键人工步骤”
+  完成标准：发布后可一键自动登记 `publish_receipt`；24h 到窗可自动采集同步，未到窗自动返回 pending
+  执行动作：新增 `xhs_publish_receipt_autoreg.js` 与 `xhs_post_publish_oneclick.sh`；`xhs_review24h_autocollect.js` 增加 `--no-prompt`
+  验证记录：`design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+  当前状态：`xhs_post_publish_oneclick_pipeline_hardened`，`next_event=p02_manual_publish_then_oneclick_runtime`

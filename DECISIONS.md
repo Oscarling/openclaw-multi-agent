@@ -3824,3 +3824,41 @@
   - `design/2026-03-29-parallel-mainline-multi-account-trial-window-stable-run-close-review-plan-eng-review-minutes-v1.md`
 - 决策：
   - 采纳 A53，主线阶段收口完成；后续保持常态受控运营并继续 `RH-T5-B01` 侧线事件驱动治理
+
+### 2026-04-04：固化 XHS 发布包防跑偏自动闸门（A54）
+
+- 背景：
+  - P02 发布包进入真实执行时，出现容器路径与宿主路径不一致、`stop_before_publish` 字段不一致等潜在跑偏风险。
+  - 目标是把“防跑偏”从人工审读变成脚本闸门，避免进入错误发布链路。
+- 执行动作：
+  - 新增 `scripts/xhs_publish_job_guard.js`（字段/占位符/素材存在/闸门语义校验）。
+  - 新增 `scripts/xhs_argus_prep_gate.sh`（自动拉取容器发布包 -> 校验 -> 失败自动生成 retry prompt）。
+  - `scripts/xhs_bridge_run.sh` 接入前置 guard，不合格直接阻断。
+  - 修复 `scripts/xhs_pull_publish_job.sh`，自动把容器绝对路径图片引用归一化为本地可用引用。
+- 结果：
+  - 校验失败场景可自动识别并阻断（示例：`stop_before_publish_not_true`、`image_not_found`）。
+  - 校验通过后可直接进入 Host Bridge 填充流程，避免人工逐项核对 JSON。
+  - 唯一结论：`xhs_publish_job_antidrift_guard_hardened`
+- 证据：
+  - `design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+- 决策：
+  - 采纳 A54，后续 P 系列发布入口统一走 `xhs_argus_prep_gate.sh` 再进 bridge。
+
+### 2026-04-04：固化 XHS 发布后一键自动登记 + 24h 自动复盘流水线（A55）
+
+- 背景：
+  - 用户要求减少人工步骤，仅保留“最终发布按钮确认”等关键闸门。
+  - 目标是把发布回执登记和 24h 采集同步串为一键流程。
+- 执行动作：
+  - 新增 `scripts/xhs_publish_receipt_autoreg.js`：自动识别最新 note、生成并回写 `publish_receipt.json`。
+  - 新增 `scripts/xhs_post_publish_oneclick.sh`：一键执行“发布登记 + 24h 到窗判定 + 自动采集同步”。
+  - `scripts/xhs_review24h_autocollect.js` 增加 `--no-prompt`，支持无交互采集。
+  - README 增补一键流水线用法与参数说明。
+- 结果：
+  - 发布后无需手工回填 `note_id/post_url/publish_time/operator`。
+  - 未到 24h 自动返回 `review_pending`，到窗后自动执行 `autocollect --sync`。
+  - 唯一结论：`xhs_post_publish_oneclick_pipeline_hardened`
+- 证据：
+  - `design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+- 决策：
+  - 采纳 A55，默认执行路径改为“人工点击发布 -> oneclick 自动登记/复盘”。
