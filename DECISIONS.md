@@ -3862,3 +3862,47 @@
   - `design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
 - 决策：
   - 采纳 A55，默认执行路径改为“人工点击发布 -> oneclick 自动登记/复盘”。
+
+### 2026-04-05：确认“先稳产后增强”的双轨执行策略（A56~A59）
+
+- 背景：
+  - 当前主线已具备自动防跑偏与一键登记能力，但用户明确要求先保稳定生产，再迭代内容增强（背景音乐、文字配音）。
+  - 目标是减少记忆负担与执行偏移，改为计划驱动、事件触发推进。
+- 执行动作：
+  - 新增计划文档：
+    - `design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+  - 将后续工作拆为事件驱动阶段：
+    - A56：稳产连续三轮
+    - A57：音频侧轨准备
+    - A58：音频增强单篇试点
+    - A59：是否合流评审
+- 结果：
+  - 明确“主线（图文）”与“侧轨（音频增强）”并行但不互相阻塞。
+  - 关键闸门保持人工（最终发布按钮），其余尽量脚本自动化。
+  - 下一事件：`stable_production_round2_completed_then_round3_gate`
+- 证据：
+  - `design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+- 决策：
+  - 采纳该双轨计划，后续按 A56~A59 依次推进并回填三本账。
+
+### 2026-04-05：固化“到窗后自动触发 Argus 复盘”机制（A60）
+
+- 背景：
+  - 用户要求发布后在复盘窗口到达时自动触发 Argus 复盘，不再等待人工下发指令。
+  - 目标是在保留发布按钮人工闸门的同时，减少复盘阶段人工操作。
+- 执行动作：
+  - 扩展 `scripts/xhs_post_publish_oneclick.sh`：
+    - 新增 `--wait-until-review`（未到 24h 时可等待到窗后自动执行）
+    - 新增自动下发 Argus 复盘（默认开启）
+    - 新增 `--no-auto-argus-review`、`--argus-agent`、`--check-interval-sec`
+  - README 更新一键流水线说明与参数。
+  - 计划文档同步新增“到窗自动复盘触发”要求。
+- 结果：
+  - 复盘阶段可实现“到窗自动采集同步 + 自动触发 Argus review_retry”。
+  - 可按需关闭自动下发（`--no-auto-argus-review`）保留人工兜底路径。
+  - 唯一结论：`xhs_auto_argus_review_trigger_hardened`
+- 证据：
+  - `design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+  - `design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+- 决策：
+  - 采纳 A60；默认推荐“发布后 oneclick + 到窗自动触发复盘”路径。

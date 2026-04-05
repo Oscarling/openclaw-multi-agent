@@ -14,6 +14,10 @@ PROFILE_URL="${XHS_PROFILE_URL:-https://www.xiaohongshu.com/user/profile/69cb557
 BROWSER="${BROWSER:-webkit}"
 HEADLESS="yes"
 FORCE_REVIEW="no"
+WAIT_UNTIL_REVIEW="no"
+AUTO_ARGUS_REVIEW="yes"
+ARGUS_AGENT="${ARGUS_AGENT:-steward}"
+CHECK_INTERVAL_SEC="${CHECK_INTERVAL_SEC:-300}"
 JSON_OUTPUT="no"
 
 usage() {
@@ -30,13 +34,18 @@ Options:
   --browser <name>       chromium | webkit | safari(=webkit), default webkit
   --no-headless          Use headed browser
   --force-review         Run review autocollect immediately (skip 24h gate)
+  --wait-until-review    Keep process alive and auto-run when 24h gate is reached
+  --no-auto-argus-review Do not auto-send review_retry task to Argus after autocollect
+  --argus-agent <id>     Argus agent id for auto review trigger (default: steward)
+  --check-interval-sec <n> Wait loop interval seconds (default: 300)
   --json                 Emit json summary
   -h, --help             Show help
 
 Behavior:
   1) Auto register publish_receipt.json (note_id/post_url/publish_time/operator)
   2) If >=24h from publish_time (or --force-review), run review24h autocollect + sync automatically
-  3) If <24h, exit with pending-review summary (no manual copy required)
+  3) After successful sync, auto-send review task to Argus (default on)
+  4) If <24h, return pending summary; with --wait-until-review it will wait and auto-run
 EOF
 }
 
@@ -74,6 +83,22 @@ while [[ $# -gt 0 ]]; do
       FORCE_REVIEW="yes"
       shift
       ;;
+    --wait-until-review)
+      WAIT_UNTIL_REVIEW="yes"
+      shift
+      ;;
+    --no-auto-argus-review)
+      AUTO_ARGUS_REVIEW="no"
+      shift
+      ;;
+    --argus-agent)
+      ARGUS_AGENT="${2:-}"
+      shift 2
+      ;;
+    --check-interval-sec)
+      CHECK_INTERVAL_SEC="${2:-}"
+      shift 2
+      ;;
     --json)
       JSON_OUTPUT="yes"
       shift
@@ -89,6 +114,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if ! [[ "$CHECK_INTERVAL_SEC" =~ ^[0-9]+$ ]] || [[ "$CHECK_INTERVAL_SEC" -le 0 ]]; then
+  echo "[xhs-post-oneclick] --check-interval-sec must be positive integer" >&2
+  exit 2
+fi
 
 AUTOREG_CMD=(
   node ./scripts/xhs_publish_receipt_autoreg.js
@@ -163,9 +193,30 @@ fi
 REVIEW_READY="$(printf '%s' "$GATE_JSON" | node -e 'const fs=require("fs"); const d=JSON.parse(fs.readFileSync(0,"utf8")); process.stdout.write(d.reviewReady ? "yes":"no");')"
 
 if [[ "$REVIEW_READY" != "yes" && "$FORCE_REVIEW" != "yes" ]]; then
+  if [[ "$WAIT_UNTIL_REVIEW" == "yes" ]]; then
+    WAIT_SECONDS="$(printf '%s' "$GATE_JSON" | node -e 'const fs=require("fs"); const d=JSON.parse(fs.readFileSync(0,"utf8")); const due=Date.parse(d.dueAtUtc||""); const sec=Math.max(0, Math.ceil((due-Date.now())/1000)); process.stdout.write(String(Number.isFinite(sec)?sec:0));')"
+    if [[ "$JSON_OUTPUT" != "yes" ]]; then
+      echo "[xhs-post-oneclick] review gate not reached; waiting ${WAIT_SECONDS}s until due..."
+    fi
+    while [[ "$WAIT_SECONDS" -gt 0 ]]; do
+      STEP="$CHECK_INTERVAL_SEC"
+      if [[ "$WAIT_SECONDS" -lt "$STEP" ]]; then
+        STEP="$WAIT_SECONDS"
+      fi
+      sleep "$STEP"
+      WAIT_SECONDS="$((WAIT_SECONDS - STEP))"
+      if [[ "$JSON_OUTPUT" != "yes" ]]; then
+        echo "[xhs-post-oneclick] waiting... remaining=${WAIT_SECONDS}s"
+      fi
+    done
+    FORCE_REVIEW="yes"
+  fi
+fi
+
+if [[ "$REVIEW_READY" != "yes" && "$FORCE_REVIEW" != "yes" ]]; then
   if [[ "$JSON_OUTPUT" == "yes" ]]; then
-    node - <<'NODE' "$AUTOREG_JSON" "$GATE_JSON" "$NOTE_ID" "$TASK_ID" "$POST_ID"
-const [,, autoregRaw, gateRaw, noteId, taskId, postId] = process.argv;
+    node - <<'NODE' "$AUTOREG_JSON" "$GATE_JSON" "$NOTE_ID" "$TASK_ID" "$POST_ID" "$WAIT_UNTIL_REVIEW"
+const [,, autoregRaw, gateRaw, noteId, taskId, postId, waitUntilReview] = process.argv;
 console.log(JSON.stringify({
   action: "xhs_post_publish_oneclick",
   ok: true,
@@ -175,6 +226,7 @@ console.log(JSON.stringify({
   noteId,
   autoreg: JSON.parse(autoregRaw),
   reviewGate: JSON.parse(gateRaw),
+  waitUntilReview: waitUntilReview === "yes",
   next: `node ./scripts/xhs_review24h_autocollect.js --task-id ${taskId} --post-id ${postId} --note-id ${noteId} --browser webkit --no-prompt --sync`
 }, null, 2));
 NODE
@@ -206,12 +258,29 @@ REVIEW_OUTPUT="$("${REVIEW_CMD[@]}" 2>&1)"
 REVIEW_EXIT=$?
 set -e
 
+ARGUS_EXIT=0
+ARGUS_OUTPUT=""
+if [[ "$REVIEW_EXIT" -eq 0 && "$AUTO_ARGUS_REVIEW" == "yes" ]]; then
+  ARGUS_CMD=(
+    bash ./scripts/xhs_argus_send.sh
+    --mode review_retry
+    --task-id "$TASK_ID"
+    --post-id "$POST_ID"
+    --agent "$ARGUS_AGENT"
+    --json
+  )
+  set +e
+  ARGUS_OUTPUT="$("${ARGUS_CMD[@]}" 2>&1)"
+  ARGUS_EXIT=$?
+  set -e
+fi
+
 if [[ "$JSON_OUTPUT" == "yes" ]]; then
-  node - <<'NODE' "$AUTOREG_JSON" "$GATE_JSON" "$NOTE_ID" "$TASK_ID" "$POST_ID" "$REVIEW_EXIT" "$REVIEW_OUTPUT"
-const [,, autoregRaw, gateRaw, noteId, taskId, postId, reviewExit, reviewOutput] = process.argv;
+  node - <<'NODE' "$AUTOREG_JSON" "$GATE_JSON" "$NOTE_ID" "$TASK_ID" "$POST_ID" "$REVIEW_EXIT" "$REVIEW_OUTPUT" "$AUTO_ARGUS_REVIEW" "$ARGUS_EXIT" "$ARGUS_OUTPUT" "$ARGUS_AGENT"
+const [,, autoregRaw, gateRaw, noteId, taskId, postId, reviewExit, reviewOutput, autoArgusReview, argusExit, argusOutput, argusAgent] = process.argv;
 console.log(JSON.stringify({
   action: "xhs_post_publish_oneclick",
-  ok: Number(reviewExit) === 0,
+  ok: Number(reviewExit) === 0 && (autoArgusReview !== "yes" || Number(argusExit) === 0),
   stage: "publish_receipt_registered_review_attempted",
   taskId,
   postId,
@@ -221,6 +290,12 @@ console.log(JSON.stringify({
   review: {
     exitCode: Number(reviewExit),
     output: reviewOutput
+  },
+  argusReview: {
+    enabled: autoArgusReview === "yes",
+    agent: argusAgent,
+    exitCode: Number(argusExit),
+    output: argusOutput
   }
 }, null, 2));
 NODE
@@ -228,6 +303,18 @@ else
   echo "[xhs-post-oneclick] publish receipt registered."
   echo "[xhs-post-oneclick] review24h auto-collect executed (exit=$REVIEW_EXIT)."
   echo "$REVIEW_OUTPUT"
+  if [[ "$AUTO_ARGUS_REVIEW" == "yes" ]]; then
+    echo "[xhs-post-oneclick] argus review trigger executed (agent=$ARGUS_AGENT, exit=$ARGUS_EXIT)."
+    echo "$ARGUS_OUTPUT"
+  fi
 fi
 
-exit "$REVIEW_EXIT"
+if [[ "$REVIEW_EXIT" -ne 0 ]]; then
+  exit "$REVIEW_EXIT"
+fi
+
+if [[ "$AUTO_ARGUS_REVIEW" == "yes" && "$ARGUS_EXIT" -ne 0 ]]; then
+  exit "$ARGUS_EXIT"
+fi
+
+exit 0

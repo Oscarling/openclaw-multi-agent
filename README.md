@@ -289,6 +289,28 @@ bash ./scripts/xhs_bridge_run.sh
 - `stop_before_publish` 不是 `true` 时会直接阻断
 - 只能在你人工确认后，手动完成最终发布
 
+### Argus 标准任务一键下发（减少复制提示词）
+
+如果你不想每次手工复制提示词给 Argus，可直接使用：
+
+```bash
+# 让 Argus 进入发布包严格模式（P02 示例）
+bash ./scripts/xhs_argus_send.sh --mode prep_strict --post-id P02
+
+# 让 Argus 进入 24h 复盘重跑模式
+bash ./scripts/xhs_argus_send.sh --mode review_retry --post-id P02
+```
+
+可选参数：
+
+```bash
+# 只预览提示词，不真正发送
+bash ./scripts/xhs_argus_send.sh --mode prep_strict --post-id P02 --dry-run
+
+# 追加一行补充要求
+bash ./scripts/xhs_argus_send.sh --mode prep_strict --post-id P02 --extra-hint "请严格使用 JSON 输出"
+```
+
 ### 发布回执自动登记（减少人工）
 
 发布成功后，可用下面一条命令自动完成 `publish_receipt.json` 登记（自动抓最新笔记链接与 note_id）：
@@ -399,6 +421,7 @@ bash ./scripts/xhs_post_publish_oneclick.sh \
 1. 自动登记 `publish_receipt.json`（自动识别最新 `note_id/post_url`）
 2. 自动判断是否到达 24h 复盘窗口
 3. 若已到 24h（或传 `--force-review`），自动执行 `xhs_review24h_autocollect --no-prompt --sync`
+4. 采集同步成功后，默认自动下发 Argus `review_retry` 复盘任务（无需人工再发指令）
 4. 若未到 24h，返回 `review_pending` 与下一次可执行提示，不需要你手工整理字段
 
 常用参数：
@@ -409,6 +432,12 @@ bash ./scripts/xhs_post_publish_oneclick.sh --post-id P02 --force-review --json
 
 # 如果要观察浏览器界面（非 headless）
 bash ./scripts/xhs_post_publish_oneclick.sh --post-id P02 --no-headless --json
+
+# 未到 24h 时保持进程等待，到点自动复盘 + 自动下发 Argus
+bash ./scripts/xhs_post_publish_oneclick.sh --post-id P02 --wait-until-review --json
+
+# 如需关闭“自动下发 Argus”行为
+bash ./scripts/xhs_post_publish_oneclick.sh --post-id P02 --no-auto-argus-review --json
 ```
 
 ## 恢复与备份

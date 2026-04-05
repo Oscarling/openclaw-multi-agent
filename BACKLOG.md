@@ -1037,3 +1037,38 @@
   执行动作：新增 `xhs_publish_receipt_autoreg.js` 与 `xhs_post_publish_oneclick.sh`；`xhs_review24h_autocollect.js` 增加 `--no-prompt`
   验证记录：`design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
   当前状态：`xhs_post_publish_oneclick_pipeline_hardened`，`next_event=p02_manual_publish_then_oneclick_runtime`
+
+- [x] 固化“到窗后自动触发 Argus 复盘”链路（A60）
+  触发条件：A55 完成且要求“到时间后不再人工下发复盘指令”
+  完成标准：`xhs_post_publish_oneclick.sh` 在复盘采集同步成功后可自动下发 `review_retry` 到 Argus；支持 `--wait-until-review` 到窗自动触发
+  执行动作：扩展 `xhs_post_publish_oneclick.sh`（`--wait-until-review`、`--no-auto-argus-review`、`--argus-agent`）；README 与计划文档同步更新
+  验证记录：`design/validation/2026-04-04-xhs-automation-antidrift-guard-validation.md`
+  当前状态：`xhs_auto_argus_review_trigger_hardened`，`next_event=stable_production_round2_completed_then_round3_gate`
+
+- [ ] 执行 XHS 稳产基线连续三轮验证（A56）
+  触发条件：A55 完成且进入常态执行
+  完成标准：按统一链路完成连续 3 轮发布，流程脚本无阻断性故障
+  执行动作：固定执行 `xhs_argus_send(prep_strict) -> xhs_argus_prep_gate -> xhs_bridge_run -> 手工发布 -> xhs_post_publish_oneclick`
+  计划文档：`design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+  当前状态：`stable_production_round1_in_progress`，`next_event=stable_production_round2_completed_then_round3_gate`
+
+- [ ] 固化音频侧轨准备包（BGM + 配音，不阻塞主线）（A57）
+  触发条件：A56 完成
+  完成标准：形成可复用音频增强输入模板、素材目录规范、evidence_ref 口径
+  执行动作：由 `Midas` 输出音频增强模板（45-60秒口播稿 + BGM候选规则），仅作为侧轨产物
+  计划文档：`design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+  当前状态：`pending_a56_completion`，`next_event=audio_sidecar_prep_ready`
+
+- [ ] 执行音频增强单篇试点闭环（A58）
+  触发条件：A57 完成且主线无阻断
+  完成标准：完成 1 篇“音频增强版”从准备到复盘闭环，且无新增高风险告警
+  执行动作：以已发布主题做增强版，走同样回执与复盘口径（不替换主线）
+  计划文档：`design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+  当前状态：`pending_audio_sidecar_prep`，`next_event=audio_sidecar_trial_closed_loop_completed`
+
+- [ ] 完成“图文主线 vs 音频侧轨”合流评审（A59）
+  触发条件：A58 完成
+  完成标准：形成唯一结论（继续侧轨 / 进入常态 / 暂停优化）并回填三本账
+  执行动作：按两段式评审（`office-hours -> plan-eng-review`）输出合流决策
+  计划文档：`design/2026-04-05-xhs-stable-production-then-audio-plan-v1.md`
+  当前状态：`pending_audio_sidecar_trial`，`next_event=audio_sidecar_merge_decision_published`

@@ -61,6 +61,24 @@
 - 结论：
   - 一键脚本满足可执行条件，可进入运行期验证。
 
+### 5) 到窗后自动触发 Argus 复盘能力验证
+
+- 变更：
+  - `xhs_post_publish_oneclick.sh` 新增：
+    - `--wait-until-review`
+    - `--no-auto-argus-review`
+    - `--argus-agent`
+    - `--check-interval-sec`
+  - 默认在复盘采集同步成功后自动下发 `review_retry` 给 Argus。
+- 命令：
+  - `bash -n ./scripts/xhs_post_publish_oneclick.sh`
+  - `bash -n ./scripts/xhs_argus_send.sh`
+- 结果：
+  - 语法检查通过。
+  - 自动触发路径可通过参数开关控制（默认开启，可显式关闭）。
+- 结论：
+  - “到窗自动复盘 + 自动下发 Argus”能力已具备并可配置。
+
 ## 运行口径（事件驱动）
 
 - 发布完成事件触发：
@@ -70,6 +88,7 @@
   - 自动返回 `review_pending` 与下一次可执行提示
 - 若已到 24h 或强制补录：
   - 自动执行 `xhs_review24h_autocollect --no-prompt --sync`
+  - 采集同步成功后自动下发 Argus `review_retry`
 
 ## 边界保持
 
